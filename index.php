@@ -38,6 +38,8 @@
   </framework>
   <footer>
     <p>this is footer this is futer</p>
+    <p>this is footer this is futer</p>
+    <p>this is footer this is futer</p>
   </footer>
 </body>
 </html>
