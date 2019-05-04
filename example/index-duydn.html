@@ -21,9 +21,10 @@
     function addCloud() {
       db.collection("users").add({
         first: "Alan",
-      middle: "Mathison",
-      last: "Turing",
-      born: 1912
+        middle: "Mathison",
+        last: "Turing",
+        born: 1912,
+        die: 2019
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
