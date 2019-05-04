@@ -1,4 +1,4 @@
-chat = new WebChat('user1');
+chat = new WebChat('nganhvu');
 const form = document.getElementById('message-form');
 const messageField = document.getElementById('message');
 const messagesList = document.getElementById('messages');
@@ -17,7 +17,14 @@ chat.ready = () => {
 		messageField.value = '';
 	};
 
+	// get newest 20 messages
+	chat.getMessages('19796396', null, null, m => {
+		m.forEach(msg => {
+			messagesList.innerHTML += '<li>' + getMessage(msg) + '</li>';
+		});
+	})
+
 	chat.on('Message', (r, m) => {
-		messagesList.innerHTML += `<li> ${r}:` + getMessage(m) + '</li>';
+		messagesList.innerHTML += `<li> ${r}: ` + getMessage(m) + '</li>';
 	});
 };
