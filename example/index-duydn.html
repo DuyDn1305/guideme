@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+
+  <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+  <script src="./app.js">
+    // Initialize Firebase
+  </script>
+
+  <script>
+    // Initialize Firebase with a "default" Firebase project
+    var db = firebase.firestore();
+    function addCloud() {
+      db.collection("users").add({
+        first: "Alan",
+      middle: "Mathison",
+      last: "Turing",
+      born: 1912
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+    }
+    function logCloud() {
+      db.collection("users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(`${doc.id} => ${doc.data().born}`);
+        });
+      });
+    }
+  </script>
+    
+  <header>
+    <framework class='header'>
+      <container>
+        username is: <a id="username">duydn</a><br>
+        <input type='text' id="newname">
+        <button onclick="addCloud()">Add me</button>
+        <button onclick="logCloud()">View me</button>
+        <p id="demo"></p>
+
+        <script>
+          time = 0;
+          function myFunction() {
+            document.getElementById("demo").innerHTML = ++time;
+          }
+        </script>
+      </container>
+      <container>
+        <h1 id="hotDogOutput">Hot dog status:</h1>
+        <input type="textfield" id="latesHotDogStatus" />
+        <button id="saveButton">Save</button>
+        <button id="loadButton">Load</button>
+        <script>
+          const docRef = db.collection("samples").doc("sandwichData");
+
+          const outputHeader = document.querySelector("#hotDogOutput");
+          const inputTextField = document.querySelector("#latesHotDogStatus");
+          const saveButton = document.querySelector("#saveButton");
+          const loadButton = document.querySelector("#loadButton");
+
+          saveButton.addEventListener("click", function () {
+            const textToSave = inputTextField.value;
+            console.log("I am going to save "+textToSave+" to Firebase");
+            docRef.set({
+              hotDogStatus: textToSave
+            }).then(function () {
+              console.log("Status saved");
+            }).catch(function (error) {
+              console.log("Error while saving", error);
+            });
+          })
+
+          loadButton.addEventListener("click", function () {
+            docRef.get().then(function (doc) {
+              if (doc && doc.exists) {
+                const myData = doc.data();
+                outputHeader.innerHTML = "Hot dog status"+myData.hotDogStatus;
+              }
+            }).catch(function(error) {
+              console.log("Error while saving", error);
+            })
+          })
+          
+          getRealtimeUpdates = function () {
+            docRef.onSnapshot(function (doc) {
+              if (doc && doc.exists) {
+                const myData = doc.data();
+                outputHeader.innerHTML = "Hot dog status"+myData.hotDogStatus;
+              }
+            })
+          }
+          getRealtimeUpdates();
+
+        </script>
+      </container>
+      <container>
+        <div class='logo'>
+          <img src='./img/logo.png' id='logo'>
+        </div>
+        <a id='logotext'>Where is my guide ?</a>
+      </container>
+      <container>
+        this is menu bar
+      </container>
+    </framework>
+  </header>
+  <main class='bg'>
+    <container>
+      <a href='./map.php'><button type='button' id='findbtn'>Find guide nearby</button></a>
+      <a href='./myloc.php'><button type='button' id='findbtn'>Where im I</button></a>
+    </container>
+  </main>
+  <framework class='under'>
+    <container class='news'>
+      this is new
+    </container>
+    <container class='ranklist'>
+      this is ranklist
+    </container>
+  </framework>
+  <footer>
+    <p>this is footer this is futer</p>
+    <p>this is footer this is futer</p>
+    <p>this is footer this is futer</p>
+  </footer>
+</body>
+</html>
