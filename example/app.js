@@ -12,12 +12,12 @@ chat.ready = () => {
 
 		var message = messageField.value;
 
-		chat.sendMessage(chat.user.rooms[0].id, message, id => console.log(id));
+		chat.sendMessage(chat.user.rooms[0].id, message);
 
 		messageField.value = '';
 	};
 
-	chat.on('Message', m => {
-		messagesList.innerHTML += '<li>' + getMessage(m) + '</li>';
+	chat.on('Message', (r, m) => {
+		messagesList.innerHTML += `<li> ${r}:` + getMessage(m) + '</li>';
 	});
 };
