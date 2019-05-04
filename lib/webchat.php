@@ -19,3 +19,8 @@ if (isset($_POST['deleteUser'])) {
 	$chatkit->deleteUser(['id' => $_POST['deleteUser']]);
 	exit;
 }
+
+if (isset($_POST['deleteMsg'])) {
+	$chatkit->deleteMessage(['id' => $_POST['deleteMsg']]);
+	exit;
+}
