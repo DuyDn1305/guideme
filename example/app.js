@@ -1,4 +1,4 @@
-chat = new WebChat('nganhvu');
+chat = new WebChat('user1');
 const form = document.getElementById('message-form');
 const messageField = document.getElementById('message');
 const messagesList = document.getElementById('messages');
