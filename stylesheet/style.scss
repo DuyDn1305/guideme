@@ -43,6 +43,7 @@ body, html {
 
 .main {
   display: flex;
+  margin-top: 5px;
   .profile {
     flex: 2;
     @extend %bg ;
@@ -62,16 +63,101 @@ body, html {
   }
   .search {
     flex: 3;
-    box-shadow: 0 2px 50px -10px #7f8c8d;
-    background: white;
-    margin: 5px;
+    box-shadow: 2px -10px 50px -10px #7f8c8d;
+    background: #ecf0f1;
+    margin: 10px;
+    
+    margin-top: 15px;
     .container {
-      .card {
-        background: #ecf0f1;
-        height: 90px;
-        width: 100%;
-        margin: 5px;
-        border: 1px solid white;
+      padding: 0;
+      .card-container {
+        margin: 10px;
+        .card {
+          padding: 5px 0px 5px 0px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
+          border-bottom: 5px solid #3498db;
+          border-radius: 0px;
+          border-bottom-left-radius: 5px;
+          //border: 0px;
+          background: white;
+          .avatar-container {
+            .avatar {
+              @include avatar;
+            }
+          }
+          .info-container {
+            .name {
+              font-weight: bold;
+            }
+            .quote {
+              color: #7f8c8d;
+              font-style: italic;
+            }
+          }
+        }
+        .toolbar {
+          display: flex;
+          justify-content: flex-end;
+          color: white;
+          .user-container {
+            background: #3498db;
+            margin: 0px 5px 0px 5px;
+            padding: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            width: 35px;
+            text-align: center;
+          }
+          .mes-container {
+            background: #3498db;
+            margin: 0px 5px 0px 5px;
+            padding: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            width: 35px;
+            text-align: center;
+          }
+          .req-container {
+            background: #3498db;
+            margin: 0px 0px 0px 5px;
+            padding: 5px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            width: 35px;
+            text-align: center;
+          }
+        }
+      }
+    }
+    .nav-container {
+      display: flex;
+      padding: 10px;
+      background: white;
+      //border: 1px solid #3498db;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      margin-top: -10px;
+      .inp {
+        flex: 9;
+        border-radius: 5px;
+        border: 0;
+        padding: 5px;
+        padding-left: 10px;
+        background: #bdc3c7;
+        color: white;
+      }
+      ::placeholder {
+        color: white;
+        opacity: .5;
+      }
+      .find-container {
+        padding: 5px;
+        flex: 1;
+        text-align: center;
+        color: #2c3e50;
       }
     }
   }

@@ -30,6 +30,7 @@ body, html {
 
 .main {
   display: flex;
+  margin-top: 5px;
 }
 .main .profile {
   flex: 2;
@@ -52,16 +53,100 @@ body, html {
 }
 .main .search {
   flex: 3;
-  box-shadow: 0 2px 50px -10px #7f8c8d;
-  background: white;
-  margin: 5px;
-}
-.main .search .container .card {
+  box-shadow: 2px -10px 50px -10px #7f8c8d;
   background: #ecf0f1;
-  height: 90px;
-  width: 100%;
-  margin: 5px;
-  border: 1px solid white;
+  margin: 10px;
+  margin-top: 15px;
+}
+.main .search .container {
+  padding: 0;
+}
+.main .search .container .card-container {
+  margin: 10px;
+}
+.main .search .container .card-container .card {
+  padding: 5px 0px 5px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 5px solid #3498db;
+  border-radius: 0px;
+  border-bottom-left-radius: 5px;
+  background: white;
+}
+.main .search .container .card-container .card .avatar-container .avatar {
+  height: 100px;
+  width: 100px;
+  border: 3px solid white;
+  box-shadow: 0 0 10px 2px #ecf0f1;
+  border-radius: 50%;
+}
+.main .search .container .card-container .card .info-container .name {
+  font-weight: bold;
+}
+.main .search .container .card-container .card .info-container .quote {
+  color: #7f8c8d;
+  font-style: italic;
+}
+.main .search .container .card-container .toolbar {
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+}
+.main .search .container .card-container .toolbar .user-container {
+  background: #3498db;
+  margin: 0px 5px 0px 5px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 35px;
+  text-align: center;
+}
+.main .search .container .card-container .toolbar .mes-container {
+  background: #3498db;
+  margin: 0px 5px 0px 5px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 35px;
+  text-align: center;
+}
+.main .search .container .card-container .toolbar .req-container {
+  background: #3498db;
+  margin: 0px 0px 0px 5px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 35px;
+  text-align: center;
+}
+.main .search .nav-container {
+  display: flex;
+  padding: 10px;
+  background: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: -10px;
+}
+.main .search .nav-container .inp {
+  flex: 9;
+  border-radius: 5px;
+  border: 0;
+  padding: 5px;
+  padding-left: 10px;
+  background: #bdc3c7;
+  color: white;
+}
+.main .search .nav-container ::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+.main .search .nav-container .find-container {
+  padding: 5px;
+  flex: 1;
+  text-align: center;
+  color: #2c3e50;
 }
 
 .header {
