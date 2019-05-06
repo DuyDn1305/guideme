@@ -1,15 +1,89 @@
+body, html {
+  width: 100%;
+  margin: 0;
+  background: #ecf0f1;  
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+  background: #4267b2;
+  
+}
+
+%bg {
+  box-shadow: 0 2px 50px -10px #7f8c8d;
+  background: white;
+  margin: 5px;
+  padding: 10px;
+  height: 100%;
+}
+
+@mixin avatar {
+  height: 100px;
+  width: 100px;
+  border: 3px solid white;
+  box-shadow: 0 0 10px 2px #ecf0f1;   
+  border-radius: 50%;
+}
+
+@mixin title {
+  background: white;
+  border-bottom: 1px solid #ecf0f1;
+  font-weight: bold;
+  font-size: 20px; 
+  color: #2c3e50;
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 5px
+}
+
+.title {
+  @include title;
+}
+
 .main {
   display: flex;
   .profile {
-    flex: 3;
-    border: 1px solid black;
+    flex: 2;
+    @extend %bg ;
+    .avatar-container {
+      text-align: center;
+      .avatar {
+        @include avatar;
+      }
+    }
   }
   .central {
-    flex: 5;
-    border: 1px solid black;
+    flex: 6;
+    @extend %bg ;
+    .map {
+      height: 600px;
+    }
   }
-  .collect {
-    flex: 4;
-    border: 1px solid black;
+  .search {
+    flex: 3;
+    box-shadow: 0 2px 50px -10px #7f8c8d;
+    background: white;
+    margin: 5px;
+    .container {
+      .card {
+        background: #ecf0f1;
+        height: 90px;
+        width: 100%;
+        margin: 5px;
+        border: 1px solid white;
+      }
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  .logo-container {
+    
+  }
+  .menu-container {
+    
   }
 }

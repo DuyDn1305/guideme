@@ -6,25 +6,68 @@
   <title>Index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!--Add opensan font-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
-  <script src="./app.js">
-    // Initialize Firebase
-  </script>
+  <!--Include firebase-->
+  <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+  <!--Initialize Firebase-->
+  <script src="./app.js"></script>
+  <!--Add google api library-->
+  <script src="./lib/googleapi.js"></script>
 </head>
 <body>
   <div class='header'>
-    this is header
+    <div class='logo-container'>
+      <img src='./img/logo.png'>
+    </div>
+    <div class='menu-container'>
+      this is menu
+    </div>
   </div>
   <div class='main'>
     <div class='profile'>
-      this is profile
+      <div class='avatar-container'>
+        <img src='./img/duydn.png' class='avatar'>
+      </div>
+      <p>Duydn</p>
+      <p>age</p>
+      <div class='status'>
+        <input type="radio" name='status'>Busy <br>
+        <input type="radio" name='status'>Finding guide <br>
+        <input type="radio" name='status'>visitor <br>
+      </div>
     </div>
     <div class='central'>
-      this is central
+      <div class='map'></div>
+      <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxmtSpYlPsOcoFz9knDyQwCbtanPjtwkU&callback=initMap">
+      </script>
     </div>
-    <div class='collect'>
-      this is collect
+    <div class='search'>
+      <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
+      <div class='container'>
+        <div class="card">
+          this is a card
+        </div>
+        <div class="card">
+            this is a card
+        </div>
+        <div class="card">
+            this is a card
+        </div>
+        <div class="card">
+            this is a card
+        </div>
+        <div class="card">
+            this is a card
+        </div>
+      </div>
     </div>
   </div>
   <div class='footer'>
