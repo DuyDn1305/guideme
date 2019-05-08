@@ -1,0 +1,20 @@
+this -> the owner
+-admin.f(); // Admin  (this == admin)
+-admin['f'](); // Admin (dot or square brackets access the method – doesn't matter)
+-https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_call_arguments
+
+method is function of object
+function are method
+if not, it is the global object
+
+call=apply: pass a object to its function
+*call: parameter is put separately
+  apply: parameter can be an array
+
+parameter
+
+
+
+
+
+

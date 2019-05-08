@@ -140,17 +140,18 @@ body, html {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       margin-top: -10px;
+      
       .inp {
         flex: 9;
         border-radius: 5px;
         border: 0;
         padding: 5px;
         padding-left: 10px;
-        background: #bdc3c7;
-        color: white;
+        background: #ecf0f1;
+        color: #7f8c8d;
       }
       ::placeholder {
-        color: white;
+        color: #7f8c8d;
         opacity: .5;
       }
       .find-container {
@@ -166,10 +167,138 @@ body, html {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  align-items: center;
   .logo-container {
     
   }
   .menu-container {
+    display: flex;
+    color: #bdc3c7;
+    width: 30%;
+    justify-content: space-between;
+    .tool {
+      padding: 5px;
+    }
+    .tool:hover {
+      color: #ecf0f1;
+    }
+    .tool:active {
+      color: white;
+    }
+  }
+}
+
+@mixin mes-avatar-container {
+  flex: 1;
+  .avatar {
+    border: 0;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+@mixin mes {
+  margin-left: 10px;
+  background: #ecf0f1;
+  border: 0;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+.chat-container {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 20%;
+  .chat {
+    margin-left: 20px;
+    width: 320px;
+    height: 380px;
+    background: white;
+    border: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #7f8c8d;
     
+    .header {
+      background: white;
+      border-bottom: 2px solid #bdc3c7;
+      padding: 7px;
+      display: flex;
+      align-items: center;
+      @include mes-avatar-container;
+      .info {
+        flex: 8;
+        margin-left: 5px;
+        .name {
+          font-weight: 600;
+          font-size: 14px;
+          margin: 0px;
+        }
+        .status {
+          flex: 1;
+          margin: 0px;
+          font-weight: 12px;
+          font-size: 12px;
+          color: #bdc3c7;
+        }
+      }
+      .exit {
+        flex: 1;
+        text-align: right;
+        padding-right: 10px;
+        margin: 0;
+        font-size: 20px;
+      }
+    }
+    .main-mess {
+      .message {
+        padding: 5px;
+        margin: 10px 0 10px 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        @include mes-avatar-container;
+        .content {
+          .name {
+            font-weight: 12px;
+            font-size: 12px;
+            color: #bdc3c7;
+            margin-left: 15px;
+          }
+          .mes {
+            @include mes;
+          }
+        }
+      } 
+      .my-message {
+        text-align: right;
+        margin-right: 10px;
+        .mes {
+          @include mes;
+          background: #3498db;
+          color: white;
+          
+        }
+      }
+    }
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 320px;
+      .input {
+        width: 100%;
+        border: 0px;
+        border-top: 2px solid #ecf0f1;
+        padding: 5px;
+      }
+      .tool-container {
+        padding: 5px;
+      }
+    }
   }
 }
