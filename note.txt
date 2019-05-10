@@ -1,6 +1,6 @@
 this -> the owner
 -admin.f(); // Admin  (this == admin)
--admin['f'](); // Admin (dot or square brackets access the method – doesn't matter)
+-admin['f'](); // Admin (dot or square brackets access the method ï¿½ doesn't matter)
 -https://www.w3schools.com/js/tryit.asp?filename=tryjs_function_call_arguments
 
 method is function of object
@@ -10,11 +10,24 @@ if not, it is the global object
 call=apply: pass a object to its function
 *call: parameter is put separately
   apply: parameter can be an array
+apply(context, agr) //context will replace with the 'this' of current function
+*https://javascript.info/arrow-functions
 
 parameter
 
+https://www.w3schools.com/js/tryit.asp?filename=tryjs_dom_elementcreate
+
+Pseudo-classes
+https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator
+
+https://www.w3schools.com/js/js_htmldom_document.asp
 
 
+function showMessage(from, text = "no text given") {
+  alert( from + ": " + text );
+}
+showMessage("Ann"); // Ann: no text given
 
+https://javascript.info/arrow-functions
 
-
+https://javascript.info/arrow-functions

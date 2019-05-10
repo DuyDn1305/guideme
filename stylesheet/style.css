@@ -45,6 +45,20 @@ body, html {
   box-shadow: 0 0 10px 2px #ecf0f1;
   border-radius: 50%;
 }
+.main .profile .link {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ecf0f1;
+}
+.main .profile .link .yes {
+  color: #3498db;
+}
+.main .profile .link .no {
+  color: #bdc3c7;
+  text-decoration: line-through;
+}
+.main .profile .info {
+  color: #7f8c8d;
+}
 .main .central {
   flex: 6;
 }
@@ -159,7 +173,7 @@ body, html {
 .header .menu-container {
   display: flex;
   color: #bdc3c7;
-  width: 30%;
+  width: 35%;
   justify-content: space-between;
 }
 .header .menu-container .tool {
@@ -279,6 +293,66 @@ body, html {
 }
 .chat-container .chat .footer .tool-container {
   padding: 5px;
+}
+
+.mes-box {
+  height: 550px;
+  width: 400px;
+  background: white;
+  border: 2px solid #ecf0f1;
+  top: 90px;
+  left: 50%;
+  right: 50%;
+  position: absolute;
+  box-shadow: 0 0 5px #bdc3c7;
+}
+.mes-box > .mes-container {
+  height: 70px;
+  padding: 5px;
+  border-bottom: 1px solid #ecf0f1;
+  display: flex;
+  align-items: center;
+}
+.mes-box > .mes-container > .avatar-container {
+  flex: 1;
+  margin-right: 10px;
+}
+.mes-box > .mes-container > .avatar-container > .avatar {
+  height: 40px;
+  width: 40px;
+  border: 0px;
+  box-shadow: 0 0 5px #7f8c8d;
+  border-radius: 50%;
+}
+.mes-box > .mes-container > .info-container {
+  flex: 7;
+}
+.mes-box > .mes-container > .info-container > .name {
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+.mes-box > .mes-container > .info-container > .mes {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+.mes-box > .mes-container > .time {
+  flex: 2;
+  color: #bdc3c7;
+  text-align: right;
+}
+
+.noti-box {
+  height: 550px;
+  width: 400px;
+  background: white;
+  border: 2px solid #ecf0f1;
+  top: 90px;
+  left: 50%;
+  right: 50%;
+  position: absolute;
+  box-shadow: 0 0 5px #bdc3c7;
 }
 
 /*# sourceMappingURL=style.css.map */
