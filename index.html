@@ -11,9 +11,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <!--Add opensan font-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+    
   <!--Include firebase-->
-  <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+  
   <!--Initialize Firebase-->
   <script src="./app.js"></script>
   <!--Add google api library-->
@@ -222,158 +226,7 @@
   <div class='footer'>
     this is footer
   </div>
-  <div class='chat-container' id='chat-container'> 
-    <div class='chat' roomid='456'>
-      <div class='header'>
-        <div class='avatar-container'>
-          <img src='./img/duydn.png' class='avatar'>
-        </div>
-        <div class='info'>
-          <p class='name'>
-            Duy Dn           
-          </p>
-          <p class='status'>
-            Acitve
-          </p>
-        </div>
-        <p class='exit'>
-          &times;
-        </p>
-      </div>
-      <div>
-        <div class='main-mess'>
-          <div class='message'>
-            <div class='avatar-container'>
-              <img src='./img/duydn.png' class='avatar'>
-            </div>
-            <div class='content'>
-              <div class='name'>
-                Duy Dn
-              </div>
-              <div class='mes'>
-                Hello !
-              </div>
-            </div>
-          </div>
-          <div class='my-message'>
-            <span class='mes'>
-              Hi !
-            </span>
-          </div>
-          <div class='message'>
-            <div class='avatar-container'>
-              <img src='./img/duydn.png' class='avatar'>
-            </div>
-            <div class='content'>
-              <div class='name'>
-                Duy Dn
-              </div>
-              <div class='mes'>
-                I am Duy
-              </div>
-            </div>
-          </div>
-          <div class='my-message'>
-            <span class='mes'>
-              I am you
-            </span>
-          </div>
-        </div>
-        <div class='footer'>
-          <input type='text' placeholder="Type a message..." class='input'>
-          <div class='tool-container'>
-            <i class="fas fa-check-square"></i>
-            <i class="fas fa-check-square"></i>
-            <i class="fas fa-check-square"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class='chat' roomid='123'>
-        <div class='header'>
-          <div class='avatar-container'>
-            <img src='./img/duydn.png' class='avatar'>
-          </div>
-          <div class='info'>
-            <p class='name'>
-              Duy Dn           
-            </p>
-            <p class='status'>
-              Acitve
-            </p>
-          </div>
-          <p class='exit'>
-            &times;
-          </p>
-        </div>
-        <div>
-          <div class='main-mess'>
-            <div class='message'>
-              <div class='avatar-container'>
-                <img src='./img/duydn.png' class='avatar'>
-              </div>
-              <div class='content'>
-                <div class='name'>
-                  Duy Dn
-                </div>
-                <div class='mes'>
-                  Hello !
-                </div>
-              </div>
-            </div>
-            <div class='my-message'>
-              <span class='mes'>
-                Hi !
-              </span>
-            </div>
-            <div class='message'>
-              <div class='avatar-container'>
-                <img src='./img/duydn.png' class='avatar'>
-              </div>
-              <div class='content'>
-                <div class='name'>
-                  Duy Dn
-                </div>
-                <div class='mes'>
-                  I am Duy
-                </div>
-              </div>
-            </div>
-            <div class='my-message'>
-              <span class='mes'>
-                I am you
-              </span>
-            </div>
-          </div>
-          <div class='footer'>
-            <input type='text' placeholder="Type a message..." class='input'>
-            <div class='tool-container'>
-              <i class="fas fa-check-square"></i>
-              <i class="fas fa-check-square"></i>
-              <i class="fas fa-check-square"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-  <!--Add effects, actions-->
-  <!--
-
-    <div class='mes-box'>
-      <div class='mes-container'>
-        <div class='avatar-container'>
-          <img src='./img/duydn.png' class='avatar'>
-        </div>
-        <div class='info-container'>
-          <p class='name'>Duy Dn</p>
-          <p class='mes'>Hi i am you !</p>
-        </div>
-        <div class='time'>
-          <p>9:00 AM</p>
-        </div>
-      </div>
-    </div>
-  -->
   <script src="./action.js"></script>
+
 </body>
 </html>
