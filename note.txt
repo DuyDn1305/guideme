@@ -31,3 +31,7 @@ showMessage("Ann"); // Ann: no text given
 https://javascript.info/arrow-functions
 
 https://javascript.info/arrow-functions
+
+https://console.cloud.google.com/billing/01CC6C-C545B4-8B1923?folder&organizationId
+
+https://console.cloud.google.com/billing/018A45-8CDAFD-6E47AC/reports?project=seraphic-ripsaw-240303

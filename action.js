@@ -14,9 +14,9 @@ mesBtn.onclick = function () {
   } else {
     turnOff('noti-box')
     turnOn('mes-box')
-    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM')
-    showMes('./img/duydn.png', 'nghanhVu', 'See you at 9.00 AM')
-    showMes('./img/duydn.png', 'ngoc', 'See you at 9.00 AM')
+    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM', '111')
+    showMes('./img/duydn.png', 'nghanhVu', 'See you at 9.00 AM', '222')
+    showMes('./img/duydn.png', 'ngoc', 'See you at 9.00 AM', '333')
   }
 }
 
@@ -61,7 +61,7 @@ function newElement (type, classname = '', context = '') {
   return newEle
 }
 
-function showMes (src, name, message) {
+function showMes (src, name, message, roomid) {
   
   let avatarContainer = newElement('DIV', 'avatar-container')
   let avatar = newElement('IMG', 'avatar')
@@ -81,8 +81,102 @@ function showMes (src, name, message) {
   mes.appendChild(infoContainer)
   mes.appendChild(_time)
 
+  mes.onclick = () => {
+    if (chatContainer.childElementCount >= 2) chatContainer.removeChild(chatContainer.children[0])
+    chatContainer.append(mesToChatContainer(roomid))
+  }
+
   let box = document.getElementsByClassName('mes-box')[0]
   box.appendChild(mes)
+}
+
+function mesToChatContainer(roomid, messages = '', listPerson = '') {
+  // tao chat trong chat-container
+  let mes = newElement('DIV', 'chat')
+  mes.setAttribute('roomid', roomid)
+
+  // tao header
+  let _header = newElement('DIV', 'header')
+  
+  // tao hinh
+  let headerAvatarContainer = newElement('DIV', 'avatar-container')
+  let headerAvatar = newElement('IMG', 'avatar')
+  headerAvatar.src = './img/duydn.png'
+  headerAvatarContainer.append(headerAvatar)
+  
+  // tao info
+  let headerInfo = newElement('DIV', 'info')
+  let headerName = newElement('P', 'name', 'Duydn')
+  let headerStatus = newElement('P', 'status', 'Active')
+  headerInfo.append(headerName)
+  headerInfo.append(headerStatus)
+
+  // tao nut X
+  let headerExit = newElement('P', 'exit', '&times;')
+  // add aciton
+  headerExit.onclick = () => {
+    chatContainer.removeChild(mes)
+  }
+
+  _header.append(headerAvatarContainer)
+  _header.append(headerInfo)
+  _header.append(headerExit)
+  // add aciton
+  _header.onclick = () => {
+    let main = mes.children[1].style
+    let status = main.display
+    main.display = (status == 'none') ? 'block' : 'none'
+  }
+
+  let _body = newElement('DIV')
+  // tao vai tin nhan gia
+  let _mainMes = newElement('DIV', 'main-mess')
+  
+  let _message = newElement('DIV', 'message')
+  let _avatarContainer = newElement('DIV', 'avatar-container')
+  let _avatar = newElement('IMG', 'avatar')
+  _avatar.src = './img/duydn.png'
+  _avatarContainer.append(_avatar)
+  let _content = newElement('DIV', 'content')
+  let _name = newElement('DIV', 'name', 'Duydn')
+  let _mes = newElement('DIV', 'mes', 'hello')
+  _content.append(_name)
+  _content.append(_mes)
+  _message.append(_avatarContainer)
+  _message.append(_content)
+  
+  let __myMessage = newElement('DIV', 'my-message')
+  let __content = newElement('DIV', 'content')
+  let __mes = newElement('SPAN', 'mes', 'lo lo con cac')
+  __content.append(__mes)
+  __myMessage.append(__content)
+  
+  _mainMes.append(_message)
+  _mainMes.append(__myMessage)
+  //_mainMes.append(_message)
+  //_mainMes.append(__myMessage)
+  
+  // tao footer
+  let _footer = newElement('DIV', 'footer')
+  let _input = newElement('INPUT', 'input')
+  _input.setAttribute('type', 'text')
+  _input.setAttribute('placeholder', 'Type a message ...')
+  let _toolContainer = newElement('DIV', 'tool-container')
+  let _icon = newElement('I', 'fas fa-check-square')
+  _toolContainer.append(_icon)
+  //_toolContainer.append(_icon)
+  //_toolContainer.append(_icon)
+  
+  _footer.append(_input)
+  _footer.append(_toolContainer)
+  _body.append(_mainMes)
+  _body.append(_footer)
+  
+  mes.append(_header)
+  mes.append(_body)
+  
+  // add action
+  return mes
 }
 
 const room = {
@@ -118,3 +212,6 @@ _room.forEach(room => {
     main.display = (status == 'none') ? 'block' : 'none'
   }
 })
+
+let mesBox = document.getElementsByClassName('mes-box')[0]
+

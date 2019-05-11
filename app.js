@@ -8,3 +8,5 @@ var firebaseConfig = {
   appId: "1:577810828265:web:c405209156ac1c9d"
 };
 firebase.initializeApp(firebaseConfig);
+
+// project id: seraphic-ripsaw-240303
