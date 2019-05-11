@@ -7,10 +7,17 @@
     <title>Bootstrap Sign in Form with Facebook and Twitter Buttons</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--
     <script src="/__/firebase/5.9.3/firebase-app.js"></script>
     <script src="/__/firebase/5.9.3/firebase-auth.js"></script>
     <script src="/__/firebase/init.js"></script>
+  -->
+  
+  <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+    
     <script>
       // Initialize Firebase
       var config = {

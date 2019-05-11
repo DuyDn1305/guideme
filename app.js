@@ -1,12 +1,13 @@
 var firebaseConfig = {
-  apiKey: "AIzaSyCDejYNk9sqXnq7l0tU4nBWegNCunKjcpA",
-  authDomain: "guide-me-239610.firebaseapp.com",
-  databaseURL: "https://guide-me-239610.firebaseio.com",
-  projectId: "guide-me-239610",
-  storageBucket: "guide-me-239610.appspot.com",
-  messagingSenderId: "577810828265",
-  appId: "1:577810828265:web:c405209156ac1c9d"
+  apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
+  authDomain: "guideme1.firebaseapp.com",
+  databaseURL: "https://guideme1.firebaseio.com",
+  projectId: "guideme1",
+  storageBucket: "guideme1.appspot.com",
+  messagingSenderId: "283911475239",
+  appId: "1:283911475239:web:d08fa5d4aa81e905"
 };
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 // project id: seraphic-ripsaw-240303

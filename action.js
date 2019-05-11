@@ -132,29 +132,8 @@ function mesToChatContainer(roomid, messages = '', listPerson = '') {
   // tao vai tin nhan gia
   let _mainMes = newElement('DIV', 'main-mess')
   
-  let _message = newElement('DIV', 'message')
-  let _avatarContainer = newElement('DIV', 'avatar-container')
-  let _avatar = newElement('IMG', 'avatar')
-  _avatar.src = './img/duydn.png'
-  _avatarContainer.append(_avatar)
-  let _content = newElement('DIV', 'content')
-  let _name = newElement('DIV', 'name', 'Duydn')
-  let _mes = newElement('DIV', 'mes', 'hello')
-  _content.append(_name)
-  _content.append(_mes)
-  _message.append(_avatarContainer)
-  _message.append(_content)
-  
-  let __myMessage = newElement('DIV', 'my-message')
-  let __content = newElement('DIV', 'content')
-  let __mes = newElement('SPAN', 'mes', 'lo lo con cac')
-  __content.append(__mes)
-  __myMessage.append(__content)
-  
-  _mainMes.append(_message)
-  _mainMes.append(__myMessage)
-  //_mainMes.append(_message)
-  //_mainMes.append(__myMessage)
+  _mainMes.append(addMes('his', 'Hi duy', 'Duydn', './img/duydn.png'))
+  _mainMes.append(addMes('my', 'hi hihi !'))
   
   // tao footer
   let _footer = newElement('DIV', 'footer')
@@ -177,6 +156,31 @@ function mesToChatContainer(roomid, messages = '', listPerson = '') {
   
   // add action
   return mes
+}
+
+function addMes(type = 'my', context = '', name = '', src = '') {
+  if (type == 'my') {
+    let __myMessage = newElement('DIV', 'my-message')
+    let __content = newElement('DIV', 'content')
+    let __mes = newElement('SPAN', 'mes', context)
+    __content.append(__mes)
+    __myMessage.append(__content)
+    return __myMessage
+  } else {
+    let _message = newElement('DIV', 'message')
+    let _avatarContainer = newElement('DIV', 'avatar-container')
+    let _avatar = newElement('IMG', 'avatar')
+    _avatar.src = src
+    _avatarContainer.append(_avatar)
+    let _content = newElement('DIV', 'content')
+    let _name = newElement('DIV', 'name', name)
+    let _mes = newElement('DIV', 'mes', context)
+    _content.append(_name)
+    _content.append(_mes)
+    _message.append(_avatarContainer)
+    _message.append(_content)
+    return _message
+  }
 }
 
 const room = {
