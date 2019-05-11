@@ -187,15 +187,15 @@ body, html {
 }
 
 .chat-container {
-  display: none;
+  display: flex;
   position: fixed;
   bottom: 0;
   right: 20%;
+  align-items: flex-end;
 }
 .chat-container .chat {
   margin-left: 20px;
   width: 320px;
-  height: 380px;
   background: white;
   border: 0px;
   border-top-left-radius: 5px;
@@ -239,6 +239,16 @@ body, html {
   padding-right: 10px;
   margin: 0;
   font-size: 20px;
+}
+.chat-container .chat .header .exit:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.chat-container .chat .header .exit:active {
+  color: #3498db;
+}
+.chat-container .chat .main-mess {
+  height: 270px;
 }
 .chat-container .chat .main-mess .message {
   padding: 5px;

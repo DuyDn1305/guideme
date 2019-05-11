@@ -15,8 +15,8 @@ mesBtn.onclick = function () {
     turnOff('noti-box')
     turnOn('mes-box')
     showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM')
-    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM')
-    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM')
+    showMes('./img/duydn.png', 'nghanhVu', 'See you at 9.00 AM')
+    showMes('./img/duydn.png', 'ngoc', 'See you at 9.00 AM')
   }
 }
 
@@ -101,3 +101,20 @@ const user = {
     sex: 'male'
   }
 }
+
+
+let chatContainer = document.body.getElementsByClassName('chat-container')[0]
+let _room = document.querySelectorAll('[roomid]')
+console.log(chatContainer)
+
+_room.forEach(room => {
+  console.log(room.children[0].children[2])
+  room.children[0].children[2].onclick = () => {
+    chatContainer.removeChild(room)
+  }
+  room.children[0].onclick = () => {
+    let main = room.children[1].style
+    let status = main.display
+    main.display = (status == 'none') ? 'block' : 'none'
+  }
+})
