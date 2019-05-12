@@ -27,22 +27,31 @@ let mesOnMesBox = [
   }
 ]
 let cardContainer = document.body.children[1].children[2].children[1].children[0]
-let toolbarCard = document.querySelectorAll('[class=toolbar]')
+let toolbarCard = document.querySelectorAll('[class~=toolbar]')
 console.log(cardContainer)
 console.log(toolbarCard)
-toolbarCard.forEach(tool => {
+toolbarCard.forEach((tool, index) => {
+  console.log(tool)
   mesPressBtn = tool.children[1]
   mesPressBtn.onclick = () => {
     //add to mesBox
+    let _src = './img/duydn.png'
+    let _name = 'DuyDn'+index+index
+    let _mes = 'Hello i am duy'+index+index
+    let _roomid = '4321'+index
     mesOnMesBox.push({
-      src: './img/duydn.png',
-      name: 'DuyDn3',
-      mes: 'Hello i am duy3',
-      roomid: '333'
+      src: _src,
+      name: _name,
+      mes: _mes,
+      roomid: _roomid
     })
     // close mesBox
     turnOff('mes-box')
-    
+    //remove
+    if (chatContainer.childElementCount >= 2) chatContainer.removeChild(chatContainer.children[0])
+    chatContainer.append(mesToChatContainer(_roomid, null, null, _name))
+    _room = chatContainer.children
+    mesToChatContainer(_roomid, null, null, _name)
   }
 })
 // console.log(notiBtn)
@@ -272,13 +281,13 @@ function showCard(src, name, quote) {
 	let avatarContainer = newElement('DIV', 'avatar-container')
   	let avatar = newElement('IMG', 'avatar')
   	avatar.src = src
-  	avatarContainer.appendChild(avatar)
+  	avatarContainer.append(avatar)
 
   	let infoContainer = newElement('DIV', 'info-container')
 	let _name = newElement('P', 'name', name)
 	let _quote = newElement('Q', 'quote', quote)
-	infoContainer.appendChild(_name)
-	infoContainer.appendChild(_quote)
+	infoContainer.append(_name)
+	infoContainer.append(_quote)
 
 	let toolbarContainer = newElement('DIV', 'toolbar')
 	let _user = newElement('DIV', 'user-container')
@@ -287,22 +296,26 @@ function showCard(src, name, quote) {
 	let usericon = newElement('I', 'far fa-user-circle')
 	let mesicon = newElement('I', 'fas fa-comment-dots')
 	let reqicon = newElement('I', 'fas fa-check-square')
-	_user.appendChild(usericon)
-	_mes.appendChild(mesicon)
-	_req.appendChild(reqicon)
-	toolbarContainer.appendChild(_user)
-	toolbarContainer.appendChild(_mes)
-	toolbarContainer.appendChild(_req)
+	_user.append(usericon)
+	_mes.append(mesicon)
+	_req.append(reqicon)
+	toolbarContainer.append(_user)
+	toolbarContainer.append(_mes)
+	toolbarContainer.append(_req)
 
 	let card = newElement('DIV', 'card')
-	card.appendChild(avatarContainer)
- 	card.appendChild(infoContainer)
- 	let box = document.getElementsByClassName('card-container')[0]
- 	//console.log(box)
- 	box.appendChild(card)
- 	box.appendChild(toolbarContainer)
-
+	card.append(avatarContainer)
+ 	card.append(infoContainer)
+ 	//let box = document.getElementsByClassName('card-container')[0]
+   //console.log(box)
+  console.log(card)
+  cardContainer.append(card)
+  cardContainer.append(toolbarContainer)
+  console.log(cardContainer)
+  console.log(toolbarCard)
+  toolbarCard.append(toolbarContainer)
 }
 
 showCard('./img/duydn.png', 'ngoc', '112331423')
-showCard('./img/duydn.png', 'ngoc', '123')
+showCard('./img/duydn.png', 'ngocdm', '12123123')
+console.log(toolbarCard)
