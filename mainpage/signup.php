@@ -91,12 +91,24 @@
     var dob = null;
     var fullname = null;
     var uid = null;
+    var type = null;
+    var job = null;
+    var workplace = null;
+    var ig = null;
+    var twitter = null;
     function handleSignUp() {
       fullname = document.getElementById('username').value;
       email = document.getElementById('email').value;
       password = document.getElementById('password').value;
       cmnd = document.getElementById('cmnd').value;
       dob = document.getElementById('dob').value.toString();
+      job = document.getElementById('job').value;
+      workplace = document.getElementById('workplace').value;
+      ig = document.getElementById('ig').value;
+      twitter = document.getElementById('twitter').value;
+      if(document.getElementById('r1').checked){
+        type = document.getElementById('r1').value;
+      } else type = document.getElementById('r2').value;
       console.log(email + " " + password + " " + cmnd + " " + dob);
       if (email.length < 4) {
         alert('Please enter an email address.');
@@ -107,11 +119,19 @@
         return;
       }
       if(dob.length < 8){
-        alert('Please enter a dob.');
+        alert('Please enter a valid dob.');
         return;
       }
       if(cmnd < 11){
         alert('Please enter cmnd');
+        return;
+      }
+      if(job.length < 4){
+        alert('Please enter a job');
+        return;
+      }
+      if(workplace.length < 4){
+        alert('Please enter a workplace');
         return;
       }
     if(login){
@@ -120,6 +140,11 @@
                     dob: dob,
                     cmnd: cmnd,
                     password: password,
+                    job: job,
+                    workplace: workplace,
+                    ig: ig,
+                    twitter: twitter,
+                    type: type
                 }
             };
             firebase.database().ref('user/' + uid).update(postData);
@@ -153,27 +178,29 @@
                 uid = user.uid;
                 // check login aldready
                 var check = database.ref('user/'+uid+'/moreinfo');
-                check.once('value').then(function(snapshot) {
+                check.on('value', function(snapshot) {
                     if (snapshot.val() != null) window.location = '../'
-                }).then(() => {
-                    firebase.database().ref('uidList').once('value').then(snapshot => {
-                            // add uid to uidList
-                            var newVar = ''
-                            // get previous uid version
-                            newVar = snapshot.val()
-                            newVar = newVar + '&' + uid
-                            // store new uidList
-                            database.ref().update({
-                                uidList: newVar
-                            })
-                            console.log(newVar)
-                        }
-                    )
-                })
-                //.then(function() {
-                //})
+                });
+                console.log(more)
+                if (moreInfo != null) window.location = '../'
+                // get previous uid version
+                var newVar = ''
+                var uidList = database.ref('uidList/');
+                uidList.on('value', function(snapshot) {
+                    console.log(snapshot.val())
+                    //uidList = snapshot.val()  
+                    newVar = snapshot.val()
+                });
+                setTimeout(() => {
+                    newVar = newVar+'&'+uid
+                    database.ref().update({
+                        uidList: newVar
+                    });
+                }, 3000);
+                //store
+                console.log(newVar)
                 // sign in webchat 
-                chat = new WebChat(uid);
+                createUser(uid)
                 var providerData = user.providerData;
                 console.log(email);
                 console.log(dob);
@@ -184,6 +211,11 @@
                         dob: dob,
                         cmnd: cmnd,
                         password: password,
+                        job: job,
+                        workplace: workplace,
+                        ig: ig,
+                        twitter: twitter,
+                        type: type
                     }
                 };
                 if(dob != null) {
@@ -231,7 +263,33 @@
                 <div class="input-group" style="width:100%;">
                     <input type="text" class="form-control" name="cmnd" placeholder="CMND" id = "cmnd" required="required">      
                 </div>
-            </div>       
+            </div>
+            <div class="form-group">
+                <div class="input-group" style="width:100%;"> 
+                    <center><label class="radio-inline"><input type="radio" name = "type" id="r1" value = "visitor" checked>Visitor</label>
+                    <label class="radio-inline"><input type="radio" name = "type" id="r2" value = "guide">Guide</label> </center>
+                </div>
+            </div> 
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" name="job" placeholder="Job" id = "job" required="required"> 
+                </div>
+            </div> 
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" name="workplace" placeholder="Workplace" id = "workplace" required="required">      
+                </div>
+            </div> 
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" name="ig" placeholder="Instagram" id = "ig">      
+                </div>
+            </div>  
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" name="twitter" placeholder="Twitter" id = "twitter">      
+                </div>
+            </div>
             <div class="form-group">
                 <button class="btn btn-primary login-btn btn-block" type = "button" id = "submit">Submit</button>
             </div>
