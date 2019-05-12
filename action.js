@@ -4,6 +4,7 @@ let header = document.getElementsByClassName('header')[0]
 let menu = header.children[1]
 let mesBtn = menu.children[0]
 let notiBtn = menu.children[1]
+let logOut = menu.lastElementChild
 let chatContainer = document.body.getElementsByClassName('chat-container')[0]
 let _room = document.querySelectorAll('[roomid]')
 let mesOnMesBox = [
@@ -243,7 +244,8 @@ _room.forEach(room => {
 
 let mesBox = document.getElementsByClassName('mes-box')[0]
 
-function logOut () {
+logOut.onclick = () => {
   firebase.auth().signOut();
   window.location = './mainpage'
+  console.log('ok')
 }

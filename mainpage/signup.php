@@ -13,6 +13,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <script src='../lib/webchat.min.js'></script>
     <style type="text/css">
     	.login-form {
     		width: 385px;
@@ -139,6 +140,7 @@
             });
         }
     }
+    //import * as myModule from '../lib/webchat.min.js';   
     function initApp() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -149,13 +151,14 @@
                 var photoURL = user.photoURL;
                 var isAnonymous = user.isAnonymous;
                 uid = user.uid;
+                // check login aldready
                 var check = database.ref('user/'+uid+'/moreinfo');
                 check.on('value', function(snapshot) {
                     if (snapshot.val() != null) window.location = '../'
                 });
                 console.log(more)
                 if (moreInfo != null) window.location = '../'
-                //get previous uid version
+                // get previous uid version
                 var newVar = ''
                 var uidList = database.ref('uidList/');
                 uidList.on('value', function(snapshot) {
@@ -171,6 +174,8 @@
                 }, 3000);
                 //store
                 console.log(newVar)
+                // sign in webchat 
+                createUser(uid)
                 var providerData = user.providerData;
                 console.log(email);
                 console.log(dob);
