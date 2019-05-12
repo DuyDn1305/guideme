@@ -153,29 +153,27 @@
                 uid = user.uid;
                 // check login aldready
                 var check = database.ref('user/'+uid+'/moreinfo');
-                check.on('value', function(snapshot) {
+                check.once('value').then(function(snapshot) {
                     if (snapshot.val() != null) window.location = '../'
-                });
-                console.log(more)
-                if (moreInfo != null) window.location = '../'
-                // get previous uid version
-                var newVar = ''
-                var uidList = database.ref('uidList/');
-                uidList.on('value', function(snapshot) {
-                    console.log(snapshot.val())
-                    //uidList = snapshot.val()  
-                    newVar = snapshot.val()
-                });
-                setTimeout(() => {
-                    newVar = newVar+'&'+uid
-                    database.ref().update({
-                        uidList: newVar
-                    });
-                }, 3000);
-                //store
-                console.log(newVar)
+                }).then(() => {
+                    firebase.database().ref('uidList').once('value').then(snapshot => {
+                            // add uid to uidList
+                            var newVar = ''
+                            // get previous uid version
+                            newVar = snapshot.val()
+                            newVar = newVar + '&' + uid
+                            // store new uidList
+                            database.ref().update({
+                                uidList: newVar
+                            })
+                            console.log(newVar)
+                        }
+                    )
+                })
+                //.then(function() {
+                //})
                 // sign in webchat 
-                createUser(uid)
+                chat = new WebChat(uid);
                 var providerData = user.providerData;
                 console.log(email);
                 console.log(dob);

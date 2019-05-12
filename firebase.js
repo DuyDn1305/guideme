@@ -18,8 +18,27 @@ setTimeout(() => {
       photoUrl = user.photoUrl;
       emailVerified = user.emailVerified;
       uid = user.uid;
-      console.log(name + " " + email + " " + uid);
+      console.log(user.displayName)
     }
     else console.log('faild to log')
   })
 }, 3000)
+
+function getData() {
+  var curUID = "";
+  var uidlist = "";
+  var list = [];
+  firebase.database().ref('uidList').once('value').then(function(snapshot) {
+    uidlist = snapshot.val();
+    for(var i = 1; i < uidlist.length; ++i){
+      if(uidlist[i] != '&'){
+        curUID += uidlist[i];
+      } else {
+        list.push(curUID);
+        curUID = "";
+      }
+    }
+    list.push(curUID);
+  });
+  return list
+}

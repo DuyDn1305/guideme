@@ -4,7 +4,6 @@ let header = document.getElementsByClassName('header')[0]
 let menu = header.children[1]
 let mesBtn = menu.children[0]
 let notiBtn = menu.children[1]
-let logOut = menu.lastElementChild
 let chatContainer = document.body.getElementsByClassName('chat-container')[0]
 let _room = document.querySelectorAll('[roomid]')
 let mesOnMesBox = [
@@ -27,6 +26,25 @@ let mesOnMesBox = [
     roomid: '333'
   }
 ]
+let cardContainer = document.body.children[1].children[2].children[1].children[0]
+let toolbarCard = document.querySelectorAll('[class=toolbar]')
+console.log(cardContainer)
+console.log(toolbarCard)
+toolbarCard.forEach(tool => {
+  mesPressBtn = tool.children[1]
+  mesPressBtn.onclick = () => {
+    //add to mesBox
+    mesOnMesBox.push({
+      src: './img/duydn.png',
+      name: 'DuyDn3',
+      mes: 'Hello i am duy3',
+      roomid: '333'
+    })
+    // close mesBox
+    turnOff('mes-box')
+    
+  }
+})
 // console.log(notiBtn)
 
 let mesBtnOn = 0
@@ -242,10 +260,49 @@ _room.forEach(room => {
   }
 })
 
-let mesBox = document.getElementsByClassName('mes-box')[0]
+let logOut = menu.lastElementChild
 
 logOut.onclick = () => {
   firebase.auth().signOut();
   window.location = './mainpage'
   console.log('ok')
 }
+
+function showCard(src, name, quote) {
+	let avatarContainer = newElement('DIV', 'avatar-container')
+  	let avatar = newElement('IMG', 'avatar')
+  	avatar.src = src
+  	avatarContainer.appendChild(avatar)
+
+  	let infoContainer = newElement('DIV', 'info-container')
+	let _name = newElement('P', 'name', name)
+	let _quote = newElement('Q', 'quote', quote)
+	infoContainer.appendChild(_name)
+	infoContainer.appendChild(_quote)
+
+	let toolbarContainer = newElement('DIV', 'toolbar')
+	let _user = newElement('DIV', 'user-container')
+	let _mes = newElement('DIV', 'mes-container')
+	let _req = newElement('DIV', 'req-container')
+	let usericon = newElement('I', 'far fa-user-circle')
+	let mesicon = newElement('I', 'fas fa-comment-dots')
+	let reqicon = newElement('I', 'fas fa-check-square')
+	_user.appendChild(usericon)
+	_mes.appendChild(mesicon)
+	_req.appendChild(reqicon)
+	toolbarContainer.appendChild(_user)
+	toolbarContainer.appendChild(_mes)
+	toolbarContainer.appendChild(_req)
+
+	let card = newElement('DIV', 'card')
+	card.appendChild(avatarContainer)
+ 	card.appendChild(infoContainer)
+ 	let box = document.getElementsByClassName('card-container')[0]
+ 	//console.log(box)
+ 	box.appendChild(card)
+ 	box.appendChild(toolbarContainer)
+
+}
+
+showCard('./img/duydn.png', 'ngoc', '112331423')
+showCard('./img/duydn.png', 'ngoc', '123')
