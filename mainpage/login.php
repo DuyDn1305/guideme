@@ -27,15 +27,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
     <style type="text/css">
-    	.login-form {
-    		width: 385px;
-    		margin: 30px auto;
-    	}
+      .login-form {
+        width: 345px;
+        margin: 30px auto;
+      }
         .login-form form {        
-        	margin-bottom: 15px;
+          margin-bottom: 15px;
             background: #f7f7f7;
             box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
             padding: 30px;
+            opacity: 0.6;
+        }
+        .login-form form:hover {        
+          margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            opacity: 1.0;
         }
         .login-form h2 {
             margin: 0 0 15px;
@@ -51,23 +59,23 @@
             font-size: 15px;
             font-weight: bold;
         }
-    	.social-btn .btn {
-    		border: none;
+      .social-btn .btn {
+        border: none;
             margin: 10px 3px 0;
             opacity: 1;
-    	}
+      }
         .social-btn .btn:hover {
             opacity: 0.9;
         }
-    	.social-btn .btn-primary {
+      .social-btn .btn-primary {
             background: #507cc0;
         }
-    	.social-btn .btn-info {
-    		background: #64ccf1;
-    	}
-    	.social-btn .btn-danger {
-    		background: #df4930;
-    	}
+      .social-btn .btn-info {
+        background: #64ccf1;
+      }
+      .social-btn .btn-danger {
+        background: #df4930;
+      }
         .or-seperator {
             margin-top: 20px;
             text-align: center;
@@ -236,15 +244,15 @@
     <form action="/examples/actions/confirmation.php" method="post">
         <h2 class="text-center">Sign in</h2>   
         <div class="form-group">
-        	<div class="input-group">
+          <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" name="username" placeholder="Email" id = "email" required="required">				
+                <input type="text" class="form-control" name="username" placeholder="Email" id = "email" required="required">       
             </div>
         </div>
-		<div class="form-group">
+    <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" name="password" placeholder="Password" id = "password" required="required">				
+                <input type="password" class="form-control" name="password" placeholder="Password" id = "password" required="required">       
             </div>
         </div>        
         <div class="form-group">
@@ -254,16 +262,15 @@
             <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
             <a href="#" class="pull-right">Forgot Password?</a>
         </div>
-		<div class="or-seperator"><i>or</i></div>
+    <div class="or-seperator"><i>or</i></div>
         <p class="text-center">Login with your Google account</p>
         <div class="text-center social-btn">
             <!--<a href="#" class="btn btn-primary" id = "facebook"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
             <a href="#" class="btn btn-info" id = "twitter"><i class="fa fa-twitter"></i>&nbsp; Twitter</a>
-			--><a href="#" class="btn btn-danger btn-block" id = "google"><i class="fa fa-google"></i>&nbsp; Google</a>
+      --><a href="#" class="btn btn-danger btn-block" id = "google"><i class="fa fa-google"></i>&nbsp; Google</a>
         </div>
     </form>
-    <p class="text-center text-muted small">Don't have an account? <a href="trialregistration.html">Sign up here!</a></p>
-    <pre><code id="quickstart-account-details">null</code></pre>
+    <p class="text-center text-muted small">Don't have an account? <a href="signup.php">Sign up here!</a></p>
 </div>
 </body>
 </html>                            
