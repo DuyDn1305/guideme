@@ -203,7 +203,7 @@ const user = {
 
 let chatContainer = document.body.getElementsByClassName('chat-container')[0]
 let _room = document.querySelectorAll('[roomid]')
-console.log(chatContainer)
+//console.log(chatCon tainer)
 
 _room.forEach(room => {
   console.log(room.children[0].children[2])
@@ -218,4 +218,3 @@ _room.forEach(room => {
 })
 
 let mesBox = document.getElementsByClassName('mes-box')[0]
-
