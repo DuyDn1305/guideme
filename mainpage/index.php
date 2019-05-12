@@ -44,6 +44,7 @@
 		  line-height: 40px;
 		  margin-left: -5px;
 		  position: relative;
+		  font-size: 17px;
 		}
 		#menu a {
 		  text-decoration: none;
@@ -66,6 +67,19 @@
 		  background: rgba(0, 0, 0, 0);
 		  color: #fff;
 		  font-weight: bold;
+		}
+		#menu li button {
+			color : #D1E2F2;
+			text-decoration: none;
+			border : none;
+			background-color: rgba(0, 0, 0, 0);
+		}
+		#menu li button:hover {
+			color : #fff;
+			text-decoration: none;
+			border : none;
+			font-weight: bold;
+			background-color: rgba(0, 0, 0, 0);
 		}
 		.sub-menu {
  			display: none;
@@ -141,19 +155,12 @@
 			border: 1px solid #ddd;
 			padding: 8px;
 			border-radius: 15px;
-
-
+			-webkit-transition: opacity 1s ease-in-out;
+  			-moz-transition: opacity 1s ease-in-out;
+  			-o-transition: opacity 1s ease-in-out;
+  			transition: opacity 1s ease-in-out;
 		}
-		.imgright {
-			width : 432px;
-			height: 288px;
-			position: absolute;
-			left : 22%;
-			border: 1px solid #ddd;
-			padding: 8px;
-			border-radius: 15px;
 
-		}
 		.texta {
 			position: absolute;
 			left : 55%;
@@ -189,6 +196,55 @@
 			color : #fff;
 
 		}
+		.contact {
+			background-image: url('https://images.pexels.com/photos/955081/pexels-photo-955081.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+			height : 900px;
+		}
+		.fsp {
+			height : 140px;
+		}
+		.fsp1 {
+			height : 50px;
+		}
+		.contact-title {
+			font-size: 50px;
+			font-family: 'Open Sans', sans-serif;
+			color : #fff;
+			text-align: center;
+			font-weight: bold;
+		}
+		.contact-form{
+			background: rbga(0, 0, 0, 0.8);
+			width: 60%;
+			height : 50%;
+			color: #fff;
+			position: absolute;
+			left : 40%;
+			font-size : 18px;
+			
+		}
+		.contact-form input {
+			font-size : 18px;
+			background: transparent;
+			border: none;
+			border-bottom: 1px dashed #fff;
+			width: 275px;
+			outline: none;
+			padding: 0px 0px 0px 0px;
+		}
+		.contact-form textarea {
+			font-style: italic;
+			font-size : 18px;
+			padding: 0px 0px 0px 0px;
+			background: transparent;
+			outline: none;
+			border: none;
+			border-bottom: 1px dashed #fff;
+			width: 275px;
+			overflow: hidden;
+			resize:none;
+		}
+
 </style>
 </head>
 <body>
@@ -198,11 +254,11 @@
 
 		<div id="menu">
 		  <ul>
-		  	<li><a href="#">Home</a></li>
-		    <li><a href="#">Messenger</a></li>
+		  	<li><a href="#"><div class = "a1">Home</div></a></li>
+		    <li><a href="index.html">Messenger</a></li>
 		    <li><a href="ranking.php">Ranking</a></li>
-		    <li><a href="#"><div class = "a1">About</div></a>
-		    <li><a href="#">Contact</a>
+		    <li><button onclick = "scroll1()">About</button></a>
+		    <li><button onclick = "scroll2()">Contact</button></a>
 		    <!--<ul class="sub-menu">
 		        <li><a href="#">WordPress</a></li>
 		        <li><a href="#">SEO</a></a></li>
@@ -213,7 +269,6 @@
 		    <li><a href="#">Logout</a></li>
 		  </ul>
 		</div>
-
 	</header>
 
 	<main class = "main1">
@@ -224,38 +279,22 @@
 		<div class = "con2"><?php include("login.php"); ?></div>
 	</main>
 
-	<div class = "about">
+	<div class = "about" id = "about1">
 		<div class = "ti1"> 
 			<p>&nbsp</p>
 			<p>Những tính năng nổi bật của Guide me ?</p>
 		</div>
 		<div>
-			
 			<img src = "https://images.pexels.com/photos/708764/pexels-photo-708764.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class = "imgleft" id = "ngoc">
 			<br><br>
-			<div class = "texta"><button onclick="document.getElementById('ngoc').src='https://images.pexels.com/photos/707195/pexels-photo-707195.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Kết nối du khách và dân địa phương </a></div><br><br><br><br>
+			<div class = "texta"><button onclick="document.getElementById('ngoc').src='https://images.pexels.com/photos/707195/pexels-photo-707195.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'" id = "oc"> Kết nối du khách và dân địa phương </a></div><br><br><br><br>
 			<div class = "texta"><button onclick="document.getElementById('ngoc').src='https://images.pexels.com/photos/38271/ipad-map-tablet-internet-38271.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Tìm người bản địa trong bán kính cho phép </a></div><br><br><br><br>
 			<div class = "texta"><button onclick="document.getElementById('ngoc').src='https://images.pexels.com/photos/591216/pexels-photo-591216.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Bắt đầu những hành trình </a></div><br><br><br><br>
 		</div>
 		<br><br><br><br>
-		<!--<canvas id="myCanvas" width="400" height="200"></canvas>
-		<script>
-			 // Lấy đối tượng Canvas
-		    var canvas = document.getElementById('myCanvas');
-		 
-		    // Chọn đối tượng vẽ 2D
-		    var context = canvas.getContext('2d');
-		 
-		    // Tiến hành vẽ
-		    context.beginPath();        // Khai báo vẽ đường thẳng mới
-		    context.moveTo(400, 0);     // Điểm bắt đầu
-		    context.lineTo(400, 190);   // Điểm kết thúc
-		    context.stroke();           // Tiến hành vẽ
- 
-		</script>-->
 		<div>
 
-			<img src = "https://images.pexels.com/photos/2087391/pexels-photo-2087391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class = "imgright" id = ngoc1>
+			<img src = "https://images.pexels.com/photos/2087391/pexels-photo-2087391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" class = "imgleft" id = ngoc1>
 			<br><br>
 			<div class = "texta"><button onclick="document.getElementById('ngoc1').src='https://images.pexels.com/photos/630839/pexels-photo-630839.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Đặt trước lịch hẹn với guide </a></div><br><br><br><br>
 			<div class = "texta"><button onclick="document.getElementById('ngoc1').src='https://images.pexels.com/photos/230554/pexels-photo-230554.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Nhắn tin trao đổi</a></div><br><br><br><br>
@@ -269,21 +308,40 @@
 			<div class = "texta"><button onclick="document.getElementById('ngoc2').src='https://images.pexels.com/photos/100528/pexels-photo-100528.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Liên lạc </a></div><br><br><br><br>
 				<div class = "texta"><button onclick="document.getElementById('ngoc2').src='https://images.pexels.com/photos/838413/pexels-photo-838413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'"> Trang cá nhân cho mỗi người dùng </a></div><br><br><br><br>
 		</div>
-		
 	</div>
-
+	<div class = "contact">
+		<div class = "fsp"></div>
+		<div class = "contact-title">Contact us now</div>
+		<div class = "fsp1"></div>
+		<div class = "contact-form">
+			<form action = "#" method = "POST">
+				Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text" name = "name" ><br>
+				Phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text" name = "sdt" ><br>
+				Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type = "text" name = "email" ><br>
+				Message&nbsp;&nbsp;&nbsp;<textarea name = "mes" rows = "3"></textarea>
+			</form>
+		</div>
+	</div>
+	<script>
+	function scroll1() {
+  		var body = document.body; 
+  		var html = document.documentElement; 
+  		body.scrollTop = 780;
+  		html.scrollTop = 780;
+	}
+	function scroll2() {
+  		var body = document.body; 
+  		var html = document.documentElement; 
+  		body.scrollTop = 2060;
+  		html.scrollTop = 2060;
+	}
+	</script>
 	<footer class = "foot">
 		<center><img src="https://scontent.fsgn5-7.fna.fbcdn.net/v/t1.15752-9/59229937_421639848628236_6310739423906496512_n.png?_nc_cat=103&_nc_oc=AQlq52LreEHeb5U3Z8l7uwCNtNbSO9IqEA6BEriVjJ2ezmYt02I1lLw80aXCPZsgoEY&_nc_ht=scontent.fsgn5-7.fna&oh=bb25d39e6fc3f04fc95d26b0ac37a9da&oe=5D6B4BC1"></center>
 		<center>
 			<div class = "aa">guideme@gmail.com</div>
 			<div class = "phone">0819283927 &nbsp | &nbsp +8420392749</div>
 			<p> &nbsp </p>
-			<div class = "fimg">
-				<img src = "http://sundevilgymnastics.com/wp-content/uploads/2016/11/FB-Icon.png">&nbsp
-				<img src = "https://image.flaticon.com/teams/slug/google.jpg">&nbsp
-				<img src = "https://cdn1.iconfinder.com/data/icons/logotypes/32/square-twitter-512.png">&nbsp
-				<img src = "https://instagram-brand.com/wp-content/uploads/2016/11/Instagram_AppIcon_Aug2017.png?w=300">
-			</div>
 			<div class = "f1">
 				<a href = "index.php">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href = "index.php">Guide</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -298,6 +356,13 @@
 				<a href = "index.php">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href = "index.php">Signup</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href = "index.php">Logout</a>
+			</div>
+			<br>
+			<div class = "fimg">
+				<img src = "http://sundevilgymnastics.com/wp-content/uploads/2016/11/FB-Icon.png">&nbsp
+				<img src = "https://image.flaticon.com/teams/slug/google.jpg">&nbsp
+				<img src = "https://cdn1.iconfinder.com/data/icons/logotypes/32/square-twitter-512.png">&nbsp
+				<img src = "https://instagram-brand.com/wp-content/uploads/2016/11/Instagram_AppIcon_Aug2017.png?w=300">
 			</div>
 			<br>
 			<p> © Guideme 2019</p>
