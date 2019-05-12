@@ -211,6 +211,9 @@ body, html {
   align-items: center;
   flex: 1;
 }
+.chat-container .chat .header:hover {
+  background: #ecf0f1;
+}
 .chat-container .chat .header .avatar {
   border: 0;
   border-radius: 50%;

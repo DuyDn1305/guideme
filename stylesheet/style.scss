@@ -244,6 +244,9 @@ body, html {
       padding: 7px;
       display: flex;
       align-items: center;
+      &:hover {
+        background: #ecf0f1;
+      }
       @include mes-avatar-container;
       .info {
         flex: 8;

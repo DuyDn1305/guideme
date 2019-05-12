@@ -6,6 +6,26 @@ let mesBtn = menu.children[0]
 let notiBtn = menu.children[1]
 let chatContainer = document.body.getElementsByClassName('chat-container')[0]
 let _room = document.querySelectorAll('[roomid]')
+let mesOnMesBox = [
+  {
+    src: './img/duydn.png',
+    name: 'DuyDn1',
+    mes: 'Hello i am duy1',
+    roomid: '111'
+  },
+  {
+    src: './img/duydn.png',
+    name: 'DuyDn2',
+    mes: 'Hello i am duy2',
+    roomid: '222'
+  },
+  {
+    src: './img/duydn.png',
+    name: 'DuyDn3',
+    mes: 'Hello i am duy3',
+    roomid: '333'
+  }
+]
 // console.log(notiBtn)
 
 let mesBtnOn = 0
@@ -15,9 +35,9 @@ mesBtn.onclick = function () {
   } else {
     turnOff('noti-box')
     turnOn('mes-box')
-    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM', '123')
-    showMes('./img/duydn.png', 'nghanhVu', 'See you at 9.00 AM', '222')
-    showMes('./img/duydn.png', 'ngoc', 'See you at 9.00 AM', '333')
+    mesOnMesBox.forEach(e => {
+      showMes(e.src, e.name, e.mes, e.roomid)
+    })
   }
 }
 
@@ -64,7 +84,7 @@ function newElement (type, classname = '', context = '') {
 
 // show mes to chatContainer
 function showMes (src, name, message, roomid) {
-  console.log(roomid)
+  // console.log(roomid)
   // tao avatar
   let avatarContainer = newElement('DIV', 'avatar-container')
   let avatar = newElement('IMG', 'avatar')
@@ -86,7 +106,7 @@ function showMes (src, name, message, roomid) {
   // bam vao mes o tren thi o duoi hien len
   mes.onclick = () => {
     if (chatContainer.childElementCount >= 2) chatContainer.removeChild(chatContainer.children[0])
-    chatContainer.append(mesToChatContainer(roomid))
+    chatContainer.append(mesToChatContainer(roomid, null, null, name))
     _room = chatContainer.children
   }
 
@@ -95,7 +115,7 @@ function showMes (src, name, message, roomid) {
   box.appendChild(mes)
 }
 
-function mesToChatContainer (roomid = '', messages = '', listPerson = '') {
+function mesToChatContainer (roomid = '', messages = '', listPerson = '', roomName = roomid) {
   // tao chat trong chat-container
   let mes = newElement('DIV', 'chat')
   mes.setAttribute('roomid', roomid)
@@ -108,7 +128,7 @@ function mesToChatContainer (roomid = '', messages = '', listPerson = '') {
   headerAvatarContainer.append(headerAvatar)
   // tao info
   let headerInfo = newElement('DIV', 'info')
-  let headerName = newElement('P', 'name', 'Duydn')
+  let headerName = newElement('P', 'name', roomName)
   let headerStatus = newElement('P', 'status', 'Active')
   headerInfo.append(headerName)
   headerInfo.append(headerStatus)
@@ -133,7 +153,7 @@ function mesToChatContainer (roomid = '', messages = '', listPerson = '') {
   // tao vai tin nhan gia
   let _mainMes = newElement('DIV', 'main-mess')
   _mainMes.append(addMes('his', 'Hi duy', 'Duydn', './img/duydn.png'))
-  _mainMes.append(addMes('my', 'hi hihi !'))
+  // _mainMes.append(addMes('my', 'hi hihi !'))
   // tao footer
   let _footer = newElement('DIV', 'footer')
   let _input = newElement('INPUT', 'input')
