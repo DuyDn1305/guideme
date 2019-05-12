@@ -7,26 +7,20 @@
     <title>Bootstrap Sign in Form with Facebook and Twitter Buttons</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--
-    <script src="/__/firebase/5.9.3/firebase-app.js"></script>
-    <script src="/__/firebase/5.9.3/firebase-auth.js"></script>
-    <script src="/__/firebase/init.js"></script>
-  -->
-  
-  <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
-    
     <script>
       // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyDm5trWPhjRf6ufTHAfTF3nOxplC5l_JNU",
-        authDomain: "thtd3-529b7.firebaseapp.com",
-        databaseURL: "https://thtd3-529b7.firebaseio.com",
-        projectId: "thtd3-529b7",
-        storageBucket: "thtd3-529b7.appspot.com",
-        messagingSenderId: "784194456958"
+       var config = {
+        apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
+        authDomain: "guideme1.firebaseapp.com",
+        databaseURL: "https://guideme1.firebaseio.com",
+        projectId: "guideme1",
+        storageBucket: "guideme1.appspot.com",
+        messagingSenderId: "283911475239",
+        appId: "1:283911475239:web:d08fa5d4aa81e905"
       };
       firebase.initializeApp(config);
     </script>
@@ -34,13 +28,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
     <style type="text/css">
     	.login-form {
-    		width: 335px;
+    		width: 385px;
     		margin: 30px auto;
-        opacity: 0.7;
     	}
-      :hover {
-        opacity: 1.0;
-      }
         .login-form form {        
         	margin-bottom: 15px;
             background: #f7f7f7;
@@ -193,10 +183,6 @@
       }
 
     function initApp() {
-      var dbRef = firebase.database().ref('object');
-      dbRef.on('value', function(snapshot){
-        console.log(snapshot.val());
-      });
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           var displayName = user.displayName;
@@ -207,7 +193,6 @@
           var uid = user.uid;
           var providerData = user.providerData;
           document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-          console.log();
           /*var cmnd = null;
           var temp = JSON.stringify(user, null, '  ');
           var realdata ="";
@@ -225,6 +210,13 @@
             photoURL: photoURL, isAnonymous: isAnonymous, uid: uid, providerData: user.providerData,
           };
           firebase.database().ref('user/' + user.uid).update(postData);
+          firebase.database().ref('/user/' + user.uid + '/moreinfo').once('value').then(function(snap) {
+              if(snap.val() == null){
+                window.location = 'signup.php';
+              } else {
+                window.location = '../'
+              } 
+          });
         } else {
         }
       });
@@ -269,7 +261,8 @@
 			--><a href="#" class="btn btn-danger btn-block" id = "google"><i class="fa fa-google"></i>&nbsp; Google</a>
         </div>
     </form>
-    <p class="text-center text-muted small">Don't have an account? <a href="signup.php">Sign up here!</a></p>
+    <p class="text-center text-muted small">Don't have an account? <a href="trialregistration.html">Sign up here!</a></p>
+    <pre><code id="quickstart-account-details">null</code></pre>
 </div>
 </body>
 </html>                            

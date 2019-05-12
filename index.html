@@ -9,21 +9,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <!--Add opensan font-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <!--Include firebase-->
   <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
   <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
-    
-  <!--Include firebase-->
-  
-  <!--Initialize Firebase-->
-  <script src="./app.js"></script>
+  <script>
+    // Initialize Firebase
+      var config = {
+      apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
+      authDomain: "guideme1.firebaseapp.com",
+      databaseURL: "https://guideme1.firebaseio.com",
+      projectId: "guideme1",
+      storageBucket: "guideme1.appspot.com",
+      messagingSenderId: "283911475239",
+      appId: "1:283911475239:web:d08fa5d4aa81e905"
+    };
+    firebase.initializeApp(config);
+
+    function loadScript(src) {
+      let script = document.createElement('script');
+      script.src = src;
+      document.head.append(script);
+      //script.onload = () => callback(script);
+    }
+  </script>
   <!--Add google api library-->
   <script src="./lib/googleapi.js"></script>
 </head>
-<body>
+<body onload="loadScript('./firebase.js'); loadScript('./action.js')"">
   <div class='header'>
     <div class='logo-container'>
       <img src='./img/logo.png'>
@@ -33,7 +49,7 @@
       <div class='tool'><span>Notifications</span></div>
       <div class='tool'><span>About</span></div>
       <div class='tool'><span>Donate us</span></div>
-      <div class='tool'><span>Log out</span></div>
+      <div class='tool' onclick='logOut()'><span>Log out</span></div>
     </div>
   </div>
   <div class='main'>
@@ -84,8 +100,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrjsbv9NJ-w6vZEj7IqPxTT199l6zu3g&callback=initMap">
       </script>
       -->  
-  </div>
-
+    </div>
     <div class='search'>
       <div class='nav-container'>
         <input type="text" placeholder="Search" class='inp'>
@@ -93,14 +108,6 @@
           <i class="fas fa-search"></i>
         </div>
       </div>
-      <!--
-      <nav class="navbar navbar-light bg-light">
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </nav>
-      -->
       <div class='container'>
         <div class='card-container'>
           <div class="card">
@@ -125,110 +132,11 @@
           </div>
         </div>
       </div>
-      <div class='container'>
-          <div class='card-container'>
-            <div class="card">
-              <div class='avatar-container'>
-                <img src='./img/duydn.png' class='avatar'>
-              </div>
-              <div class='info-container'>
-                <p class='name'>Duy dn</p>
-                <q class='quote'>Nice to meet you !</q>
-              </div>
-            </div>
-            <div class='toolbar'>
-              <div class='user-container'>
-                <i class="far fa-user-circle"></i>
-              </div>
-              <div class='mes-container'>
-                <i class="fas fa-comment-dots"></i>
-              </div>
-              <div class='req-container'>
-                <i class="fas fa-check-square"></i>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class='container'>
-          <div class='card-container'>
-            <div class="card">
-              <div class='avatar-container'>
-                <img src='./img/duydn.png' class='avatar'>
-              </div>
-              <div class='info-container'>
-                <p class='name'>Duy dn</p>
-                <q class='quote'>Nice to meet you !</q>
-              </div>
-            </div>
-            <div class='toolbar'>
-              <div class='user-container'>
-                <i class="far fa-user-circle"></i>
-              </div>
-              <div class='mes-container'>
-                <i class="fas fa-comment-dots"></i>
-              </div>
-              <div class='req-container'>
-                <i class="fas fa-check-square"></i>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class='container'>
-          <div class='card-container'>
-            <div class="card">
-              <div class='avatar-container'>
-                <img src='./img/duydn.png' class='avatar'>
-              </div>
-              <div class='info-container'>
-                <p class='name'>Duy dn</p>
-                <q class='quote'>Nice to meet you !</q>
-              </div>
-            </div>
-            <div class='toolbar'>
-              <div class='user-container'>
-                <i class="far fa-user-circle"></i>
-              </div>
-              <div class='mes-container'>
-                <i class="fas fa-comment-dots"></i>
-              </div>
-              <div class='req-container'>
-                <i class="fas fa-check-square"></i>
-              </div>
-            </div>
-          </div>
-      </div>
-      <div class='container'>
-            <div class='card-container'>
-              <div class="card">
-                <div class='avatar-container'>
-                  <img src='./img/duydn.png' class='avatar'>
-                </div>
-                <div class='info-container'>
-                  <p class='name'>Duy dn</p>
-                  <q class='quote'>Nice to meet you !</q>
-                </div>
-              </div>
-              <div class='toolbar'>
-                <div class='user-container'>
-                  <i class="far fa-user-circle"></i>
-                </div>
-                <div class='mes-container'>
-                  <i class="fas fa-comment-dots"></i>
-                </div>
-                <div class='req-container'>
-                  <i class="fas fa-check-square"></i>
-                </div>
-              </div>
-            </div>
-      </div>
-    </div>    
+    </div>
   </div>
   <div class='footer'>
     this is footer
   </div>
   <div class='chat-container'></div>
-  <script src="./action.js"></script>
-  <script src='./firebase.js'></script>
-
 </body>
 </html>

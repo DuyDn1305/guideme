@@ -242,3 +242,8 @@ _room.forEach(room => {
 })
 
 let mesBox = document.getElementsByClassName('mes-box')[0]
+
+function logOut () {
+  firebase.auth().signOut();
+  window.location = './mainpage'
+}

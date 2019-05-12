@@ -7,10 +7,10 @@
     <title>Bootstrap Sign in Form with Facebook and Twitter Buttons</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="/__/firebase/5.9.3/firebase-app.js"></script>
-    <script src="/__/firebase/5.9.3/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
-    <script src="/__/firebase/init.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
     <style type="text/css">
@@ -68,10 +68,30 @@
             z-index: 1;
         }   
     </style>
+    <script>
+      // Initialize Firebase
+       var config = {
+        apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
+        authDomain: "guideme1.firebaseapp.com",
+        databaseURL: "https://guideme1.firebaseio.com",
+        projectId: "guideme1",
+        storageBucket: "guideme1.appspot.com",
+        messagingSenderId: "283911475239",
+        appId: "1:283911475239:web:d08fa5d4aa81e905"
+      };
+      firebase.initializeApp(config);
+      let database = firebase.database();
+    </script>
   <script type="text/javascript">
-    var email, password, cmnd, dob, fullname;
+    var email = null;
+    var login = 0;
+    var password = null;
+    var cmnd = null
+    var dob = null;
+    var fullname = null;
+    var uid = null;
     function handleSignUp() {
-      fullname = document.getElementById('fullname').value;
+      fullname = document.getElementById('username').value;
       email = document.getElementById('email').value;
       password = document.getElementById('password').value;
       cmnd = document.getElementById('cmnd').value;
@@ -93,28 +113,67 @@
         alert('Please enter cmnd');
         return;
       }
-      var user = firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode == 'auth/weak-password') {
-          alert('The password is too weak.');
-        } else if(errorMessage.length > 1) {
-          alert(errorMessage);
+    if(login){
+            var postData = {
+                moreinfo:{
+                    dob: dob,
+                    cmnd: cmnd,
+                    password: password,
+                }
+            };
+            firebase.database().ref('user/' + uid).update(postData);
+            window.location = '../';
         } else {
-            alert("Sucessful");
-            firebase.auth().signInWithEmailAndPassword(email, password);
+            var user = firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode == 'auth/weak-password') {
+                alert('The password is too weak.');
+            } else if(errorMessage.length > 1) {
+                 alert(errorMessage);
+            } else {
+                 alert("Sucessful");
+                  firebase.auth().signInWithEmailAndPassword(email, password);
+            }
+             console.log(error);
+            });
         }
-        console.log(error);
-      });
     }
     function initApp() {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
+                login = 1;
+                document.getElementById('email').value = user.email;
+                document.getElementById('username').value = user.displayName;
                 var emailVerified = user.emailVerified;
                 var photoURL = user.photoURL;
                 var isAnonymous = user.isAnonymous;
-                var uid = user.uid;
+                uid = user.uid;
+                var check = database.ref('user/'+uid+'/moreinfo');
+                check.on('value', function(snapshot) {
+                    if (snapshot.val() != null) window.location = '../'
+                });
+                console.log(more)
+                if (moreInfo != null) window.location = '../'
+                //get previous uid version
+                var newVar = ''
+                var uidList = database.ref('uidList/');
+                uidList.on('value', function(snapshot) {
+                    console.log(snapshot.val())
+                    //uidList = snapshot.val()  
+                    newVar = snapshot.val()
+                });
+                setTimeout(() => {
+                    newVar = newVar+'&'+uid
+                    database.ref().update({
+                        uidList: newVar
+                    });
+                }, 3000);
+                //store
+                console.log(newVar)
                 var providerData = user.providerData;
+                console.log(email);
+                console.log(dob);
                 var postData = {
                     email: email, displayName: fullname, emailVerified: emailVerified,
                     photoURL: photoURL, isAnonymous: isAnonymous, uid: uid, providerData: user.providerData,
@@ -124,8 +183,13 @@
                         password: password,
                     }
                 };
-                firebase.database().ref('user/' + user.uid).update(postData);
+                if(dob != null) {
+                    firebase.database().ref('user/' + user.uid).update(postData);
+                    window.location = "../";
+                }
                 document.getElementById('display').textContent= JSON.stringify(user, null, '  ');
+            } else {
+                console.log('no user');
             }
         });
         document.getElementById('submit').addEventListener('click', handleSignUp, false);
@@ -137,39 +201,39 @@
   </script>
 </head>
 <body>
-<div class="login-form">
-    <form action="#" method="post">
-        <h2 class="text-center">Registration</h2>   
-        <div class="form-group">
-        	<div class="input-group" style="width:100%;">
-                <input id = "username" type="text" class="form-control" id="fullname" placeholder="Full Name" required="required">				
+    <div class="login-form">
+        <form action="#" method="post">
+            <h2 class="text-center">Registration</h2>   
+            <div class="form-group">
+            	<div class="input-group" style="width:100%;">
+                    <input id = "username" type="text" class="form-control" placeholder="Full Name" required="required">				
+                </div>
             </div>
-        </div>
-		<div class="form-group">
-            <div class="input-group" style="width:100%;">
-                <input type="input" class="form-control" id="email" placeholder="E-Mail Address" required="required">				
+    		<div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="input" class="form-control" id="email" placeholder="E-Mail Address" required="required">				
+                </div>
+            </div> 
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="password" class="form-control" id="password" placeholder="Password" required="required">             
+                </div>
+            </div> 
+            <div class="form-group">
+              <div class="input-group" style="width:100%;">
+                  <input placeholder="DOB" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dob" required="required"> 
+                </div>
+            </div>  
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" name="cmnd" placeholder="CMND" id = "cmnd" required="required">      
+                </div>
+            </div>       
+            <div class="form-group">
+                <button class="btn btn-primary login-btn btn-block" type = "button" id = "submit">Submit</button>
             </div>
-        </div> 
-        <div class="form-group">
-            <div class="input-group" style="width:100%;">
-                <input type="password" class="form-control" id="password" placeholder="Password" required="required">             
-            </div>
-        </div> 
-        <div class="form-group">
-          <div class="input-group" style="width:100%;">
-              <input placeholder="DOB" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dob" required="required"> 
-            </div>
-        </div>  
-        <div class="form-group">
-            <div class="input-group" style="width:100%;">
-                <input type="text" class="form-control" name="cmnd" placeholder="CMND" id = "cmnd" required="required">      
-            </div>
-        </div>       
-        <div class="form-group">
-            <button class="btn btn-primary login-btn btn-block" type = "button" id = "submit">Submit</button>
-        </div>
-
-    </form>
-</div>
+        </form>
+        <pre><code id="display">null</code></pre>
+    </div>
 </body>
-</html>
+</html>                            
