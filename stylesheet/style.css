@@ -280,6 +280,7 @@ body, html {
 .chat-container .chat .main-mess .my-message {
   text-align: right;
   margin-right: 10px;
+  margin: 10px 0 10px 0;
 }
 .chat-container .chat .main-mess .my-message .mes {
   margin-left: 10px;

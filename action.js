@@ -4,7 +4,8 @@ let header = document.getElementsByClassName('header')[0]
 let menu = header.children[1]
 let mesBtn = menu.children[0]
 let notiBtn = menu.children[1]
-
+let chatContainer = document.body.getElementsByClassName('chat-container')[0]
+let _room = document.querySelectorAll('[roomid]')
 // console.log(notiBtn)
 
 let mesBtnOn = 0
@@ -14,7 +15,7 @@ mesBtn.onclick = function () {
   } else {
     turnOff('noti-box')
     turnOn('mes-box')
-    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM', '111')
+    showMes('./img/duydn.png', 'DuyDn', 'See you at 9.00 AM', '123')
     showMes('./img/duydn.png', 'nghanhVu', 'See you at 9.00 AM', '222')
     showMes('./img/duydn.png', 'ngoc', 'See you at 9.00 AM', '333')
   }
@@ -61,67 +62,67 @@ function newElement (type, classname = '', context = '') {
   return newEle
 }
 
+// show mes to chatContainer
 function showMes (src, name, message, roomid) {
-  
+  console.log(roomid)
+  // tao avatar
   let avatarContainer = newElement('DIV', 'avatar-container')
   let avatar = newElement('IMG', 'avatar')
   avatar.src = src
   avatarContainer.appendChild(avatar)
-  
+  // tao info
   let infoContainer = newElement('DIV', 'info-container')
   let _name = newElement('P', 'name', name)
   let _mes = newElement('P', 'mes', message)
   infoContainer.appendChild(_name)
   infoContainer.appendChild(_mes)
-
+  // tao thoi gian
   let _time = newElement('P', 'time', '9:00')
-
+  // tao tin nhan
   let mes = newElement('DIV', 'mes-container')
   mes.appendChild(avatarContainer)
   mes.appendChild(infoContainer)
   mes.appendChild(_time)
-
+  // bam vao mes o tren thi o duoi hien len
   mes.onclick = () => {
     if (chatContainer.childElementCount >= 2) chatContainer.removeChild(chatContainer.children[0])
     chatContainer.append(mesToChatContainer(roomid))
+    _room = chatContainer.children
   }
 
+  // hien mes len Mesager thong bao
   let box = document.getElementsByClassName('mes-box')[0]
   box.appendChild(mes)
 }
 
-function mesToChatContainer(roomid, messages = '', listPerson = '') {
+function mesToChatContainer (roomid = '', messages = '', listPerson = '') {
   // tao chat trong chat-container
   let mes = newElement('DIV', 'chat')
   mes.setAttribute('roomid', roomid)
-
   // tao header
   let _header = newElement('DIV', 'header')
-  
   // tao hinh
   let headerAvatarContainer = newElement('DIV', 'avatar-container')
   let headerAvatar = newElement('IMG', 'avatar')
   headerAvatar.src = './img/duydn.png'
   headerAvatarContainer.append(headerAvatar)
-  
   // tao info
   let headerInfo = newElement('DIV', 'info')
   let headerName = newElement('P', 'name', 'Duydn')
   let headerStatus = newElement('P', 'status', 'Active')
   headerInfo.append(headerName)
   headerInfo.append(headerStatus)
-
   // tao nut X
   let headerExit = newElement('P', 'exit', '&times;')
-  // add aciton
   headerExit.onclick = () => {
     chatContainer.removeChild(mes)
+    _room = chatContainer.children
   }
 
   _header.append(headerAvatarContainer)
   _header.append(headerInfo)
   _header.append(headerExit)
-  // add aciton
+  // tao hide/show cho mot tin nhan trong chatContainer
   _header.onclick = () => {
     let main = mes.children[1].style
     let status = main.display
@@ -131,26 +132,34 @@ function mesToChatContainer(roomid, messages = '', listPerson = '') {
   let _body = newElement('DIV')
   // tao vai tin nhan gia
   let _mainMes = newElement('DIV', 'main-mess')
-  
   _mainMes.append(addMes('his', 'Hi duy', 'Duydn', './img/duydn.png'))
   _mainMes.append(addMes('my', 'hi hihi !'))
-  
   // tao footer
   let _footer = newElement('DIV', 'footer')
   let _input = newElement('INPUT', 'input')
   _input.setAttribute('type', 'text')
   _input.setAttribute('placeholder', 'Type a message ...')
+  _input.onkeydown = function (event) {
+    if (event.key == 'Enter') {
+      document.querySelectorAll('[roomid]').forEach(room => {
+        console.log(room.getAttribute('roomid'))
+        if (room.getAttribute('roomid') == roomid) {
+          room.children[1].children[0].append(addMes('my', this.value))
+          this.value = ''
+        }
+      })
+    }
+  }
+
   let _toolContainer = newElement('DIV', 'tool-container')
   let _icon = newElement('I', 'fas fa-check-square')
   _toolContainer.append(_icon)
-  //_toolContainer.append(_icon)
-  //_toolContainer.append(_icon)
-  
+  // hoan thien phan footer va body
   _footer.append(_input)
   _footer.append(_toolContainer)
   _body.append(_mainMes)
   _body.append(_footer)
-  
+  // mes hoan chinh
   mes.append(_header)
   mes.append(_body)
   
@@ -199,11 +208,6 @@ const user = {
     sex: 'male'
   }
 }
-
-
-let chatContainer = document.body.getElementsByClassName('chat-container')[0]
-let _room = document.querySelectorAll('[roomid]')
-//console.log(chatCon tainer)
 
 _room.forEach(room => {
   console.log(room.children[0].children[2])

@@ -300,6 +300,7 @@ body, html {
       .my-message {
         text-align: right;
         margin-right: 10px;
+        margin: 10px 0 10px 0;
         .mes {
           @include mes;
           background: #3498db;
