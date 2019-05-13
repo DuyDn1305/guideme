@@ -181,26 +181,11 @@
                 check.on('value', function(snapshot) {
                     if (snapshot.val() != null) window.location = '../'
                 });
-                console.log(more)
-                if (moreInfo != null) window.location = '../'
-                // get previous uid version
-                var newVar = ''
-                var uidList = database.ref('uidList/');
-                uidList.on('value', function(snapshot) {
-                    console.log(snapshot.val())
-                    //uidList = snapshot.val()  
-                    newVar = snapshot.val()
-                });
-                setTimeout(() => {
-                    newVar = newVar+'&'+uid
-                    database.ref().update({
-                        uidList: newVar
-                    });
-                }, 3000);
-                //store
-                console.log(newVar)
+                //console.log(more
+                //if (moreInfo != null) window.location = '../'
+                
                 // sign in webchat 
-                createUser(uid)
+                WebChat.createUser(uid, 'New user')
                 var providerData = user.providerData;
                 console.log(email);
                 console.log(dob);

@@ -2,10 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <!--
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  -->
-  <title>Index</title>
+  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+  <title>Guide Me</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -16,30 +14,18 @@
   <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
-  <script>
-    // Initialize Firebase
-      var config = {
-      apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
-      authDomain: "guideme1.firebaseapp.com",
-      databaseURL: "https://guideme1.firebaseio.com",
-      projectId: "guideme1",
-      storageBucket: "guideme1.appspot.com",
-      messagingSenderId: "283911475239",
-      appId: "1:283911475239:web:d08fa5d4aa81e905"
-    };
-    firebase.initializeApp(config);
-
+  <script defer>  
     function loadScript(src) {
-      let script = document.createElement('script');
-      script.src = src;
-      document.head.append(script);
-      //script.onload = () => callback(script);
+      let script = document.createElement('script')
+      script.src = src
+      //console.log(src)
+      document.head.append(script)
     }
+    loadScript('./src/firebase.js')
   </script>
   <!--Add google api library-->
-  <script src="./lib/googleapi.js"></script>
 </head>
-<body onload="loadScript('./firebase.js'); loadScript('./action.js')">
+<body>
   <div class='header'>
     <div class='logo-container'>
       <img src='./img/logo.png'>
@@ -90,7 +76,7 @@
         <p><i class="far fa-id-card"></i> Id card: <span>000364601106</span></p>
         <p><i class="fas fa-birthday-cake"></i> Date of birth: <span>13/01/2001</span></p>
         <p><i class="fas fa-briefcase"></i> Work at: <span>Ly Tu Trong highschool for the gifted</span></p>
-        <p><i class="fas fa-phone"></i> <span>Telephone: 0964660011</span></p>
+        <p><i class="fas fa-phone"></i> <span>Telephone: </span></p>
         <p>Status: visitor</p>
       </div>
     </div>
@@ -112,26 +98,6 @@
       </div>
       <div class='container'>
         <div class='card-container'>
-          <div class="card">
-            <div class='avatar-container'>
-              <img src='./img/duydn.png' class='avatar'>
-            </div>
-            <div class='info-container'>
-              <p class='name'>Duy dn</p>
-              <q class='quote'>Nice to meet you !</q>
-            </div>
-          </div>
-          <div class='toolbar'>
-            <div class='user-container'>
-              <i class="far fa-user-circle"></i>
-            </div>
-            <div class='mes-container'>
-              <i class="fas fa-comment-dots"></i>
-            </div>
-            <div class='req-container'>
-              <i class="fas fa-check-square"></i>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -93,7 +93,7 @@ body, html {
   align-items: center;
   justify-content: flex-start;
   border-bottom: 5px solid #3498db;
-  border-radius: 0px;
+  border-radiusx: 0px;
   border-bottom-left-radius: 5px;
   background: white;
 }

@@ -194,6 +194,8 @@
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           console.log(user)
+          console.log('123124')
+          console.log('here')
           var displayName = user.displayName;
           var email = user.email;
           var emailVerified = user.emailVerified;
@@ -201,7 +203,7 @@
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
           var providerData = user.providerData;
-          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
+          //document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
           /*var cmnd = null;
           var temp = JSON.stringify(user, null, '  ');
           var realdata ="";
