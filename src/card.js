@@ -1,8 +1,9 @@
 console.log('card.js loaded')
-function showCard(src, name, quote, roomid) {
+function showCard(src = '../img/logo.png', name = 'user', quote, roomid) {
 	let avatarContainer = newElement('DIV', 'avatar-container')
   	let avatar = newElement('IMG', 'avatar')
-  	avatar.src = src
+    avatar.src = src
+    avatar.setAttribute('style', 'background: #bdc3c7')
   	avatarContainer.append(avatar)
 
   	let infoContainer = newElement('DIV', 'info-container')
@@ -47,7 +48,14 @@ function showCard(src, name, quote, roomid) {
       mesToChatContainer(_roomid, null, null, _name)
     }
   }
+  let card = newElement('DIV', 'card')
+  card.append(avatarContainer)
+  card.append(infoContainer)
+  cardContainer.append(card)
+  cardContainer.append(toolbarContainer)
 
+  toolbarCard = document.querySelectorAll('[class~=toolbar]')
+}
 function checkValid(e, arr) {
   //console.log(typeof(arr))
   ok = 1;
@@ -69,18 +77,14 @@ function roomIsOnChat(e) {
   return find != null
 }
 
-	let card = newElement('DIV', 'card')
-	card.append(avatarContainer)
-  card.append(infoContainer)
-  cardContainer.append(card)
-  cardContainer.append(toolbarContainer)
-
-  toolbarCard = document.querySelectorAll('[class~=toolbar]')
+function updateListCard(list) {
+  //remove the old
+  while (cardContainer.children[0] != null) cardContainer.children[0].remove()
+  //console.log(list.data)
+  list.uid.forEach(k => {
+    const user = list.data[k]
+    console.log(user.photoURL)
+    console.log(user.displayName)
+    showCard((user.photoURL != null) ? user.photoURL : './img/logo.png', user.displayName, "Nice to meet you", k)
+  })
 }
-
-showCard('./img/duydn.png', 'ngoc', 'adsf', 'room1')
-console.log(toolbarCard)
-showCard('./img/duydn.png', 'ngocdm', '12123123', 'room2')
-
-showCard('./img/duydn.png', 'ngocdmdmdm', '12123123', 'room3')
-

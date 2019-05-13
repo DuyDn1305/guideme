@@ -27,8 +27,8 @@ function newElement (type, classname = '', context = '') {
 }
 
 // log out button
-loadScript('./src/card.js')
 loadScript('./src/chat.js')
 loadScript('./src/googleapi.js')
 loadScript('./src/logOut.js')
-console.log('index.js loaded')
+loadScript('./src/myInfo.js')
+loadScript('./src/card.js')

@@ -13,7 +13,3 @@ function updateUserInfo(user) {
   myTable.children[0].innerHTML = user.displayName
   
 }
-
-function updateListCard(list = {}) {
-
-}

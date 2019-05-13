@@ -1,4 +1,6 @@
 console.log('firebase.js loaded')
+loadScript('./src/index.js')
+
 var config = {
   apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
   authDomain: "guideme1.firebaseapp.com",
@@ -12,30 +14,30 @@ firebase.initializeApp(config);
 
 let db = firebase.database();
 
-const list = {
-  uid: [],
-  data: {}
-}
-
-db.ref('user').once('value').then(snap => {
+db.ref('user').on('value', snap => {
+  const list = {
+    uid: [],
+    data: {}
+  }
   snap = snap.val()
   for (let k in snap) {
     list.uid.push(k);
     list.data[k] = snap[k];
   }
   //setTimeout(() => {
-  ready()
+  ready(list)
   //}, 3000); 
 });
 
-function ready () {
+function ready (list) {
   //console.log(list)
   firebase.auth().onAuthStateChanged(function(user) {
     //console.log(firebase.auth());
     var name, email, photoUrl, uid, emailVerified;
     if (user) {
-      
-      const myinfo = user
+      console.log(user.displayName)
+      updateUserInfo(user)
+      updateListCard(list)
       /*
       name = user.displayName;
       email = user.email;
@@ -43,13 +45,15 @@ function ready () {
       emailVerified = user.emailVerified;
       uid = user.uid;
       */
-      console.log(user.displayName)
+      /*
       loadScript('./src/index.js', () => {
         loadScript('./src/myInfo.js', () => {
-          updateUserInfo(myinfo)
-          updateListCard(list)
+          loadScript('./src/card.js', () => {
+            //updateUserInfo(myinfo)
+            //updateListCard(list)
+          })
         })
-      })
+      })*/
     }
     else console.log('faild to log')
   })
