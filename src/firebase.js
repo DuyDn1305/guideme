@@ -17,8 +17,6 @@ const list = {
   data: {}
 }
 
-let myInfo
-
 db.ref('user').once('value').then(snap => {
   snap = snap.val()
   for (let k in snap) {
@@ -26,26 +24,34 @@ db.ref('user').once('value').then(snap => {
     list.data[k] = snap[k];
   }
   //setTimeout(() => {
-    ready()
+  ready()
   //}, 3000); 
 });
 
 function ready () {
-  console.log(list)
+  //console.log(list)
   firebase.auth().onAuthStateChanged(function(user) {
     //console.log(firebase.auth());
     var name, email, photoUrl, uid, emailVerified;
     if (user) {
-      myInfo = user
+      
+      const myinfo = user
+      /*
       name = user.displayName;
       email = user.email;
       photoUrl = user.photoUrl;
       emailVerified = user.emailVerified;
       uid = user.uid;
+      */
       console.log(user.displayName)
+      loadScript('./src/index.js', () => {
+        loadScript('./src/myInfo.js', () => {
+          updateUserInfo(myinfo)
+          updateListCard(list)
+        })
+      })
     }
     else console.log('faild to log')
-    loadScript('./src/index.js')
   })
   //loadScript(['./card.js', './chat.js', './googleapi.js'])
 }
