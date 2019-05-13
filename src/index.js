@@ -7,26 +7,7 @@ let notiBtn = menu.children[1]
 // let chatContainer = document.getElementById('chat-container')
 let chatContainer = document.body.getElementsByClassName('chat-container')[0]
 let _room = document.querySelectorAll('[roomid]')
-let mesOnMesBox = [
-  {
-    src: './img/duydn.png',
-    name: 'DuyDn1',
-    mes: 'Hello i am duy1',
-    roomid: '111'
-  },
-  {
-    src: './img/duydn.png',
-    name: 'DuyDn2',
-    mes: 'Hello i am duy2',
-    roomid: '222'
-  },
-  {
-    src: './img/duydn.png',
-    name: 'DuyDn3',
-    mes: 'Hello i am duy3',
-    roomid: '333'
-  }
-]
+let mesOnMesBox = []
 let containerSearch = document.body.children[1].children[2].children[1]
 let cardContainer = containerSearch.children[0]
 let toolbarCard

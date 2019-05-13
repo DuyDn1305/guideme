@@ -6,10 +6,12 @@ mesBtn.onclick = function () {
   } else {
     turnOff('noti-box')
     turnOn('mes-box')
+    
     let arr = mesOnMesBox
-    arr.reverse().forEach(e => {
+    for (i = mesOnMesBox.length-1; i >= 0; --i) {
+      const e = arr[i]
       showMes(e.src, e.name, e.mes, e.roomid)
-    })
+    }
   }
 }
 

@@ -30,7 +30,8 @@ function showCard(src, name, quote, roomid) {
     let _name = name
     let _mes = ''
     let _roomid = roomid
-    mesOnMesBox.push({
+    
+    if (checkValid(roomid, mesOnMesBox)) mesOnMesBox.push({
       src: _src,
       name: _name,
       mes: _mes,
@@ -38,12 +39,35 @@ function showCard(src, name, quote, roomid) {
     })
     // close mesBox
     turnOff('mes-box')
-    //remove
-    if (chatContainer.childElementCount >= 2) chatContainer.removeChild(chatContainer.children[0])
-    chatContainer.append(mesToChatContainer(_roomid, null, null, _name))
-    _room = chatContainer.children
-    mesToChatContainer(_roomid, null, null, _name)
+    //remove if over 2 child
+    if (!roomIsOnChat(roomid)) {
+      if (chatContainer.childElementCount >= 2) chatContainer.removeChild(chatContainer.children[0])
+      chatContainer.append(mesToChatContainer(_roomid, null, null, _name))
+      _room = chatContainer.children
+      mesToChatContainer(_roomid, null, null, _name)
+    }
   }
+
+function checkValid(e, arr) {
+  //console.log(typeof(arr))
+  ok = 1;
+  //console.log(e)
+  for (let k in arr) {
+    //console.log(arr[k].roomid)
+    //console.log()
+    if (arr[k].roomid == e) {
+      ok = 0;
+      break;
+    }
+  }
+  return ok
+}
+
+function roomIsOnChat(e) {
+  let find = document.querySelector('[roomid~='+e+']')
+  console.log(find)
+  return find != null
+}
 
 	let card = newElement('DIV', 'card')
 	card.append(avatarContainer)
@@ -57,6 +81,6 @@ function showCard(src, name, quote, roomid) {
 showCard('./img/duydn.png', 'ngoc', 'adsf', 'room1')
 console.log(toolbarCard)
 showCard('./img/duydn.png', 'ngocdm', '12123123', 'room2')
-console.log(toolbarCard)
-showCard('./img/duydn.png', 'ngocdmdmdm', '12123123', 'room2')
-console.log(toolbarCard)
+
+showCard('./img/duydn.png', 'ngocdmdmdm', '12123123', 'room3')
+
