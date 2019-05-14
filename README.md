@@ -1,2 +1,0 @@
-# GUIDEME
-Welcome to Guideme

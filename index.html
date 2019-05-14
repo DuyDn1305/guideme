@@ -15,12 +15,13 @@
   <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="lib/webchat.js"></script>
   
-  <script defer>  
+  <script defer>
     function loadScript(src, f) {
       let script = document.createElement('script')
       script.src = src
-      //console.log(src)
       document.head.append(script)
       if (f != null) {
         script.onload = f
@@ -88,11 +89,6 @@
 
     <div class='central'>
       <div class='map'></div>
-      <!--
-      <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrjsbv9NJ-w6vZEj7IqPxTT199l6zu3g&callback=initMap">
-      </script>
-      -->  
     </div>
     <div class='search'>
       <div class='nav-container'>
@@ -111,5 +107,6 @@
     this is footer
   </div>
   <div class='chat-container'></div>
+
 </body>
 </html>

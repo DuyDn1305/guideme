@@ -13,49 +13,38 @@ var config = {
 firebase.initializeApp(config);
 
 let db = firebase.database();
+const list = {uid: [], data:{}}
+let myInfo = null
 
 db.ref('user').on('value', snap => {
-  const list = {
-    uid: [],
-    data: {}
-  }
+  list.uid = []; list.data = {}
   snap = snap.val()
   for (let k in snap) {
     list.uid.push(k);
     list.data[k] = snap[k];
   }
-  //setTimeout(() => {
-  ready(list)
-  //}, 3000); 
+  ready() 
 });
 
-function ready (list) {
-  //console.log(list)
-  firebase.auth().onAuthStateChanged(function(user) {
-    //console.log(firebase.auth());
-    var name, email, photoUrl, uid, emailVerified;
+function ready () {
+  firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      console.log(user.displayName)
+      myInfo = user
       updateUserInfo(user)
       updateListCard(list)
-      /*
-      name = user.displayName;
-      email = user.email;
-      photoUrl = user.photoUrl;
-      emailVerified = user.emailVerified;
-      uid = user.uid;
-      */
-      /*
-      loadScript('./src/index.js', () => {
-        loadScript('./src/myInfo.js', () => {
-          loadScript('./src/card.js', () => {
-            //updateUserInfo(myinfo)
-            //updateListCard(list)
-          })
-        })
-      })*/
+      loadScript('./src/googleapi.js', () => {
+        // load map
+        let script = document.createElement('script')
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrjsbv9NJ-w6vZEj7IqPxTT199l6zu3g&callback=initMap"
+        script.async = 'defer'
+        document.body.children[1].children[1].append(script)
+        focusMe()
+      })
+      //renderMap()
+    } else {
+      console.log('faild to log')
+      window.location = './mainpage'
     }
-    else console.log('faild to log')
   })
   //loadScript(['./card.js', './chat.js', './googleapi.js'])
 }

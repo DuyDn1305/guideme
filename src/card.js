@@ -85,6 +85,6 @@ function updateListCard(list) {
     const user = list.data[k]
     console.log(user.photoURL)
     console.log(user.displayName)
-    showCard((user.photoURL != null) ? user.photoURL : './img/logo.png', user.displayName, "Nice to meet you", k)
+    showCard((user.photoURL != null) ? user.photoURL : './img/logo.png', user.displayName, "Nice to meet you", 'x'+k)
   })
 }

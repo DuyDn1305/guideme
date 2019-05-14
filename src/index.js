@@ -17,6 +17,7 @@ let toolbarCard
 let logOut = menu.lastElementChild
 //left pane
 let profilePane = document.getElementsByClassName('profile')[0]
+let xMap = document.getElementsByClassName('map')[0];
 console.log(profilePane)
 
 function newElement (type, classname = '', context = '') {
@@ -28,7 +29,6 @@ function newElement (type, classname = '', context = '') {
 
 // log out button
 loadScript('./src/chat.js')
-loadScript('./src/googleapi.js')
 loadScript('./src/logOut.js')
 loadScript('./src/myInfo.js')
 loadScript('./src/card.js')

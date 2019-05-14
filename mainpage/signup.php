@@ -13,7 +13,8 @@
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-    <script src='../lib/webchat.min.js'></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="../lib/webchat.js"></script>
     <style type="text/css">
     	.login-form {
     		width: 385px;
@@ -94,8 +95,11 @@
     var type = null;
     var job = null;
     var workplace = null;
+    var fb = null;
     var ig = null;
     var twitter = null;
+    var positionLat = 10.003115; 
+    var positionLng = 105.775900;
     function handleSignUp() {
       fullname = document.getElementById('username').value;
       email = document.getElementById('email').value;
@@ -105,6 +109,7 @@
       job = document.getElementById('job').value;
       workplace = document.getElementById('workplace').value;
       ig = document.getElementById('ig').value;
+      fb = document.getElementById('fb').value;
       twitter = document.getElementById('twitter').value;
       if(document.getElementById('r1').checked){
         type = document.getElementById('r1').value;
@@ -142,9 +147,12 @@
                     password: password,
                     job: job,
                     workplace: workplace,
+                    fb: fb,
                     ig: ig,
                     twitter: twitter,
-                    type: type
+                    type: type,
+                    positionLat: 10.003115,  
+                    positionLng: 105.775900
                 }
             };
             firebase.database().ref('user/' + uid).update(postData);
@@ -167,6 +175,7 @@
     }
     //import * as myModule from '../lib/webchat.min.js';   
     function initApp() {
+        WebChat.createUser('testtt', 'testttt', () => console.log('ok'));
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 login = 1;
@@ -176,19 +185,19 @@
                 var photoURL = user.photoURL;
                 var isAnonymous = user.isAnonymous;
                 uid = user.uid;
+                console.log(uid);
+                console.log(WebChat.createUser);
+               
+                //WebChat.createUser(uid, user.displayName);
+
                 // check login aldready
                 var check = database.ref('user/'+uid+'/moreinfo');
                 check.on('value', function(snapshot) {
                     if (snapshot.val() != null) window.location = '../'
                 });
-                //console.log(more
-                //if (moreInfo != null) window.location = '../'
-                
-                // sign in webchat 
-                WebChat.createUser(uid, 'New user')
+
                 var providerData = user.providerData;
-                console.log(email);
-                console.log(dob);
+    
                 var postData = {
                     email: email, displayName: fullname, emailVerified: emailVerified,
                     photoURL: photoURL, isAnonymous: isAnonymous, uid: uid, providerData: user.providerData,
@@ -200,16 +209,16 @@
                         workplace: workplace,
                         ig: ig,
                         twitter: twitter,
-                        type: type
+                        fb: fb,
+                        type: type,
                     }
                 };
                 if(dob != null) {
                     firebase.database().ref('user/' + user.uid).update(postData);
                     window.location = "../";
                 }
-                document.getElementById('display').textContent= JSON.stringify(user, null, '  ');
             } else {
-                console.log('no user');
+                
             }
         });
         document.getElementById('submit').addEventListener('click', handleSignUp, false);
@@ -267,6 +276,11 @@
             </div> 
             <div class="form-group">
                 <div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" name="ig" placeholder="Facebook" id = "fb">      
+                </div>
+            </div>  
+            <div class="form-group">
+                <div class="input-group" style="width:100%;">
                     <input type="text" class="form-control" name="ig" placeholder="Instagram" id = "ig">      
                 </div>
             </div>  
@@ -279,7 +293,6 @@
                 <button class="btn btn-primary login-btn btn-block" type = "button" id = "submit">Submit</button>
             </div>
         </form>
-        <pre><code id="display">null</code></pre>
     </div>
 </body>
 </html>                            
