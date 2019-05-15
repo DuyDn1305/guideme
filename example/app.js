@@ -1,4 +1,4 @@
-WebChat.createUser('test2', 'abc');
+//WebChat.createUser('test2', 'abc');
 // chat = new WebChat('nganhvu');
 // const form = document.getElementById('message-form');
 // const messageField = document.getElementById('message');

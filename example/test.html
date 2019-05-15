@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+	<meta charset="utf-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/guideme/lib/webchat.js"></script>
+  </head>
+  <body>
+	<script>
+		WebChat.createUser('duydn', 'cc', data => console.log(data));
+		// $.post({
+		// 	url: '/guideme/lib/webchat.php',
+		// 	data: {createUser: {
+		// 		uniqueId: 'newUser',
+		// 		name: 'Newest'
+		// 	}}
+		// }).done(data => console.log(data));	
+	</script>
+  </body>
+</html>

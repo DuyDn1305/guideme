@@ -7,7 +7,7 @@ let notiBtn = menu.children[1]
 // chat container including 2 chat
 let chatContainer = document.body.getElementsByClassName('chat-container')[0]
 // chat
-let _room = document.querySelectorAll('[roomid]')
+let _room = document.querySelectorAll('[roomid~=asdasd]')
 let mesOnMesBox = []
 // right pane
 let containerSearch = document.body.children[1].children[2].children[1]

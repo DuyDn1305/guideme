@@ -88,3 +88,6 @@ function updateListCard(list) {
     showCard((user.photoURL != null) ? user.photoURL : './img/logo.png', user.displayName, "Nice to meet you", 'x'+k)
   })
 }
+
+
+//document.getElementById('myModal').style.display = 'block'

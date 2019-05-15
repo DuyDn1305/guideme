@@ -11,8 +11,8 @@
     <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+    <!-- Initialize Firebase -->
     <script>
-      // Initialize Firebase
        var config = {
         apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
         authDomain: "guideme1.firebaseapp.com",

@@ -32,14 +32,17 @@ function ready () {
       myInfo = user
       updateUserInfo(user)
       updateListCard(list)
+      /*
       loadScript('./src/googleapi.js', () => {
         // load map
         let script = document.createElement('script')
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCRrjsbv9NJ-w6vZEj7IqPxTT199l6zu3g&callback=initMap"
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCxmtSpYlPsOcoFz9knDyQwCbtanPjtwkU&callback=initMap"
         script.async = 'defer'
+        document.body.children[1].children[1].removeChild(document.body.children[1].children[1].lastChild)
         document.body.children[1].children[1].append(script)
         focusMe()
       })
+      */
       //renderMap()
     } else {
       console.log('faild to log')
