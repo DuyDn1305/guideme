@@ -11,24 +11,20 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <!--Include firebase-->
   
-  <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
   <script src="lib/webchat.js"></script>
   
-  <script defer>
-    function loadScript(src, f) {
-      let script = document.createElement('script')
-      script.src = src
-      document.head.append(script)
-      if (f != null) {
-        script.onload = f
-      }
-    }
-    loadScript('./src/firebase.js')
-  </script>
+  <script src="src/index.js"></script>
+  <script defer src="src/chat.js"></script>
+  <script defer src="src/card.js"></script>
+  <script defer src="src/logOut.js"></script>
+  <script defer src="src/myInfo.js"></script>
+
   <!--Add google api library-->
 </head>
 <body>
@@ -107,16 +103,5 @@
     this is footer
   </div>
   <div class='chat-container'></div>
-  <!--
-    <div id="myModal" class="modal">
-        
-          <div class="contentNgoc">
-            <span class="close">&times;</span>
-            <div class = "avatar-container">
-              <img src='./img/duydn.png' class='avatar'>
-            </div>
-          </div>
-      </div>
-  -->
 </body>
 </html>

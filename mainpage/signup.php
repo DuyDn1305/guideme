@@ -4,16 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Sign in Form with Facebook and Twitter Buttons</title>
+    <title>Sign up</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 	<script src="../lib/webchat.js"></script>
     <style type="text/css">
     	.login-form {
@@ -85,19 +86,8 @@
       let database = firebase.database();
     </script>
   <script type="text/javascript">
-    var email = null;
+    var email, password, cmnd, dob, fullname, uid, type, job, workplace, fb, ig, twitter;
     var login = 0;
-    var password = null;
-    var cmnd = null
-    var dob = null;
-    var fullname = null;
-    var uid = null;
-    var type = null;
-    var job = null;
-    var workplace = null;
-    var fb = null;
-    var ig = null;
-    var twitter = null;
     var positionLat = 10.003115; 
     var positionLng = 105.775900;
     function handleSignUp() {
@@ -175,7 +165,7 @@
     }
     //import * as myModule from '../lib/webchat.min.js';   
     function initApp() {
-        WebChat.createUser('testtt', 'testttt', () => console.log('ok'));
+        //WebChat.createUser('testtt', 'testttt', () => console.log('ok'));
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 login = 1;
@@ -188,7 +178,7 @@
                 console.log(uid);
                 console.log(WebChat.createUser);
                
-                //WebChat.createUser(uid, user.displayName);
+                WebChat.createUser(uid, user.displayName);
 
                 // check login aldready
                 var check = database.ref('user/'+uid+'/moreinfo');

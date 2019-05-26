@@ -278,34 +278,47 @@ body, html {
   color: #3498db;
 }
 .chat-container .chat .main-mess {
-  height: 270px;
+  overflow-y: scroll;
+  height: 240px;
 }
 .chat-container .chat .main-mess .message {
   padding: 5px;
   margin: 10px 0 10px 0;
+}
+.chat-container .chat .main-mess .message .mesContent {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
   flex: 1;
 }
-.chat-container .chat .main-mess .message .avatar {
+.chat-container .chat .main-mess .message .mesContent .avatar {
   border: 0;
   border-radius: 50%;
   height: 30px;
   width: 30px;
 }
-.chat-container .chat .main-mess .message .content .name {
+.chat-container .chat .main-mess .message .mesContent .content .name {
   font-weight: 12px;
   font-size: 12px;
   color: #bdc3c7;
   margin-left: 15px;
 }
-.chat-container .chat .main-mess .message .content .mes {
+.chat-container .chat .main-mess .message .mesContent .content .mes {
   margin-left: 10px;
   background: #ecf0f1;
   border: 0;
   border-radius: 10px;
   padding: 7px;
+}
+.chat-container .chat .main-mess .message .seen {
+  display: flex;
+  justify-content: flex-end;
+}
+.chat-container .chat .main-mess .message .seen .avatar {
+  height: 20px;
+  width: 20px;
+  border: 0px;
+  border-radius: 50%;
 }
 .chat-container .chat .main-mess .my-message {
   text-align: right;
@@ -321,8 +334,17 @@ body, html {
   background: #3498db;
   color: white;
 }
+.chat-container .chat .main-mess .my-message .seen {
+  display: flex;
+  justify-content: flex-end;
+}
+.chat-container .chat .main-mess .my-message .seen .avatar {
+  height: 20px;
+  width: 20px;
+  border: 0px;
+  border-radius: 50%;
+}
 .chat-container .chat .footer {
-  position: fixed;
   bottom: 0;
   width: 320px;
 }

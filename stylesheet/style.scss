@@ -305,23 +305,36 @@ body, html {
       }
     }
     .main-mess {
-      height: 270px;
+      overflow-y: scroll;
+      height: 240px;
       .message {
         padding: 5px;
         margin: 10px 0 10px 0;
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
-        @include mes-avatar-container;
-        .content {
-          .name {
-            font-weight: 12px;
-            font-size: 12px;
-            color: #bdc3c7;
-            margin-left: 15px;
+        .mesContent {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+          @include mes-avatar-container;
+          .content {
+            .name {
+              font-weight: 12px;
+              font-size: 12px;
+              color: #bdc3c7;
+              margin-left: 15px;
+            }
+            .mes {
+              @include mes;
+            }
           }
-          .mes {
-            @include mes;
+        }
+        .seen {
+          display: flex;
+          justify-content: flex-end;
+          .avatar {
+            height: 20px;
+            width: 20px;
+            border: 0px;
+            border-radius: 50%;
           }
         }
       } 
@@ -335,10 +348,19 @@ body, html {
           color: white;
           
         }
+        .seen {
+          display: flex;
+          justify-content: flex-end;
+          .avatar {
+            height: 20px;
+            width: 20px;
+            border: 0px;
+            border-radius: 50%;
+          }
+        }
       }
     }
     .footer {
-      position: fixed;
       bottom: 0;
       width: 320px;
       .input {
