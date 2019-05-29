@@ -1,4 +1,5 @@
-ready.push(() => {
+ready.push(flag => {
+  if (flag) return;
   let myAvatar = profilePane.children[0].children[0]
   let myTable = profilePane.children[1].children[0]
   let link = profilePane.children[2]

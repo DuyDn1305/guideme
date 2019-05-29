@@ -16,6 +16,9 @@ let user, chat, ready = [];
 firebase.auth().onAuthStateChanged(currentUser => {
   if (currentUser) {
     user = currentUser
+    let flag = 0;
+    let proBarWidth = 0;
+    let progBar = document.getElementById('progressBar');
     db.ref('user').on('value', snap => {
       list.uid = []; list.data = {}
       snap = snap.val()
@@ -23,7 +26,13 @@ firebase.auth().onAuthStateChanged(currentUser => {
         list.uid.push(k);
         list.data[k] = snap[k];
       }
-      ready.forEach(e => e());
+      let addition = 100.0 / ready.length;
+      ready.forEach(e => {
+        e(flag)
+        proBarWidth += addition;
+        progBar.style.width = Math.round(proBarWidth) + '%';
+      });
+      flag = 1;
     });
   } else {
     console.log('faild to log')
@@ -53,7 +62,7 @@ ready.push(() =>  {
   // chat
   mesOnMesBox = []
   // right pane
-  containerSearch = document.body.children[1].children[2].children[1]
+  containerSearch = document.body.children[2].children[2].children[1]
   cardContainer = containerSearch.children[0]
   // mes click (card)
   toolbarCard

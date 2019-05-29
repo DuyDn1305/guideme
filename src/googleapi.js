@@ -1,4 +1,5 @@
-ready.push(() => {
+ready.push(flag => {
+  if (flag) return;
   console.log('googleapi.js loaded')
   
   window.initMap = () => {

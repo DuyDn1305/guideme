@@ -1,4 +1,5 @@
-ready.push(() => {
+ready.push(flag => {
+  if (flag) return;
   logOut.onclick = () => {
     firebase.auth().signOut();
     window.location = './mainpage'

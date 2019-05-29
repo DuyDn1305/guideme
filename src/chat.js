@@ -1,4 +1,5 @@
-ready.push(() => {
+ready.push(flag => {
+  if (flag) return;
   chat.on('Message', (roomId, msg) => {
     let sender = list.data[msg.sender.id]
     if (!roomIsOnChat(roomId)) {

@@ -1,10 +1,10 @@
-ready.push(() => { chat.ready = () => {
+ready.push(flag => { chat.ready = () => {
   while (cardContainer.children[0] != null) cardContainer.children[0].remove()
   list.uid.forEach(k => {
     const user = list.data[k]
     showCard(user)
   })
-
+  if (flag) return;
   function showCard(target) {
     let src = target.photoURL
     let name = target.displayName
@@ -37,7 +37,7 @@ ready.push(() => { chat.ready = () => {
     toolbarContainer.append(_req)
     
     _mes.onclick = () => {
-      getRoom(target.uid, (roomId, msg) => {
+        Room(target.uid, (roomId, msg) => {
         // close mesBox
         turnOff('mes-box')
         //remove if over 2 child
