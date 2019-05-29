@@ -37,7 +37,7 @@ ready.push(flag => { chat.ready = () => {
     toolbarContainer.append(_req)
     
     _mes.onclick = () => {
-        Room(target.uid, (roomId, msg) => {
+        getRoom(target.uid, (roomId, msg) => {
         // close mesBox
         turnOff('mes-box')
         //remove if over 2 child
