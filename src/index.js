@@ -38,7 +38,7 @@ function newElement (type, classname = '', context = '') {
   return newEle
 }
 
-let header, menu, mesBtn, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap;
+let header, menu, mesBtn, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow;
 
 ready.push(() =>  {
   chat = new WebChat(user.uid);
