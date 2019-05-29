@@ -164,7 +164,7 @@
           firebase.database().ref('user/' + user.uid).update(postData);
           firebase.database().ref('/user/' + user.uid + '/moreinfo').once('value').then(function(snap) {
               if(snap.val() == null){
-                window.location = 'signup.php';
+                window.location = 'signup.html';
               } else {
                 window.location = '../'
               } 

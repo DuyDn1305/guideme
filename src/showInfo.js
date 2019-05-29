@@ -7,5 +7,11 @@ ready.push(() => {
   // name
   myTable.children[0].innerHTML = user.displayName
   
+  window.getInfo = (target = user) => {
+    let profile
+    
+    return profile
+  }
+
   console.log('myInfo.js loadded')
 })
