@@ -30,7 +30,7 @@
 			$this->clients->detach($from);
 			if (!$this->clients->count()) {
 				global $db, $server;
-				$db->query("UPDATE server SET status=0 WHERE port=$this->port");
+				$db->query("UPDATE wsport SET status=0 WHERE port=$this->port");
 				$server->loop->stop();
 			}
 		}
