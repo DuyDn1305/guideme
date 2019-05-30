@@ -38,6 +38,9 @@ MESSAGER
 -status seen or not
 -special (this guy is guiding me)
 
+PROFILE
+-click to inspect popup one's profile 
+
 *reponsive
 
 *administrator (account, comment, rate, request sort theo thu tu thoi gian)
@@ -49,3 +52,4 @@ FRONT-END
 +google filter
 +pop up
 +show all comments, rates
++profile (user, users)
