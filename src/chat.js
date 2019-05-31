@@ -176,7 +176,7 @@ function guideme_chat(flag) {
     // avatar
     ids.forEach(id => {
       let avt = newElement('IMG', 'avatar')
-      avt.src = list.data[id].photoURL
+      avt.src = userList[id].photoURL
       avt.setAttribute('id', id)
       seen.append(avt);
     })
@@ -217,7 +217,7 @@ function guideme_chat(flag) {
   addSeen = (userId, roomId, mid) => {
     removeSeen(roomId, userId)
     let avt = newElement('IMG', 'avatar')
-    avt.src = list.data[userId].photoURL
+    avt.src = userList[userId].photoURL
     avt.setAttribute('id', userId)
     let lastMsg = $(`[mid='${mid}']`)
     lastMsg.append(avt);
