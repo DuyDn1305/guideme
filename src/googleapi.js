@@ -1,6 +1,5 @@
-ready.push(flag => {
+function guideme_googleApi(flag) {
   if (flag) return;
-  console.log('googleapi.js loaded')
   
   window.initMap = () => {
     map = new google.maps.Map(xMap, {
@@ -19,11 +18,12 @@ ready.push(flag => {
         if (addPos != null) var marker = new google.maps.Marker({position: addPos, map: map});
       }
     })
-    console.log('marker loaded')
     infoWindow = new google.maps.InfoWindow;
+
+    console.log('marker loaded')
   }
   
-  window.focusMe = () => {
+  focusMe = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         var pos = {
@@ -72,4 +72,7 @@ ready.push(flag => {
   
   document.body.append(script)
   focusMe()
-})
+
+  incProBar();
+  console.log('googleapi.js loaded')
+}

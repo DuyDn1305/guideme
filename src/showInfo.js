@@ -1,4 +1,4 @@
-ready.push(flag => {
+function guideme_showInfo(flag) {
   if (flag) return;
   let myAvatar = profilePane.children[0].children[0]
   let myTable = profilePane.children[1].children[0]
@@ -14,5 +14,6 @@ ready.push(flag => {
     return profile
   }
 
+  incProBar();
   console.log('myInfo.js loadded')
-})
+}

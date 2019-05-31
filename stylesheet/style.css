@@ -208,6 +208,7 @@ body, html {
 }
 .header .menu-container .tool:hover {
   color: #ecf0f1;
+  cursor: pointer;
 }
 .header .menu-container .tool:active {
   color: white;
