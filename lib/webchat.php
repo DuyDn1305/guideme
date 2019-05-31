@@ -1,7 +1,7 @@
 <?php
 require_once('connect.php');
 
-if (!empty($_POST['chatkey'])) {
+if (isset($_POST['chatkey'])) {
 	echo json_encode(array(chat_instance_locator, chat_token));
 	exit;
 }

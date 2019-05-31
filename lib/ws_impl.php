@@ -21,6 +21,12 @@
 		}
 
 		function onMessage(ConnectionInterface $from, $req) {
+			if ($req == '"[WS_SERVER]: STOP"') {
+				global $db, $server;
+				$db->query("UPDATE wsport SET status=0 WHERE port=$this->port");
+				$server->loop->stop();
+				return;
+			}
 			foreach ($this->clients as $client) {
 				$client->send($req);
 			}
@@ -28,11 +34,6 @@
 
 		function onClose(ConnectionInterface $from) {
 			$this->clients->detach($from);
-			if (!$this->clients->count()) {
-				global $db, $server;
-				$db->query("UPDATE wsport SET status=0 WHERE port=$this->port");
-				$server->loop->stop();
-			}
 		}
 
 		function onError(ConnectionInterface $from, Exception $e) {

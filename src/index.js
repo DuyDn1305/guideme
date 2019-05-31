@@ -1,4 +1,4 @@
-var config = {
+const config = {
   apiKey: "AIzaSyDejD_sOSrt_GSGjyxDJj40nGTYCaJ5MJI",
   authDomain: "guideme1.firebaseapp.com",
   databaseURL: "https://guideme1.firebaseio.com",
@@ -9,80 +9,73 @@ var config = {
 };
 firebase.initializeApp(config);
 
-let db = firebase.database();
-const list = {uid: [], data:{}}
-let user, chat, ready = [];
-
-firebase.auth().onAuthStateChanged(currentUser => {
-  if (currentUser) {
-    user = currentUser
-    let flag = 0;
-    let proBarWidth = 0;
-    let progBar = document.getElementById('progressBar');
-    db.ref('user').on('value', snap => {
-      list.uid = []; list.data = {}
-      snap = snap.val()
-      for (let k in snap) {
-        list.uid.push(k);
-        list.data[k] = snap[k];
-      }
-      let addition = 100.0 / ready.length;
-      ready.forEach(e => {
-        e(flag)
-        proBarWidth += addition;
-        progBar.style.width = Math.round(proBarWidth) + '%';
-      });
-      flag = 1;
-    });
-  } else {
-    console.log('faild to log')
-    window.location = './mainpage'
-  }
-})
-
-function newElement (type, classname = '', context = '') {
-  let newEle = document.createElement(type)
-  newEle.setAttribute('class', classname)
-  newEle.innerHTML = context
-  return newEle
+function newElement(type, classname = '', context = '') {
+	let newEle = document.createElement(type)
+	newEle.setAttribute('class', classname)
+	newEle.innerHTML = context
+	return newEle
 }
 
-let header, menu, mesBtn, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow;
+let db = firebase.database();
+let user, userList, chat, ready = [];
 
-ready.push(() =>  {
-  chat = new WebChat(user.uid);
-  header = document.getElementsByClassName('header')[0]
-  menu = header.children[1]
-  // messager button
-  mesBtn = menu.children[0]
-  // noti button
-  notiBtn = menu.children[1]
-  // chat container including 2 chat
-  chatContainer = document.body.getElementsByClassName('chat-container')[0]
-  // chat
-  mesOnMesBox = []
-  // right pane
-  containerSearch = document.body.children[2].children[2].children[1]
-  cardContainer = containerSearch.children[0]
-  // mes click (card)
-  toolbarCard
-  logOut = menu.lastElementChild
-  //left pane
-  profilePane = document.getElementsByClassName('profile')[0]
-  xMap = document.getElementsByClassName('map')[0];
-  console.log('index');
+let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow;
+
+ready.push(flag => {
+	if (flag) return;
+	chat = new WebChat(user.uid);
+	header = document.getElementsByClassName('header')[0]
+	menu = header.children[1]
+	messageContainer = menu.children[0]
+	notiContainer = menu.children[1]
+	chatContainer = document.body.getElementsByClassName('chat-container')[0]
+	mesOnMesBox = []
+	containerSearch = document.body.children[2].children[2].children[1]
+	cardContainer = containerSearch.children[0]
+	logOut = menu.lastElementChild
+	profilePane = document.getElementsByClassName('profile')[0]
+	xMap = document.getElementsByClassName('map')[0];
   /*
   loadScript('./src/googleapi.js', () => {
-    // load map
-    let script = document.createElement('script')
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCxmtSpYlPsOcoFz9knDyQwCbtanPjtwkU&callback=initMap"
-    script.async = 'defer'
-    document.body.children[1].children[1].removeChild(document.body.children[1].children[1].lastChild)
-    document.body.children[1].children[1].append(script)
-    focusMe()
+	// load map
+	let script = document.createElement('script')
+	script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCxmtSpYlPsOcoFz9knDyQwCbtanPjtwkU&callback=initMap"
+	script.async = 'defer'
+	document.body.children[1].children[1].removeChild(document.body.children[1].children[1].lastChild)
+	document.body.children[1].children[1].append(script)
+	focusMe()
   })
   */
   //renderMap()
 })
+
+ready.push(guideme_chat);
+ready.push()
+
+firebase.auth().onAuthStateChanged(currentUser => {
+	if (currentUser) {
+		user = currentUser;
+		let flag = 0, proBarWidth = 0, addition = 100.0 / ready.length;
+		let progBar = document.getElementById('progressBar');
+
+		db.ref('user').on('value', snap => {
+			userList = {};
+			snap = snap.val();
+			for (let k in snap) userList[k] = snap[k];
+			ready.forEach(e => {
+				e(flag);
+				if (proBarWidth < 100) {
+					proBarWidth += addition;
+					progBar.style.width = Math.round(proBarWidth) + '%';
+					if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
+				}
+			});
+			flag = 1;
+		});
+	} else {
+		console.log('logged out');
+		window.location = './mainpage'
+	}
+});
 
 console.log('index.js');

@@ -1,16 +1,17 @@
-ready.push(flag => {
-  if (flag) return;
-  chat.on('Message', (roomId, msg) => {
-    let sender = list.data[msg.sender.id]
-    if (!roomIsOnChat(roomId)) {
-      chat.getMessages(roomId, null, 50, m => {
-        mesToChatContainer(roomId, m, sender);
-        addMes(msg.sender.id == user.uid, getMsg(msg), sender.displayName, sender.photoURL, roomId, msg.id)
-      })
-    } else {
-      addMes(msg.sender.id == user.uid, getMsg(msg), sender.displayName, sender.photoURL, roomId, msg.id)
-    }
-  })
+function guideme_chat(flag) {
+	if (flag) return;
+
+	chat.on('Message', (roomId, msg) => {
+		let sender = userList[msg.sender.id]
+		if (!roomIsOnChat(roomId)) {
+			chat.getMessages(roomId, null, 50, m => {
+				mesToChatContainer(roomId, m, sender);
+				addMes(msg.sender.id == user.uid, getMsg(msg), sender.displayName, sender.photoURL, roomId, msg.id)
+			})
+		} else {
+			addMes(msg.sender.id == user.uid, getMsg(msg), sender.displayName, sender.photoURL, roomId, msg.id)
+		}
+	})
 
   window.getRoom = (targetID, cb) => {
     WebChat.existRoom(user.uid, targetID, roomId => {
@@ -31,7 +32,7 @@ ready.push(flag => {
 
   console.log('chat.js loaded')
   let mesBtnOn = 0
-  mesBtn.onclick = function () {
+  messageContainer.onclick = function () {
     if (mesBtnOn) {
       turnOff('mes-box')
     } else {
@@ -47,7 +48,7 @@ ready.push(flag => {
   }
 
   let notiBtnOn = 0
-  notiBtn.onclick = function () {
+  notiContainer.onclick = function () {
     if (notiBtnOn) {
       turnOff('noti-box')
     } else {
@@ -252,4 +253,4 @@ ready.push(flag => {
     let lastMsg = $(`[mid='${mid}']`)
     lastMsg.append(avt);
   }
-})
+}

@@ -18,23 +18,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
 	<script src="lib/webchat.js"></script>
-	
-	<script src="src/index.js"></script>
-	<script defer src="src/chat.js"></script>
-	<script defer src="src/card.js"></script>
-	<script defer src="src/logOut.js"></script>
-	<script defer src="src/showInfo.js"></script>
-	<script defer src="src/googleapi.js"></script>
+	<script src="lib/RequestHandler.js"></script>
 
-	<!--Add google api library-->
+	<script src="src/chat.js"></script>
 
 	<style>
 		#progress {
 			width: 100%;
+			background-color: #4267b2;
 		}
 
 		#progressBar {
-			background-color: #4267b2;
+			background-color: rgb(81, 156, 255);
 			width: 1%;
 			height: 3px;
 			transition: 1s;
@@ -42,22 +37,23 @@
 	</style>
 </head>
 <body>
-	testzzz
 	<div id='progress'>
-		<div id='progressBar'> </div>
+		<div id='progressBar'></div>
 	</div>
+
 	<div class='header'>
 		<div class='logo-container'>
 			<img src='./img/logo.png'>
 		</div>
 		<div class='menu-container'>
-			<div class='tool'><span>Messager</span></div>
+			<div class='tool'><span>Messages</span></div>
 			<div class='tool'><span>Notifications</span></div>
 			<div class='tool'><span>About</span></div>
 			<div class='tool'><span>Request</span></div>
 			<div class='tool'><span>Log out</span></div> 
 		</div>
 	</div>
+
 	<div class='main'>
 		<div class='profile'>
 			<div class='avatar-container'>
@@ -76,12 +72,12 @@
 				</tr>
 				<tr style="display: flex;">
 					<td style="flex: 1;">
-							<p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>27</p>
-							<p style='color: #bdc3c7; margin: 0; font-size: 12px'>Comments</p>
+						<p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>27</p>
+						<p style='color: #bdc3c7; margin: 0; font-size: 12px'>Comments</p>
 					</td>
 					<td style="flex: 1; margin: 0;">
-							<p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>45</p>
-							<p style='color: #bdc3c7; margin: 0; font-size: 12px'>Stars</p>
+						<p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>45</p>
+						<p style='color: #bdc3c7; margin: 0; font-size: 12px'>Stars</p>
 					</td>
 				</tr>
 			</table>
@@ -100,9 +96,11 @@
 				<p>Status: visitor</p>
 			</div>
 		</div>
+
 		<div class='central'>
 			<div class='map'></div>
 		</div>
+
 		<div class='search'>
 			<div class='nav-container'>
 				<input type="text" placeholder="Search" class='inp'>
@@ -116,9 +114,17 @@
 			</div>
 		</div>
 	</div>
+
 	<div class='footer'>
 		this is footer
 	</div>
+
 	<div class='chat-container'></div>
+
+	<script src="src/index.js"></script>
+	<!-- <script src="src/card.js"></script>
+	<script src="src/logOut.js"></script>
+	<script src="src/showInfo.js"></script>
+	<script src="src/googleapi.js"></script> -->
 </body>
 </html>
