@@ -38,7 +38,7 @@ MESSAGER
 -status seen or not
 -special (this guy is guiding me)
 
-PROFILE
+PROFILE (done by duy + ngoc)
 -click to inspect popup one's profile 
 
 UPDATE MY PROFILE
@@ -52,6 +52,6 @@ FRONT-END
 +requset form (send->accpect->deny)
 +form (rate, comment)
 +google filter
-+pop up
++pop up (done by duy + ngoc)
 +show all comments, rates
-+profile (user, users)
++profile (user, users) (done by duy)

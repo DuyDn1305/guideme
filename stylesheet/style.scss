@@ -38,6 +38,62 @@ body, html {
   margin-bottom: 5px
 }
 
+
+%profile {
+  width: 300px;
+  @extend %bg ;
+  > .avatar-container {
+    text-align: center;
+    margin-bottom: 20px;
+    .avatar {
+      @include avatar;
+    }
+  }
+  > .about {
+    text-align: center;
+    border-bottom: 1px solid #ecf0f1;
+    margin-bottom: 16px;
+    > .name {
+      font-weight: 700;
+      margin: 0;
+    }
+    > .quote {
+      @extend %quote;
+    }
+    > .item-container {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+        > .item {
+          flex: 1;
+          > p:first-child {
+            font-weight: 800;
+          }
+          > p:last-child {
+            color: #bdc3c7; 
+            margin: 0; 
+            font-size: 12px
+          }
+        }
+    }
+  }
+  .link {
+    margin-bottom: 20px; 
+    border-bottom: 1px solid #ecf0f1;
+    display: none;
+    > p {
+      color: #3498db;
+      overflow: hidden;
+      > .show {
+        display: none;
+      }
+    }
+  }
+  .info {
+    color: #7f8c8d;
+  } 
+}
+
 .title {
   @include title;
 }
@@ -46,58 +102,7 @@ body, html {
   display: flex;
   margin-top: 5px;
   .profile {
-    flex: 2;
-    > .about {
-      text-align: center;
-      border-bottom: 1px solid #ecf0f1;
-      margin-bottom: 16px;
-      > .name {
-        font-weight: 700;
-        margin: 0;
-      }
-      > .quote {
-        @extend %quote;
-      }
-      > .item-container {
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-          > .item {
-            flex: 1;
-            > p:first-child {
-              font-weight: 800;
-            }
-            > p:last-child {
-              color: #bdc3c7; 
-              margin: 0; 
-              font-size: 12px
-            }
-          }
-      }
-    }
-    @extend %bg ;
-    .avatar-container {
-      text-align: center;
-      margin-bottom: 20px;
-      .avatar {
-        @include avatar;
-      }
-    }
-    .link {
-      margin-bottom: 20px; 
-      border-bottom: 1px solid #ecf0f1;
-      display: none;
-      > p {
-        color: #3498db;
-        overflow: hidden;
-        > .show {
-          display: none;
-        }
-      }
-    }
-    .info {
-      color: #7f8c8d;
-    }
+    @extend %profile;
   }
   .central {
     flex: 6;
@@ -476,11 +481,8 @@ body, html {
 
 .modal {
   display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
@@ -488,12 +490,12 @@ body, html {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.contentNgoc {
+.pop-container {
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%;
-  background-color: #fefefe;
+  width: 300px;
+  > .profile {
+    @extend %profile;
+  }
 }
 
 .close {

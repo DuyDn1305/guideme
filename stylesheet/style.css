@@ -5,7 +5,7 @@ body, html {
   font-family: "Open Sans", sans-serif;
 }
 
-.main .central, .main .profile {
+.main .central, .pop-container > .profile, .main .profile {
   box-shadow: 0 2px 50px -10px #7f8c8d;
   background: white;
   margin: 5px;
@@ -13,9 +13,65 @@ body, html {
   height: 100%;
 }
 
-.main .search .container .card-container .card .info-container .quote, .main .profile > .about > .quote {
+.main .search .container .card-container .card .info-container .quote, .pop-container > .profile > .about > .quote, .main .profile > .about > .quote {
   color: #7f8c8d;
   font-style: italic;
+}
+
+.pop-container > .profile, .main .profile {
+  width: 300px;
+}
+.pop-container > .profile > .avatar-container, .main .profile > .avatar-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.pop-container > .profile > .avatar-container .avatar, .main .profile > .avatar-container .avatar {
+  height: 100px;
+  width: 100px;
+  border: 3px solid white;
+  box-shadow: 0 0 10px 2px #ecf0f1;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.pop-container > .profile > .about, .main .profile > .about {
+  text-align: center;
+  border-bottom: 1px solid #ecf0f1;
+  margin-bottom: 16px;
+}
+.pop-container > .profile > .about > .name, .main .profile > .about > .name {
+  font-weight: 700;
+  margin: 0;
+}
+.pop-container > .profile > .about > .item-container, .main .profile > .about > .item-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+.pop-container > .profile > .about > .item-container > .item, .main .profile > .about > .item-container > .item {
+  flex: 1;
+}
+.pop-container > .profile > .about > .item-container > .item > p:first-child, .main .profile > .about > .item-container > .item > p:first-child {
+  font-weight: 800;
+}
+.pop-container > .profile > .about > .item-container > .item > p:last-child, .main .profile > .about > .item-container > .item > p:last-child {
+  color: #bdc3c7;
+  margin: 0;
+  font-size: 12px;
+}
+.pop-container > .profile .link, .main .profile .link {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ecf0f1;
+  display: none;
+}
+.pop-container > .profile .link > p, .main .profile .link > p {
+  color: #3498db;
+  overflow: hidden;
+}
+.pop-container > .profile .link > p > .show, .main .profile .link > p > .show {
+  display: none;
+}
+.pop-container > .profile .info, .main .profile .info {
+  color: #7f8c8d;
 }
 
 .title {
@@ -32,61 +88,6 @@ body, html {
 .main {
   display: flex;
   margin-top: 5px;
-}
-.main .profile {
-  flex: 2;
-}
-.main .profile > .about {
-  text-align: center;
-  border-bottom: 1px solid #ecf0f1;
-  margin-bottom: 16px;
-}
-.main .profile > .about > .name {
-  font-weight: 700;
-  margin: 0;
-}
-.main .profile > .about > .item-container {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-}
-.main .profile > .about > .item-container > .item {
-  flex: 1;
-}
-.main .profile > .about > .item-container > .item > p:first-child {
-  font-weight: 800;
-}
-.main .profile > .about > .item-container > .item > p:last-child {
-  color: #bdc3c7;
-  margin: 0;
-  font-size: 12px;
-}
-.main .profile .avatar-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.main .profile .avatar-container .avatar {
-  height: 100px;
-  width: 100px;
-  border: 3px solid white;
-  box-shadow: 0 0 10px 2px #ecf0f1;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-.main .profile .link {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ecf0f1;
-  display: none;
-}
-.main .profile .link > p {
-  color: #3498db;
-  overflow: hidden;
-}
-.main .profile .link > p > .show {
-  display: none;
-}
-.main .profile .info {
-  color: #7f8c8d;
 }
 .main .central {
   flex: 6;
@@ -453,14 +454,10 @@ body, html {
 .modal {
   display: none;
   /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
   z-index: 1;
   /* Sit on top */
   padding-top: 100px;
   /* Location of the box */
-  left: 0;
-  top: 0;
   width: 100%;
   /* Full width */
   height: 100%;
@@ -473,14 +470,10 @@ body, html {
   /* Black w/ opacity */
 }
 
-.contentNgoc {
+.pop-container {
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 30%;
-  background-color: #fefefe;
+  width: 300px;
 }
-
 .close {
   color: #aaaaaa;
   float: right;

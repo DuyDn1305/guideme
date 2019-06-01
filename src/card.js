@@ -51,21 +51,22 @@ function guideme_card(flag) {
       })
     }
 
-  var modal = document.getElementById("myModal");
-  var span = document.getElementsByClassName("close")[0];
-  _user.onclick = () => {
-    let _src = './img/duydn.png'
-    let _name = name
-    modal.style.display = "block";
-  }
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-  window.addEventListener('click', function(event) {
-    if (event.target == modal) {
+    let modal = document.getElementById("myModal")
+    let span = document.getElementsByClassName("close")[0]
+    let targetProfile = modal.children[0].children[1]
+    _user.onclick = () => {
+      viewProfile = new Profile(target, targetProfile)
+      viewProfile.getInfo()
+      modal.style.display = "block"
+    }
+    span.onclick = function() {
       modal.style.display = "none";
     }
-  })
+    window.addEventListener('click', function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    })
 
     let card = newElement('DIV', 'card')
     card.append(avatarContainer)
