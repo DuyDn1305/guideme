@@ -186,11 +186,11 @@ body, html {
   color: #2c3e50;
 }
 
-#progess {
+#progress {
   width: 100%;
   background-color: #4267b2;
 }
-#progess #progressBar {
+#progress #progressBar {
   background-color: #519cff;
   width: 1%;
   height: 3px;
