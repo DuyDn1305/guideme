@@ -30,6 +30,7 @@ function incProBar() {
 ready.push(flag => {
 	if (flag) return;
 	chat = new WebChat(user.uid);
+	chat.readyLastRun = () => incProBar();
 	header = document.getElementsByClassName('header')[0]
 	menu = header.children[1]
 	messageContainer = menu.children[0]
@@ -42,14 +43,14 @@ ready.push(flag => {
 	profilePane = document.getElementsByClassName('profile')[0]
 	xMap = document.getElementsByClassName('map')[0];
 	
-    incProBar();
+  incProBar();
 })
 
-ready.push(guideme_chat);
 ready.push(guideme_card);
+ready.push(guideme_showInfo);
+ready.push(guideme_chat);
 ready.push(guideme_googleApi);
 ready.push(guideme_logout);
-ready.push(guideme_showInfo);
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {

@@ -7,17 +7,14 @@ function guideme_googleApi(flag) {
       zoom: 6,
       //mapTydeId: google.maps.MapTypeId.ROADMAP
     });
-    console.log(list.uid)
-    list.uid.forEach(i => {
-      //console.log(i)
-      if (i != user.uid) {
-        k = list.data[i].moreinfo
-        //console.log(k)
+
+    for (let k in userList) {
+      if (k != user.uid) {
         let addPos = {lat: k.positionLat, lng: k.positionLng}
         //console.log(addPos)
         if (addPos != null) var marker = new google.maps.Marker({position: addPos, map: map});
       }
-    })
+    }
     infoWindow = new google.maps.InfoWindow;
 
     console.log('marker loaded')
@@ -33,11 +30,15 @@ function guideme_googleApi(flag) {
         //db.ref('user/'+user+'/position').update({
         //  position: pos
         //})
-        console.log(infoWindow)
-        infoWindow.setPosition(pos);
-        infoWindow.setContent("Location found");
-        infoWindow.open(map);
-        map.setCenter(pos);
+
+        if (infoWindow) {
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("Location found");
+          infoWindow.open(map);
+        }
+        
+        if (map) map.setCenter(pos);
+
         if (user != null) db.ref('user/' + user.uid+'/moreinfo').update({
           positionLat: pos.lat, 
           positionLng: pos.lng
@@ -61,6 +62,7 @@ function guideme_googleApi(flag) {
   }
   
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    if (!infoWindow) return;
     infoWindow.setPosition(pos);
     infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);

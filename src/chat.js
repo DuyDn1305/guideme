@@ -223,6 +223,5 @@ function guideme_chat(flag) {
     lastMsg.append(avt);
   }
 
-  incProBar();
   console.log('chat.js loaded')
 }
