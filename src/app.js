@@ -61,8 +61,8 @@ firebase.auth().onAuthStateChanged(currentUser => {
 		db.ref('user').on('value', snap => {
 			userList = {};
 			snap = snap.val();
+			userList = snap;
 			for (let k in snap) if (k == currentUser.uid) user = snap[k]
-			userList = snap.val();
 			ready.forEach(e => {
 				e(flag);
 			});
