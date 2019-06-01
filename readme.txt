@@ -41,6 +41,8 @@ MESSAGER
 PROFILE
 -click to inspect popup one's profile 
 
+UPDATE MY PROFILE
+
 *reponsive
 
 *administrator (account, comment, rate, request sort theo thu tu thoi gian)

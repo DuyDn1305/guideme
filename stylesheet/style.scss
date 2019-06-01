@@ -13,6 +13,11 @@ body, html {
   height: 100%;
 }
 
+%quote {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
 @mixin avatar {
   height: 100px;
   width: 100px;
@@ -42,29 +47,53 @@ body, html {
   margin-top: 5px;
   .profile {
     flex: 2;
-    .table {
-      text-align: center; 
-      border: 0; width: 100%; 
-      margin-bottom: 20px; 
-      border-bottom: 1px solid #ecf0f1
+    > .about {
+      text-align: center;
+      border-bottom: 1px solid #ecf0f1;
+      margin-bottom: 16px;
+      > .name {
+        font-weight: 700;
+        margin: 0;
+      }
+      > .quote {
+        @extend %quote;
+      }
+      > .item-container {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+          > .item {
+            flex: 1;
+            > p:first-child {
+              font-weight: 800;
+            }
+            > p:last-child {
+              color: #bdc3c7; 
+              margin: 0; 
+              font-size: 12px
+            }
+          }
+      }
     }
     @extend %bg ;
     .avatar-container {
       text-align: center;
+      margin-bottom: 20px;
       .avatar {
         @include avatar;
       }
     }
     .link {
-      .yes {
-        color: #3498db;
-      }
-      .no {
-        color: #bdc3c7;
-        text-decoration: line-through;
-      }
       margin-bottom: 20px; 
-      border-bottom: 1px solid #ecf0f1
+      border-bottom: 1px solid #ecf0f1;
+      display: none;
+      > p {
+        color: #3498db;
+        overflow: hidden;
+        > .show {
+          display: none;
+        }
+      }
     }
     .info {
       color: #7f8c8d;
@@ -109,8 +138,7 @@ body, html {
               font-weight: bold;
             }
             .quote {
-              color: #7f8c8d;
-              font-style: italic;
+              @extend %quote;
             }
           }
         }

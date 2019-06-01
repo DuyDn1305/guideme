@@ -19,7 +19,7 @@ function newElement(type, classname = '', context = '') {
 let db = firebase.database();
 let user, userList, chat, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
-let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow;
+let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
 
 function incProBar() {
 	proBarWidth += proBarAddition;
@@ -47,20 +47,23 @@ ready.push(flag => {
 
 ready.push(guideme_chat);
 ready.push(guideme_card);
-ready.push(guideme_googleApi);
+//ready.push(guideme_googleApi);
 ready.push(guideme_logout);
 ready.push(guideme_showInfo);
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {
-		user = currentUser;
+		//user = currentUser;
 		let flag = 0;
 		proBarAddition = 100.0 / ready.length;
 
 		db.ref('user').on('value', snap => {
 			userList = {};
 			snap = snap.val();
-			for (let k in snap) userList[k] = snap[k];
+			for (let k in snap) {
+				userList[k] = snap[k];
+				if (k == currentUser.uid) user = snap[k]
+			}
 			ready.forEach(e => {
 				e(flag);
 			});
