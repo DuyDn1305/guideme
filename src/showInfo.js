@@ -15,17 +15,17 @@ class Profile {
       about.children[2].children[2].children[0].innerHTML = 23 // stars
     let link = this.profile.children[2]
       let moreinfo = user.moreinfo
-      let linkInfo = [moreinfo.fb, moreinfo.twitter, moreinfo.ig, user.email]
-      for (let k in [0, 1, 2, 3]) {
-        if (linkInfo[k] != null) {
+      let linkInfo = [moreinfo.fb, moreinfo.twitter, moreinfo.ig, user.email] 
+      linkInfo.forEach((value, k) => {
+        if (value) {
           link.children[k].style.display = 'block'
-          link.children[k].children[1].attributes.href = linkInfo[k]
-          link.children[k].children[2].innerHTML = linkInfo[k]
+          link.children[k].children[1].attributes.href = value
+          link.children[k].children[2].innerHTML = value
           link.children[k].onhover = () => {
             link.children[k].children[2].style.display = 'block'
           }
         }
-      }
+      })
     let info = this.profile.children[3]
       let year = new Date(user.moreinfo.dob).getFullYear()
       let thisYear = new Date()
@@ -38,8 +38,8 @@ class Profile {
   }
 }
 
-function guideme_showInfo (flag) {
-  if (flag) return;
+function guideme_showInfo () {
+  if (firstLoad) return;
   profilePane = new Profile()
   profilePane.getInfo()
   incProBar();

@@ -1,11 +1,11 @@
-function guideme_card(flag) {
+function guideme_card() {
   while (cardContainer.children[0] != null) cardContainer.children[0].remove()
 
   for (let k in userList) {
     showCard(userList[k]);
   }
 
-  if (flag) return;
+  if (firstLoad) return;
 
   function showCard(target) {
     let src = target.photoURL

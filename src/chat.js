@@ -98,8 +98,8 @@ function getRoom (targetID, cb) {
   })
 }
 
-function guideme_chat(flag) {
-	if (flag) return;
+function guideme_chat() {
+	if (firstLoad) return;
 
 	chat.on('Message', (roomId, msg) => {
 		let sender = userList[msg.sender.id]

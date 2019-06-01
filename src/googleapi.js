@@ -1,5 +1,5 @@
-function guideme_googleApi(flag) {
-  if (flag) return;
+function guideme_googleApi() {
+  if (firstLoad) return;
   
   window.initMap = () => {
     map = new google.maps.Map(xMap, {

@@ -1,11 +1,6 @@
 <?php
 require_once('connect.php');
 
-if (isset($_POST['chatkey'])) {
-	echo json_encode(array(chat_instance_locator, chat_token));
-	exit;
-}
-
 if (isset($_POST['createUser'])) {
 	$data = $_POST['createUser'];
 	$chatkit->createUser([

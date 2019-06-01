@@ -17,18 +17,18 @@ function newElement(type, classname = '', context = '') {
 }
 
 let db = firebase.database();
-let user, userList, chat, ready = [];
+let user, userList, chat, firstLoad, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
 
 function incProBar() {
 	proBarWidth += proBarAddition;
-    progBar.style.width = Math.round(proBarWidth) + '%';
-    if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
+	progBar.style.width = Math.round(proBarWidth) + '%';
+	if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
 }
 
-ready.push(flag => {
-	if (flag) return;
+ready.push(() => {
+	if (firstLoad) return;
 	chat = new WebChat(user.uid);
 	chat.readyLastRun = () => incProBar();
 	header = document.getElementsByClassName('header')[0]
@@ -54,19 +54,13 @@ ready.push(guideme_logout);
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {
-		//user = currentUser;
-		let flag = 0;
 		proBarAddition = 100.0 / ready.length;
 
 		db.ref('user').on('value', snap => {
-			userList = {};
-			snap = snap.val();
-			userList = snap;
-			for (let k in snap) if (k == currentUser.uid) user = snap[k]
-			ready.forEach(e => {
-				e(flag);
-			});
-			flag = 1;
+			userList = snap.val();
+			user = userList[currentUser.uid];
+			ready.forEach(e => e());
+			firstLoad = 1;
 		});
 	} else {
 		console.log('logged out');
