@@ -9,7 +9,7 @@ class Profile {
       avatar.src = user.photoURL
     let about = this.profile.children[1]
       about.children[0].innerHTML = user.displayName
-      about.children[1].innerHTML = user.quote | 'NICE TO MEET YOU'
+      about.children[1].innerHTML = user.quote || 'NICE TO MEET YOU'
       about.children[2].children[0].children[0].innerHTML = 23 // comments
       about.children[2].children[1].children[0].innerHTML = 23 // rates
       about.children[2].children[2].children[0].innerHTML = 23 // stars
