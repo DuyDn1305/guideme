@@ -58,9 +58,7 @@ firebase.auth().onAuthStateChanged(currentUser => {
 		proBarAddition = 100.0 / ready.length;
 
 		db.ref('user').on('value', snap => {
-			userList = {};
-			snap = snap.val();
-			for (let k in snap) userList[k] = snap[k];
+			userList = snap.val();
 			ready.forEach(e => {
 				e(flag);
 			});
