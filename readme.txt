@@ -43,9 +43,11 @@ PROFILE (done by duy + ngoc)
 
 UPDATE MY PROFILE
 
-*reponsive
+*REPONSIVE 
+-menu
+-left, right pane
 
-*administrator (account, comment, rate, request sort theo thu tu thoi gian)
+*administrator (account, comment, rate, request sort theo thu tu thoi gian, check CMND)
 
 FRONT-END
 +messager
