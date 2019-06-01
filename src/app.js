@@ -47,10 +47,9 @@ ready.push(flag => {
 })
 
 ready.push(guideme_card);
-//ready.push(guideme_googleApi);
 ready.push(guideme_showInfo);
 ready.push(guideme_chat);
-ready.push(guideme_googleApi);
+//ready.push(guideme_googleApi);
 ready.push(guideme_logout);
 
 firebase.auth().onAuthStateChanged(currentUser => {
