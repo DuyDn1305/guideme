@@ -30,6 +30,7 @@ function incProBar() {
 ready.push(flag => {
 	if (flag) return;
 	chat = new WebChat(user.uid);
+	chat.readyLastRun = () => incProBar();
 	header = document.getElementsByClassName('header')[0]
 	menu = header.children[1]
 	messageContainer = menu.children[0]
@@ -42,14 +43,15 @@ ready.push(flag => {
 	profilePane = document.getElementsByClassName('profile')[0]
 	xMap = document.getElementsByClassName('map')[0];
 	
-    incProBar();
+  incProBar();
 })
 
-ready.push(guideme_chat);
 ready.push(guideme_card);
 //ready.push(guideme_googleApi);
-ready.push(guideme_logout);
 ready.push(guideme_showInfo);
+ready.push(guideme_chat);
+ready.push(guideme_googleApi);
+ready.push(guideme_logout);
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {
@@ -60,10 +62,8 @@ firebase.auth().onAuthStateChanged(currentUser => {
 		db.ref('user').on('value', snap => {
 			userList = {};
 			snap = snap.val();
-			for (let k in snap) {
-				userList[k] = snap[k];
-				if (k == currentUser.uid) user = snap[k]
-			}
+			for (let k in snap) if (k == currentUser.uid) user = snap[k]
+			userList = snap.val();
 			ready.forEach(e => {
 				e(flag);
 			});

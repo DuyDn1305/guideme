@@ -1,4 +1,4 @@
-function guideme_card(flag) { chat.ready = () => {
+function guideme_card(flag) {
   while (cardContainer.children[0] != null) cardContainer.children[0].remove()
 
   for (let k in userList) {
@@ -30,6 +30,10 @@ function guideme_card(flag) { chat.ready = () => {
     let _req = newElement('DIV', 'req-container')
     let usericon = newElement('I', 'far fa-user-circle')
     let mesicon = newElement('I', 'fas fa-comment-dots')
+    if (!chat.loaded) {
+      mesicon.style.color = 'rgba(255, 255, 255, 0.5)';
+      chat.ready.push(() => mesicon.style.color = 'white');
+    }
     let reqicon = newElement('I', 'fas fa-check-square')
     _user.append(usericon)
     _mes.append(mesicon)
@@ -39,6 +43,7 @@ function guideme_card(flag) { chat.ready = () => {
     toolbarContainer.append(_req)
     
     _mes.onclick = () => {
+      if (!chat.loaded) return;
         getRoom(target.uid, (roomId, msg) => {
           messageContainer.children[1].style.display = 'none';
           notiContainer.children[1].style.display = 'none';
@@ -71,4 +76,5 @@ function guideme_card(flag) { chat.ready = () => {
   
   incProBar();
   console.log('card.js loaded')
-}}
+  //}
+}

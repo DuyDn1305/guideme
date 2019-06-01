@@ -181,17 +181,6 @@
       initApp();
     };
   </script>
-	<!--  theme picture
-	https://www.kendalltravels.com/wp-content/uploads/2016/11/travel6.jpg 
-	https://images.pexels.com/photos/2087391/pexels-photo-2087391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/414017/pexels-photo-414017.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/395196/pexels-photo-395196.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/753994/pexels-photo-753994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/897014/pexels-photo-897014.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940
-	-->
 <style>
 	body {
 		background-image: url("https://images.pexels.com/photos/372098/pexels-photo-372098.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
@@ -487,6 +476,7 @@
 	<script src="/guideme/lib/webchat.js"></script>
 </head>
 <body>
+	<div id="abc">plaplapla</div>
 	<header>
 		<center><img src="https://scontent.fsgn5-7.fna.fbcdn.net/v/t1.15752-9/59229937_421639848628236_6310739423906496512_n.png?_nc_cat=103&_nc_oc=AQlq52LreEHeb5U3Z8l7uwCNtNbSO9IqEA6BEriVjJ2ezmYt02I1lLw80aXCPZsgoEY&_nc_ht=scontent.fsgn5-7.fna&oh=bb25d39e6fc3f04fc95d26b0ac37a9da&oe=5D6B4BC1"></center>
 		<!--<center><img src="https://scontent.fsgn2-2.fna.fbcdn.net/v/t1.15752-9/59488076_177837689790997_4385895198220091392_n.png?_nc_cat=103&_nc_oc=AQkSvdCfSF7RlI3rYCcZi6u9K20qLsSwQj53LZAOXTLaKqSYufzhbj5TwS29bKyKyPc&_nc_ht=scontent.fsgn2-2.fna&oh=c81a01b4921dfcff209c823e01034f1b&oe=5D6E7B2E"></center>-->
@@ -641,5 +631,12 @@
 		</center>
 
 	</footer>
+	<script>
+			let abc = document.getElementById('abc');
+			var w = window.innerWidth
+	
+	var h = window.innerHeight
+			abc.innerHTML = w + ' '  + h;
+		</script>
 </body>
 </html>
