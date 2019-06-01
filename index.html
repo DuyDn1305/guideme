@@ -19,42 +19,30 @@
 	<script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
 	<script src="lib/webchat.js"></script>
 	<script src="lib/RequestHandler.js"></script>
-
-	<style>
-		#progress {
-			width: 100%;
-			background-color: #4267b2;
-		}
-
-		#progressBar {
-			background-color: rgb(81, 156, 255);
-			width: 1%;
-			height: 3px;
-			transition: 0.5s;
-		}
-	</style>
 </head>
 <body>
-	<div id='progress'>
-		<div id='progressBar'></div>
-	</div>
-
-	<div class='header'>
-		<div class='logo-container'>
-			<img src='./img/logo.png'>
+	<div class='sticky-top'>
+		<div id='progress'>
+			<div id='progressBar'></div>
 		</div>
-		<div class='menu-container'>
-			<div class='tool'>
-				<span>Messages</span>
-				<div class='mes-box' style="display: none;"></div>
+	
+		<div class='header'>
+			<div class='logo-container'>
+				<img src='./img/logo.png'>
 			</div>
-			<div class='tool'>
-				<span>Notifications</span>
-				<div class='noti-box' style="display: none;"></div>
+			<div class='menu-container'>
+				<div class='tool'>
+					<span>Messages</span>
+					<div class='mes-box' style="display: none;"></div>
+				</div>
+				<div class='tool'>
+					<span>Notifications</span>
+					<div class='noti-box' style="display: none;"></div>
+				</div>
+				<div class='tool'><span>About</span></div>
+				<div class='tool'><span>Request</span></div>
+				<div class='tool'><span>Log out</span></div> 
 			</div>
-			<div class='tool'><span>About</span></div>
-			<div class='tool'><span>Request</span></div>
-			<div class='tool'><span>Log out</span></div> 
 		</div>
 	</div>
 

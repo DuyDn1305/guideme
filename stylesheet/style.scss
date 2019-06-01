@@ -5,11 +5,6 @@ body, html {
   font-family: 'Open Sans', sans-serif;
 }
 
-.header {
-  background: #4267b2;
-  
-}
-
 %bg {
   box-shadow: 0 2px 50px -10px #7f8c8d;
   background: white;
@@ -203,12 +198,26 @@ body, html {
   }
 }
 
+#progess {
+  width: 100%;
+  background-color: #4267b2;
+  #progressBar {
+    background-color: rgb(81, 156, 255);
+    width: 1%;
+    height: 3px;
+    transition: 0.5s;
+  }
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px 0 20px;
   align-items: center;
+  background: #4267b2;
+  width: 100%;
+  z-index: 3000;
   .logo-container {
     
   }
