@@ -1,0 +1,9 @@
+$layout-breakpoint-small: 960px;
+
+@media (min-width: $layout-breakpoint-small) {
+  #page-wrapper > {
+    h1 {
+      color: red;
+    }
+  }
+}

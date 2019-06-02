@@ -38,7 +38,6 @@ body, html {
   margin-bottom: 5px
 }
 
-
 %profile {
   width: 300px;
   @extend %bg ;
@@ -80,8 +79,8 @@ body, html {
   .link {
     margin-bottom: 20px; 
     border-bottom: 1px solid #ecf0f1;
-    display: none;
     > p {
+      display: none;
       color: #3498db;
       overflow: hidden;
       > .show {
@@ -93,7 +92,6 @@ body, html {
     color: #7f8c8d;
   } 
 }
-
 .title {
   @include title;
 }
@@ -503,11 +501,9 @@ body, html {
   float: right;
   font-size: 28px;
   font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
+  &:hover {
+    color: #000;
   text-decoration: none;
   cursor: pointer;
+  }
 }

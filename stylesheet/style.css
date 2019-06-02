@@ -61,9 +61,9 @@ body, html {
 .pop-container > .profile .link, .main .profile .link {
   margin-bottom: 20px;
   border-bottom: 1px solid #ecf0f1;
-  display: none;
 }
 .pop-container > .profile .link > p, .main .profile .link > p {
+  display: none;
   color: #3498db;
   overflow: hidden;
 }
@@ -480,9 +480,7 @@ body, html {
   font-size: 28px;
   font-weight: bold;
 }
-
-.close:hover,
-.close:focus {
+.close:hover {
   color: #000;
   text-decoration: none;
   cursor: pointer;
