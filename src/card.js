@@ -2,7 +2,7 @@ function guideme_card() {
   while (cardContainer.children[0] != null) cardContainer.children[0].remove()
 
   for (let k in userList) {
-    showCard(userList[k]);
+    if (k != user.uid) showCard(userList[k]);
   }
 
   if (firstLoad) return;
@@ -45,8 +45,6 @@ function guideme_card() {
     _mes.onclick = () => {
       if (!chat.loaded) return;
         getRoom(target.uid, (roomId, msg) => {
-          messageContainer.children[1].style.display = 'none';
-          notiContainer.children[1].style.display = 'none';
           mesToChatContainer(roomId, msg, target)
       })
     }

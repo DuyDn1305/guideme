@@ -9,6 +9,19 @@ const config = {
 };
 firebase.initializeApp(config);
 
+function addLeadingZero(value) {
+	value = value.toString();
+	if (value.length == 1) value = '0' + value;
+	return value;
+}
+
+const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+function getTimeFormat(value, needDayName = 1) {
+	let res = (needDayName ? dayName[value.getDay()] : '') + ' ' + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + value.getFullYear() + ' at ';
+	res += addLeadingZero(value.getHours()) + ':' + addLeadingZero(value.getMinutes()) + ':' + addLeadingZero(value.getSeconds());
+	return res;
+}
+
 function newElement(type, classname = '', context = '') {
 	let newEle = document.createElement(type)
 	newEle.setAttribute('class', classname)
