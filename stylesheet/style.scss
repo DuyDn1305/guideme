@@ -465,9 +465,10 @@ body, html {
         padding: 0;
         color: black;
         font-weight: bold;
+        font-size: 14px;
       }
       > .mes {
-        font-size: 14px;
+        font-size: 13px;
         margin: 0;
         padding: 0;
         color: black;
@@ -475,8 +476,10 @@ body, html {
     }
     > .time {
       flex: 2;
+      font-size: 14px;
       color: #bdc3c7;
       text-align: right;
+      margin: 0;
     }
   }
 }
@@ -500,7 +503,7 @@ body, html {
       color: black;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 13px;
       > .info {
         white-space: nowrap;
         width: 150px;
@@ -508,6 +511,7 @@ body, html {
         text-overflow: ellipsis;  
         > .name {
           font-weight: 700;
+          font-size: 14px;
         }
         > .action {
         }
