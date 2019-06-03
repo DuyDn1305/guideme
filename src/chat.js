@@ -152,11 +152,11 @@ function guideme_chat() {
 		chat.getAllRooms(room => {
       chat.subscribe(room.id);
       chat.getMessages(room.id, null, 1, m => {
-        if (m.length) {
+        if (m.length) setTimeout(() => {
           let targetId;
           room.userIds.forEach(v => {if (v != user.uid) targetId = v;});
           showMes(userList[targetId], getMsg(m[0]), m[0].updatedAt, room.id)
-        }
+        }, 500);
       });
 		});
 		incProBar();
