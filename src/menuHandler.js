@@ -20,7 +20,6 @@ function guideme_menuHandler() {
   })
   window.addEventListener('click', event => {
     if (event.target != messageContainer.children[0] && event.target != mesBox && mesBox.style.display != 'none') {
-      console.log(event.target)
       mesBox.style.display = 'none'
       menu.children[0].children[0].style.color = '#bdc3c7'
     }
