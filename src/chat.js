@@ -154,7 +154,6 @@ function guideme_chat() {
       chat.getMessages(room.id, null, 1, m => {
         if (m.length) setTimeout(() => {
           let targetId;
-          console.log(room.userIds)
           room.userIds.forEach(v => {if (v != user.uid) targetId = v;});
           showMes(userList[targetId], getMsg(m[0]), m[0].updatedAt, room.id)
         }, 500);
@@ -196,7 +195,6 @@ function guideme_chat() {
     $(`[mcid='${roomId}']`).remove();
     let avatarContainer = newElement('DIV', 'avatar-container')
     let avatar = newElement('IMG', 'avatar')
-    console.log(target);
     avatar.src = target.photoURL
     avatarContainer.append(avatar)
     // tao info
