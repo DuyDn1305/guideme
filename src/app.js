@@ -66,7 +66,7 @@ ready.push(() => {
 
 ready.push(guideme_menuHandler)
 ready.push(guideme_card)
-//ready.push(guideme_request)
+ready.push(guideme_request)
 ready.push(guideme_showInfo)
 ready.push(guideme_chat)
 //ready.push(guideme_googleApi)
