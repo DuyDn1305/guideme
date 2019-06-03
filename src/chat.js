@@ -2,6 +2,51 @@ function roomIsOnChat(e) {
   return $(`[chatroomid~='${e}']`).length != 0
 }
 
+function addMes (me, context, mesTime, tname, src, roomId, mid, ids = []) {
+  let mainMess = $(`[chatroomid='${roomId}'`)
+  // add seen
+  let seen = newElement('DIV', 'seen')
+    seen.setAttribute('mid', mid)
+  // avatar
+  ids.forEach(id => {
+    let avt = newElement('IMG', 'avatar')
+    avt.src = userList[id].photoURL
+    avt.setAttribute('id', id)
+    seen.append(avt);
+  })
+  
+  if (me) {
+    let myMessage = newElement('DIV', 'my-message')
+    let content = newElement('DIV', 'content')
+    let mes = newElement('SPAN', 'mes', context)
+    mes.setAttribute('title', getTimeFormat(new Date(mesTime)))
+    content.append(mes)
+    myMessage.append(content)
+    // add seen
+    myMessage.append(seen)
+    mainMess.append(myMessage)
+  } else {
+    let message = newElement('DIV', 'message')
+    let mesContent = newElement('DIV', 'mesContent')
+    let avatarContainer = newElement('DIV', 'avatar-container')
+    let avatar = newElement('IMG', 'avatar')
+    avatar.src = src
+    avatarContainer.append(avatar)
+    let content = newElement('DIV', 'content')
+    let name = newElement('DIV', 'name', tname)
+    let mes = newElement('div', 'mes', context)
+    mes.setAttribute('title', getTimeFormat(new Date(mesTime)))
+    content.append(name)
+    content.append(mes)
+    mesContent.append(avatarContainer)
+    mesContent.append(content)
+    // add seen
+    message.append(mesContent)
+    message.append(seen)
+    mainMess.append(message)
+  }
+}
+
 function mesToChatContainer(roomId, messages, target) {
   // tao chat trong chat-container
   let mes = newElement('DIV', 'chat')
@@ -90,7 +135,7 @@ function mesToChatContainer(roomId, messages, target) {
 
 function getRoom (targetID, cb) {
   WebChat.existRoom(user.uid, targetID, roomId => {
-    if (roomId != '0') chat.getMessages(roomId, null, 10, m => cb(roomId, m));
+    if (roomId != '0') chat.getMessages(roomId, null, 30, m => cb(roomId, m));
     else {
       chat.createRoom({addUserIds: [`${targetID}`]}, room => {
         WebChat.markRoom(user.uid, targetID, room.id);
@@ -101,18 +146,32 @@ function getRoom (targetID, cb) {
 }
 
 function guideme_chat() {
-	if (firstLoad) return;
+  if (firstLoad) return;
+
+  chat.readyLastRun = () => {
+		chat.getAllRooms(room => {
+      chat.subscribe(room.id);
+      chat.getMessages(room.id, null, 1, m => {
+        if (m.length) {
+          let targetId;
+          room.userIds.forEach(v => {if (v != user.uid) targetId = v;});
+          showMes(userList[targetId], getMsg(m[0]), m[0].updatedAt, room.id)
+        }
+      });
+		});
+		incProBar();
+	};
 
 	chat.on('Message', (roomId, msg) => {
     let sender = userList[msg.senderId]
 		if (!roomIsOnChat(roomId)) {
 			chat.getMessages(roomId, null, 50, m => {
 				mesToChatContainer(roomId, m, sender);
-        if (msg.senderId != user.uid) showMes(sender, getMsg(msg), msg.updatedAt, roomId);
+        showMes(getRoomTarget(roomId), getMsg(msg), msg.updatedAt, roomId);
 			})
 		} else {
       addMes(msg.senderId == user.uid, getMsg(msg), msg.updatedAt, sender.displayName, sender.photoURL, roomId, msg.id)
-      if (msg.senderId != user.uid) showMes(sender, getMsg(msg), msg.updatedAt, roomId);
+      showMes(getRoomTarget(roomId), getMsg(msg), msg.updatedAt, roomId);
 		}
 	})
 
@@ -120,8 +179,20 @@ function guideme_chat() {
     addSeen(cursor.user.id, roomId, cursor.position);
   })
 
-  showMes = (target, message, mesTime, roomId) => {
-    $(`[mesid='${target.uid}']`).remove();
+  function getRoomTarget(roomId) {
+    let res;
+    chat.user.rooms.every(room => {
+      if (room.id == roomId) {
+        room.userIds.forEach(v => {if (v != user.uid) res = v;});
+        return false;
+      }
+      return true;
+    });
+    return userList[res];
+  }
+
+  function showMes(target, message, mesTime, roomId) {
+    $(`[mcid='${roomId}']`).remove();
     let avatarContainer = newElement('DIV', 'avatar-container')
     let avatar = newElement('IMG', 'avatar')
     avatar.src = target.photoURL
@@ -136,7 +207,7 @@ function guideme_chat() {
     let _time = newElement('P', 'time', getTimeFormat(new Date(mesTime), 0));
     // tao tin nhan
     let mes = newElement('DIV', 'mes-container')
-    mes.setAttribute('mesid', target.uid);
+    mes.setAttribute('mcid', roomId);
     mes.append(avatarContainer)
     mes.append(infoContainer)
     mes.append(_time)
@@ -154,56 +225,11 @@ function guideme_chat() {
     box.prepend(mes)
   }
 
-  addMes = (me, context, mesTime, tname, src, roomId, mid, ids = []) => {
-    let mainMess = $(`[chatroomid='${roomId}'`)
-    // add seen
-    let seen = newElement('DIV', 'seen')
-      seen.setAttribute('mid', mid)
-    // avatar
-    ids.forEach(id => {
-      let avt = newElement('IMG', 'avatar')
-      avt.src = userList[id].photoURL
-      avt.setAttribute('id', id)
-      seen.append(avt);
-    })
-    
-    if (me) {
-      let myMessage = newElement('DIV', 'my-message')
-      let content = newElement('DIV', 'content')
-      let mes = newElement('SPAN', 'mes', context)
-      mes.setAttribute('title', getTimeFormat(new Date()))
-      content.append(mes)
-      myMessage.append(content)
-      // add seen
-      myMessage.append(seen)
-      mainMess.append(myMessage)
-    } else {
-      let message = newElement('DIV', 'message')
-      let mesContent = newElement('DIV', 'mesContent')
-      let avatarContainer = newElement('DIV', 'avatar-container')
-      let avatar = newElement('IMG', 'avatar')
-      avatar.src = src
-      avatarContainer.append(avatar)
-      let content = newElement('DIV', 'content')
-      let name = newElement('DIV', 'name', tname)
-      let mes = newElement('div', 'mes', context)
-      mes.setAttribute('title', getTimeFormat(new Date()))
-      content.append(name)
-      content.append(mes)
-      mesContent.append(avatarContainer)
-      mesContent.append(content)
-      // add seen
-      message.append(mesContent)
-      message.append(seen)
-      mainMess.append(message)
-    }
-  }
-
-  removeSeen = (roomId, userId) => {
+  function removeSeen (roomId, userId) {
     $(`[chatroomid='${roomId}']`).find(`[id='${userId}']`).fadeOut('fast', function() { this.remove(); });
   }
 
-  addSeen = (userId, roomId, mid) => {
+  function addSeen (userId, roomId, mid) {
     removeSeen(roomId, userId, mid)
     let avt = newElement('IMG', 'avatar')
     avt.src = userList[userId].photoURL

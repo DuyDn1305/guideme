@@ -32,8 +32,13 @@ function newElement(type, classname = '', context = '') {
 let db = firebase.database();
 let user, userList, chat, firstLoad, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
+<<<<<<< HEAD
 let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox
+=======
+let header, menu, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
+let messageContainer, notiContainer, reqContainer
+>>>>>>> 8d88f4773c021b98d7efbca5adcb0d2849aff4d6
 
 function incProBar() {
 	proBarWidth += proBarAddition;
@@ -44,7 +49,6 @@ function incProBar() {
 ready.push(() => {
 	if (firstLoad) return;
 	chat = new WebChat(user.uid);
-	chat.readyLastRun = () => incProBar();
 	header = document.getElementsByClassName('header')[0]
 	// menu
 	menu = header.children[1]
@@ -53,7 +57,6 @@ ready.push(() => {
 	reqContainer = menu.children[2]
 	// chat
 	chatContainer = document.body.getElementsByClassName('chat-container')[0]
-	mesOnMesBox = []
 	// card pane
 	containerSearch = document.body.children[1].children[2].children[1]
 	cardContainer = containerSearch.children[0]

@@ -25,7 +25,7 @@ if (isset($_POST['exist'])) {
 	$id2 = $_POST['exist']['id2'];
 	if (strcmp($id1, $id2) > 0) swap($id1, $id2);
 	$res = $db->query("SELECT roomId from user WHERE id1='$id1' AND id2='$id2'");
-	if (!$res->num_rows) echo 0;
+	if (!$res->num_rows) echo '0';
 	else echo $res->fetch_assoc()['roomId'];
 	exit;
 }

@@ -7,7 +7,6 @@ function guideme_menuHandler() {
 
   box.forEach((e, k) => {
     menu.children[k].children[0].onclick = function () {
-      //for (let i in box) if (box[i] != e) box[i].style.display = 'none';
       if (e.style.display == 'none') {
         e.style.display = 'block'
         menu.children[k].children[0].style.color = 'white'
@@ -18,6 +17,7 @@ function guideme_menuHandler() {
       }
     }
   })
+
   window.addEventListener('click', event => {
     if (event.target != messageContainer.children[0] && event.target != mesBox && mesBox.style.display != 'none') {
       mesBox.style.display = 'none'
@@ -32,6 +32,7 @@ function guideme_menuHandler() {
       menu.children[2].children[0].style.color = '#bdc3c7'
     }
   })
-  console.log('menuHandler loadded')
+
+  console.log('menuHandler loaded')
   incProBar()
 }
