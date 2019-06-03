@@ -499,14 +499,12 @@ body, html {
     }
     > .option {
       width: 30px;
+      height: 30px;
+      align-items: center;
       > i {
         display: none;
       }
-      
-    }
-    &:hover {
-      background: #ecf0f1;
-      .option > i {
+      &:hover > i {
         display: block;
         color: #bdc3c7;  
         &:hover {
@@ -517,6 +515,9 @@ body, html {
           color: #7f8c8d;
         }
       }
+    }
+    &:hover {
+      background: #ecf0f1;
     }
   }
 }
