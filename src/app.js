@@ -33,7 +33,7 @@ let db = firebase.database();
 let user, userList, chat, firstLoad, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
-let messageContainer, notiContainer, reqContainer
+let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox
 
 function incProBar() {
 	proBarWidth += proBarAddition;
@@ -68,6 +68,7 @@ ready.push(() => {
 
 ready.push(guideme_menuHandler)
 ready.push(guideme_card)
+ready.push(guideme_request)
 ready.push(guideme_showInfo)
 ready.push(guideme_chat)
 //ready.push(guideme_googleApi)

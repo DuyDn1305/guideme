@@ -35,6 +35,9 @@ function guideme_card() {
       chat.ready.push(() => mesicon.style.color = 'white');
     }
     let reqicon = newElement('I', 'fas fa-check-square')
+    reqicon.onclick = () => {
+      showReq(target, 'Im please to guide you')
+    }
     _user.append(usericon)
     _mes.append(mesicon)
     _req.append(reqicon)

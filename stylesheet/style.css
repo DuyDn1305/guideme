@@ -18,6 +18,19 @@ body, html {
   font-style: italic;
 }
 
+.req-box > .item > .avatar-container, .mes-box > .mes-container > .avatar-container {
+  flex: 1;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.req-box > .item > .avatar-container > .avatar, .mes-box > .mes-container > .avatar-container > .avatar {
+  height: 40px;
+  width: 40px;
+  border: 0px;
+  box-shadow: 0 0 5px #7f8c8d;
+  border-radius: 50%;
+}
+
 .pop-container > .profile, .main .profile {
   width: 300px;
 }
@@ -409,17 +422,6 @@ body, html {
   display: flex;
   align-items: center;
 }
-.mes-box > .mes-container > .avatar-container {
-  flex: 1;
-  margin-right: 10px;
-}
-.mes-box > .mes-container > .avatar-container > .avatar {
-  height: 40px;
-  width: 40px;
-  border: 0px;
-  box-shadow: 0 0 5px #7f8c8d;
-  border-radius: 50%;
-}
 .mes-box > .mes-container > .info-container {
   flex: 7;
 }
@@ -459,6 +461,40 @@ body, html {
   right: -120px;
   position: absolute;
   box-shadow: 0 0 5px #bdc3c7;
+}
+.req-box > .item {
+  height: 70px;
+  padding: 5px;
+  border-bottom: 1px solid #ecf0f1;
+  display: flex;
+  align-items: center;
+}
+.req-box > .item > .content {
+  flex: 8;
+  color: black;
+}
+.req-box > .item > .content > .name {
+  font-weight: 700;
+}
+.req-box > .item > .option {
+  width: 30px;
+}
+.req-box > .item > .option > i {
+  display: none;
+}
+.req-box > .item:hover {
+  background: #ecf0f1;
+}
+.req-box > .item:hover .option > i {
+  display: block;
+  color: #bdc3c7;
+}
+.req-box > .item:hover .option > i:hover {
+  color: #95a5a6;
+  cursor: pointer;
+}
+.req-box > .item:hover .option > i:active {
+  color: #7f8c8d;
 }
 
 .modal {

@@ -1,8 +1,8 @@
 function guideme_menuHandler() {
   if (firstLoad) return;
-  let mesBox = document.getElementsByClassName('mes-box')[0]
-  let notiBox = document.getElementsByClassName('noti-box')[0]
-  let reqBox = document.getElementsByClassName('req-box')[0]
+  mesBox = document.getElementsByClassName('mes-box')[0]
+  notiBox = document.getElementsByClassName('noti-box')[0]
+  reqBox = document.getElementsByClassName('req-box')[0]
   let box = [mesBox, notiBox, reqBox]
 
   box.forEach((e, k) => {

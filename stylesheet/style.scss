@@ -27,6 +27,19 @@ body, html {
   margin-right: 10px;
 }
 
+%box-avatar > .avatar-container {
+  flex: 1;
+  margin-right: 10px;
+  margin-left: 10px;
+  > .avatar {
+    height: 40px;
+    width: 40px;  
+    border: 0px;
+    box-shadow: 0 0 5px #7f8c8d;
+    border-radius: 50%;
+  }
+} 
+
 @mixin title {
   background: white;
   border-bottom: 1px solid #ecf0f1;
@@ -439,17 +452,7 @@ body, html {
     border-bottom: 1px solid #ecf0f1;
     display: flex;
     align-items: center;
-    > .avatar-container {
-      flex: 1;
-      margin-right: 10px;
-      > .avatar {
-        height: 40px;
-        width: 40px;
-        border: 0px;
-        box-shadow: 0 0 5px #7f8c8d;
-        border-radius: 50%;
-      }
-    }
+    @extend %box-avatar;
     > .info-container {
       flex: 7;
       > .name {
@@ -477,6 +480,45 @@ body, html {
 
 .req-box {
   @include menu-box(550px, 400px, -120px);
+  > .item {
+    height:70px;
+    padding: 5px;
+    border-bottom: 1px solid #ecf0f1;
+    display: flex;
+    align-items: center;
+    @extend %box-avatar;
+    > .content {
+      flex: 8;
+      color: black;
+      > .name {
+        font-weight: 700;
+      }
+      > .action {
+        
+      }
+    }
+    > .option {
+      width: 30px;
+      > i {
+        display: none;
+      }
+      
+    }
+    &:hover {
+      background: #ecf0f1;
+      .option > i {
+        display: block;
+        color: #bdc3c7;  
+        &:hover {
+          color: #95a5a6;
+          cursor: pointer;
+        }
+        &:active {
+          color: #7f8c8d;
+        }
+      }
+    }
+  }
 }
 
 .modal {
