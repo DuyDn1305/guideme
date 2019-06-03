@@ -43,5 +43,5 @@ function guideme_showInfo () {
   profilePane = new Profile()
   profilePane.getInfo()
   incProBar();
-  console.log('myInfo.js loadded')
+  console.log('myInfo.js loaded')
 }
