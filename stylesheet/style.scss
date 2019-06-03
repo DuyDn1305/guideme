@@ -140,7 +140,7 @@ body, html {
           align-items: center;
           justify-content: flex-start;
           border-bottom: 5px solid #3498db;
-          border-radiusx: 0px;
+          border-radius: 0px;
           border-bottom-left-radius: 5px;
           //border: 0px;
           background: white;
@@ -452,6 +452,10 @@ body, html {
     border-bottom: 1px solid #ecf0f1;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(235, 235, 235, 0.685);
+    }
     @extend %box-avatar;
     > .info-container {
       flex: 7;
@@ -459,11 +463,14 @@ body, html {
         font-weight: 500;
         margin: 0;
         padding: 0;
+        color: black;
+        font-weight: bold;
       }
       > .mes {
         font-size: 14px;
         margin: 0;
         padding: 0;
+        color: black;
       }
     }
     > .time {
