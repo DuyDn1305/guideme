@@ -6,15 +6,32 @@ function guideme_menuHandler() {
   let box = [mesBox, notiBox, reqBox]
 
   box.forEach((e, k) => {
-    menu.children[k].onclick = function () {
-      for (let i in box) if (box[i] != e) box[i].style.display = 'none';
-      e.style.display = (e.style.display == 'none') ? 'block' : 'none';
+    menu.children[k].children[0].onclick = function () {
+      //for (let i in box) if (box[i] != e) box[i].style.display = 'none';
+      if (e.style.display == 'none') {
+        e.style.display = 'block'
+        menu.children[k].children[0].style.color = 'white'
+      }
+      else {
+        e.style.display = 'none'
+        menu.children[k].children[0].style.color = '#bdc3c7'
+      }
     }
   })
   window.addEventListener('click', event => {
-    if (event.target != messageContainer.children[0] && event.target != mesBox && mesBox.style.display != 'none') mesBox.style.display = 'none';
-    if (event.target != notiContainer.children[0] && event.target != notiBox && notiBox.style.display != 'none') notiBox.style.display = 'none';
-    if (event.target != reqContainer.children[0] && event.target != reqBox && reqBox.style.display != 'none') reqBox.style.display = 'none';
+    if (event.target != messageContainer.children[0] && event.target != mesBox && mesBox.style.display != 'none') {
+      console.log(event.target)
+      mesBox.style.display = 'none'
+      menu.children[0].children[0].style.color = '#bdc3c7'
+    }
+    if (event.target != notiContainer.children[0] && event.target != notiBox && notiBox.style.display != 'none') {
+      notiBox.style.display = 'none'
+      menu.children[1].children[0].style.color = '#bdc3c7'
+    }
+    if (event.target != reqContainer.children[0] && event.target != reqBox && reqBox.style.display != 'none') {
+      reqBox.style.display = 'none'
+      menu.children[2].children[0].style.color = '#bdc3c7'
+    }
   })
   console.log('menuHandler loadded')
   incProBar()

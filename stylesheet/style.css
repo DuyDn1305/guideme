@@ -239,11 +239,11 @@ body, html {
   position: relative;
   padding: 5px;
 }
-.header .menu-container .tool:hover {
+.header .menu-container .tool > span:hover {
   color: #ecf0f1;
   cursor: pointer;
 }
-.header .menu-container .tool:active {
+.header .menu-container .tool > span:active {
   color: white;
 }
 
@@ -396,7 +396,7 @@ body, html {
   height: 550px;
   width: 400px;
   background: white;
-  border: 2px solid #ecf0f1;
+  border: 1px solid #95a5a6;
   top: 60px;
   right: -200px;
   position: absolute;
@@ -443,7 +443,7 @@ body, html {
   height: 550px;
   width: 400px;
   background: white;
-  border: 2px solid #ecf0f1;
+  border: 1px solid #95a5a6;
   top: 60px;
   right: -130px;
   position: absolute;
@@ -454,7 +454,7 @@ body, html {
   height: 550px;
   width: 400px;
   background: white;
-  border: 2px solid #ecf0f1;
+  border: 1px solid #95a5a6;
   top: 60px;
   right: -120px;
   position: absolute;

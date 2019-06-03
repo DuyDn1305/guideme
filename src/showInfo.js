@@ -4,19 +4,19 @@ class Profile {
     this.profile = newProfile
   }
   getInfo() {
-    let user = this.user
+    let user = this.user // avatar
     let avatar = this.profile.children[0].children[0]
       avatar.src = user.photoURL
-    let about = this.profile.children[1]
+    let about = this.profile.children[1] // about
       about.children[0].innerHTML = user.displayName
       about.children[1].innerHTML = user.quote || 'NICE TO MEET YOU'
       about.children[2].children[0].children[0].innerHTML = 23 // comments
       about.children[2].children[1].children[0].innerHTML = 23 // rates
       about.children[2].children[2].children[0].innerHTML = 23 // stars
-    let link = this.profile.children[2]
+    let link = this.profile.children[2] // links
       let moreinfo = user.moreinfo
-      let linkInfo = [moreinfo.fb, moreinfo.twitter, moreinfo.ig, user.email] 
-      linkInfo.forEach((value, k) => {
+      let data = [moreinfo.fb, moreinfo.twitter, moreinfo.ig, user.email] 
+      data.forEach((value, k) => {
         if (value) {
           link.children[k].style.display = 'block'
           link.children[k].children[1].attributes.href = value
@@ -26,15 +26,15 @@ class Profile {
           }
         }
       })
-    let info = this.profile.children[3]
-      let year = new Date(user.moreinfo.dob).getFullYear()
-      let thisYear = new Date()
-      info.children[0].children[1].innerHTML = thisYear-year // age
-      info.children[1].children[1].innerHTML = moreinfo.cmnd // chung minh nhan dan
-      info.children[2].children[1].innerHTML = moreinfo.cmnd // dob
-      info.children[3].children[1].innerHTML = moreinfo.workplace // workplace
-      info.children[4].children[1].innerHTML = moreinfo.telephone // telephone
-      info.children[5].innerHTML = moreinfo.type // status
+    let info = this.profile.children[3] // info
+      let year = moreinfo.dob.slice(0, 4)
+      let thisYear = new Date().getFullYear()
+      data = [thisYear-year, moreinfo.cmnd, moreinfo.dob, moreinfo.workplace, moreinfo.telephone, moreinfo.type]
+      data.forEach((e, k) => {
+        console.log(e)
+        if (e) info.children[k].children[1].innerHTML = e
+        else info.children[k].style.display = 'none'
+      })
   }
 }
 

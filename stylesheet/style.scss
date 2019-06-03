@@ -260,12 +260,14 @@ body, html {
     .tool {
       position: relative;
       padding: 5px;
-      &:hover {
-        color: #ecf0f1;
-        cursor: pointer;
-      }
-      &:active {
-        color: white;
+      > span {
+        &:hover {
+          color: #ecf0f1;
+          cursor: pointer;
+        }
+        &:active {
+          color: white;
+        }
       }
     }
   }
@@ -293,7 +295,7 @@ body, html {
   height: $h;
   width: $w;
   background: white;
-  border: 2px solid #ecf0f1;
+  border: 1px solid #95a5a6;
   top: 60px;
   right: $pos;
   position: absolute;
