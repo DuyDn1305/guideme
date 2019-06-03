@@ -30,7 +30,7 @@ function newElement(type, classname = '', context = '') {
 }
 
 let db = firebase.database();
-let user, userList, chat, firstLoad, ready = [];
+let user, userList, chat, firstLoad = 0, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox
@@ -66,7 +66,7 @@ ready.push(() => {
 
 ready.push(guideme_menuHandler)
 ready.push(guideme_card)
-ready.push(guideme_request)
+//ready.push(guideme_request)
 ready.push(guideme_showInfo)
 ready.push(guideme_chat)
 //ready.push(guideme_googleApi)
