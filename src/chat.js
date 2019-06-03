@@ -120,26 +120,6 @@ function guideme_chat() {
     addSeen(cursor.user.id, roomId, cursor.position);
   })
 
-  let mesBox = document.getElementsByClassName('mes-box')[0];
-  let notiBox = document.getElementsByClassName('noti-box')[0];
-
-  messageContainer.onclick = function () {
-    notiBox.style.display = 'none';
-    if (mesBox.style.display == 'none') mesBox.style.display = 'block';
-    else mesBox.style.display = 'none';
-  }
-
-  notiContainer.onclick = function () {
-    mesBox.style.display = 'none';
-    if (notiBox.style.display == 'none') notiBox.style.display = 'block';
-    else notiBox.style.display = 'none';
-  }
-
-  window.addEventListener('click', event => {
-    if (event.target != messageContainer.children[0] && event.target != mesBox && mesBox.style.display != 'none') mesBox.style.display = 'none';
-    if (event.target != notiContainer.children[0] && event.target != notiBox && notiBox.style.display != 'none') notiBox.style.display = 'none';
-  })
-
   showMes = (target, message, mesTime, roomId) => {
     $(`[mesid='${target.uid}']`).remove();
     let avatarContainer = newElement('DIV', 'avatar-container')

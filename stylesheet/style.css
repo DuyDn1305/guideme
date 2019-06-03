@@ -236,6 +236,7 @@ body, html {
   justify-content: space-between;
 }
 .header .menu-container .tool {
+  position: relative;
   padding: 5px;
 }
 .header .menu-container .tool:hover {
@@ -396,9 +397,8 @@ body, html {
   width: 400px;
   background: white;
   border: 2px solid #ecf0f1;
-  top: 90px;
-  left: 50%;
-  right: 50%;
+  top: 60px;
+  right: -200px;
   position: absolute;
   box-shadow: 0 0 5px #bdc3c7;
 }
@@ -444,9 +444,19 @@ body, html {
   width: 400px;
   background: white;
   border: 2px solid #ecf0f1;
-  top: 90px;
-  left: 50%;
-  right: 50%;
+  top: 60px;
+  right: -130px;
+  position: absolute;
+  box-shadow: 0 0 5px #bdc3c7;
+}
+
+.req-box {
+  height: 550px;
+  width: 400px;
+  background: white;
+  border: 2px solid #ecf0f1;
+  top: 60px;
+  right: -120px;
   position: absolute;
   box-shadow: 0 0 5px #bdc3c7;
 }

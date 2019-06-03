@@ -2,6 +2,15 @@
   #page-wrapper > h1 {
     color: red;
   }
+  #page-wrapper > .bntleft {
+    width: 50px;
+    height: 50px;
+    color: white;
+    background: gray;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

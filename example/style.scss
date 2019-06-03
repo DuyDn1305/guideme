@@ -5,5 +5,14 @@ $layout-breakpoint-small: 960px;
     h1 {
       color: red;
     }
+    .bntleft {
+      width: 50px;
+      height: 50px;
+      color: white;
+      background: gray;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

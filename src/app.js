@@ -33,6 +33,7 @@ let db = firebase.database();
 let user, userList, chat, firstLoad, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
+let messageContainer, notiContainer, reqContainer
 
 function incProBar() {
 	proBarWidth += proBarAddition;
@@ -45,25 +46,32 @@ ready.push(() => {
 	chat = new WebChat(user.uid);
 	chat.readyLastRun = () => incProBar();
 	header = document.getElementsByClassName('header')[0]
+	// menu
 	menu = header.children[1]
 	messageContainer = menu.children[0]
 	notiContainer = menu.children[1]
+	reqContainer = menu.children[2]
+	// chat
 	chatContainer = document.body.getElementsByClassName('chat-container')[0]
 	mesOnMesBox = []
+	// card pane
 	containerSearch = document.body.children[1].children[2].children[1]
 	cardContainer = containerSearch.children[0]
 	logOut = menu.lastElementChild
+	// profile pane
 	profilePane = document.getElementsByClassName('profile')[0]
+	// center
 	xMap = document.getElementsByClassName('map')[0];
 	
   incProBar();
 })
 
-ready.push(guideme_card);
-ready.push(guideme_showInfo);
-ready.push(guideme_chat);
-//ready.push(guideme_googleApi);
-ready.push(guideme_logout);
+ready.push(guideme_menuHandler)
+ready.push(guideme_card)
+ready.push(guideme_showInfo)
+ready.push(guideme_chat)
+//ready.push(guideme_googleApi)
+ready.push(guideme_logout)
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {

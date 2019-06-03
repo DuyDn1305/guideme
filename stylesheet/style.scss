@@ -258,6 +258,7 @@ body, html {
     width: 35%;
     justify-content: space-between;
     .tool {
+      position: relative;
       padding: 5px;
       &:hover {
         color: #ecf0f1;
@@ -286,6 +287,17 @@ body, html {
   border: 0;
   border-radius: 10px;
   padding: 7px;
+}
+
+@mixin menu-box ($h, $w, $pos: -200px) {
+  height: $h;
+  width: $w;
+  background: white;
+  border: 2px solid #ecf0f1;
+  top: 60px;
+  right: $pos;
+  position: absolute;
+  box-shadow: 0 0 5px #bdc3c7;
 }
 
 .chat-container {
@@ -418,15 +430,7 @@ body, html {
 }
 
 .mes-box {
-  height: 550px;
-  width: 400px;
-  background: white;
-  border: 2px solid #ecf0f1;
-  top: 90px;
-  left: 50%;
-  right: 50%;
-  position: absolute;
-  box-shadow: 0 0 5px #bdc3c7;
+  @include menu-box(550px, 400px, -200px);
   > .mes-container {
     height:70px;
     padding: 5px;
@@ -466,15 +470,11 @@ body, html {
 }
 
 .noti-box {
-  height: 550px;
-  width: 400px;
-  background: white;
-  border: 2px solid #ecf0f1;
-  top: 90px;
-  left: 50%;
-  right: 50%;
-  position: absolute;
-  box-shadow: 0 0 5px #bdc3c7;
+  @include menu-box(550px, 400px, -130px);
+}
+
+.req-box {
+  @include menu-box(550px, 400px, -120px);
 }
 
 .modal {
