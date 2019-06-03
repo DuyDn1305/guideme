@@ -31,7 +31,6 @@ class Profile {
       let thisYear = new Date().getFullYear()
       data = [thisYear-year, moreinfo.cmnd, moreinfo.dob, moreinfo.workplace, moreinfo.telephone, moreinfo.type]
       data.forEach((e, k) => {
-        console.log(e)
         if (e) info.children[k].children[1].innerHTML = e
         else info.children[k].style.display = 'none'
       })

@@ -439,6 +439,10 @@ body, html {
     border-bottom: 1px solid #ecf0f1;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(235, 235, 235, 0.685);
+    }
     > .avatar-container {
       flex: 1;
       margin-right: 10px;
