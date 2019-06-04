@@ -1,107 +1,234 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-  <title>Guide Me</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!--Add opensan font-->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <!--Include firebase-->
-  
-  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
-  <script src="lib/webchat.js"></script>
-  
-  <script src="src/index.js"></script>
-  <script defer src="src/chat.js"></script>
-  <script defer src="src/card.js"></script>
-  <script defer src="src/logOut.js"></script>
-  <script defer src="src/showInfo.js"></script>
-
-  <!--Add google api library-->
+	<meta charset="utf-8">
+	<title>Guide Me</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!--Add opensan font-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<!--Include firebase-->
+	
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
+	<script src="lib/webchat.js"></script>
+	<script src="lib/RequestHandler.js"></script>
 </head>
 <body>
-  <div class='header'>
-    <div class='logo-container'>
-      <img src='./img/logo.png'>
-    </div>
-    <div class='menu-container'>
-      <div class='tool'><span>Messager</span></div>
-      <div class='tool'><span>Notifications</span></div>
-      <div class='tool'><span>About</span></div>
-      <div class='tool'><span>Request</span></div>
-      <div class='tool'><span>Log out</span></div> 
-    </div>
-  </div>
-  <div class='main'>
-    <div class='profile'>
-      <div class='avatar-container'>
-        <img src='./img/duydn.png' class='avatar'>
-      </div>
-      <table style="text-align: center; border: 0; width: 100%; margin-bottom: 20px; border-bottom: 1px solid #ecf0f1">
-        <tr>
-          <td colspan="2" style='font-weight: 700'>
-            Duy dn
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2" style='color: #7f8c8d; font-style: italic;'>
-            <q>Nice to meet you</q>
-          </td>
-        </tr>
-        <tr style="display: flex;">
-          <td style="flex: 1;">
-              <p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>27</p>
-              <p style='color: #bdc3c7; margin: 0; font-size: 12px'>Comments</p>
-          </td>
-          <td style="flex: 1; margin: 0;">
-              <p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>45</p>
-              <p style='color: #bdc3c7; margin: 0; font-size: 12px'>Stars</p>
-          </td>
-        </tr>
-      </table>
-      <div class='link'>
-        <p class='yes'><i class="fab fa-facebook"></i> <a href='https://www.facebook.com/profile.php?id=100011308802167'>Facebook</a></p>
-        <p class='no'><i class="fab fa-twitter-square"></i> <a>Twitter</a></p>
-        <p class='yes'><i class="fab fa-instagram"></i> <a href='https://www.instagram.com/kardoanh/'>Instagram</a></p>
-        <p class='yes'><i class="far fa-envelope"> <a>heoconnho135135@gmail.com</a></i></p>
-      </div>
-      <div class='info'>
-        <p><i class="fas fa-user"></i> Age: <span>18</span></p>
-        <p><i class="far fa-id-card"></i> Id card: <span>000364601106</span></p>
-        <p><i class="fas fa-birthday-cake"></i> Date of birth: <span>13/01/2001</span></p>
-        <p><i class="fas fa-briefcase"></i> Work at: <span>Ly Tu Trong highschool for the gifted</span></p>
-        <p><i class="fas fa-phone"></i> <span>Telephone: </span></p>
-        <p>Status: visitor</p>
-      </div>
-    </div>
-    <div class='central'>
-      <div class='map'></div>
-      <div></div>
-    </div>
-    <div class='search'>
-      <div class='nav-container'>
-        <input type="text" placeholder="Search" class='inp'>
-        <div class="find-container">
-          <i class="fas fa-search"></i>
-        </div>
-      </div>
-      <div class='container'>
-        <div class='card-container'>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class='footer'>
-    this is footer
-  </div>
-  <div class='chat-container'></div>
+	<div class='sticky-top'>
+		<div id='progress'>
+			<div id='progressBar'></div>
+		</div>
+	
+		<div class='header'>
+			<div class='logo-container'>
+				<img src='./img/logo.png'>
+			</div>
+			<div class='menu-container'>
+				<div class='tool'>
+					<span>Messages</span>
+					<div class='mes-box' style="display: none;"></div>
+				</div>
+				<div class='tool'>
+					<span>Notifications</span>
+					<div class='noti-box' style="display: none;"></div>
+				</div>
+				<div class='tool'>
+					<span>Requests</span>
+					<div class='req-box' style="display: none;">
+						<div class='item'>
+							<div class='avatar-container'>
+								<img src='./img/default.png' class='avatar'>
+							</div>
+							<div class='content'>
+								<div class='info'>
+									<span class='name'>user </span>
+									<span class='action'>action</span>
+								</div>
+								<div class='btn'>
+									<div class='btnAccept'>Accept</div>
+									<div class='btnDecline'>Decline</div>									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='tool'><span>About</span></div>
+				<div class='tool'><span>Log out</span></div> 
+			</div>
+		</div>
+	</div>
+
+	<div class='main'>
+		<div class='profile'>
+			<div class='avatar-container'>
+				<img src='./img/default.png' class='avatar'>
+			</div>
+			<div class='about'>
+				<p class='name'>
+					Username
+				</p>
+				<q class='quote'>
+					Userquote
+				</q>
+				<div class='item-container'>
+					<div class='item'>
+						<p>?</p>
+						<p>comments</p>
+					</div>
+					<div class='item'>
+						<p>?</p>
+						<p>rates</p>
+					</div>
+					<div class='item'>
+						<p>?</p>
+						<p>stars</p>
+					</div>
+				</div>
+
+			</div>
+			<div class='link'>
+				<p><i class="fab fa-facebook"></i> <a href='https://www.facebook.com/profile.php?id=100011308802167'>Facebook</a><span class='show'></span></p>
+				<p><i class="fab fa-twitter-square"></i> <a>Twitter</a><span class='show'></span></p>
+				<p><i class="fab fa-instagram"></i> <a href='https://www.instagram.com/kardoanh/'>Instagram</a><span class='show'></span></p>
+				<p><i class="far fa-envelope"></i> <a>Gmail</a><span class='show'></span></p>
+			</div>
+			<div class='info'>
+				<p><i class="fas fa-user"></i> Tuổi <span>?</span></p>
+				<p><i class="far fa-id-card"></i> CMND <span>?</span></p>
+				<p><i class="fas fa-birthday-cake"></i> Ngày sinh <span>?</span></p>
+				<p><i class="fas fa-briefcase"></i> Làm việc tại <span>?</span></p>
+				<p><i class="fas fa-phone"></i> Số điện thoại <span>?</span></p>
+				<p><i class="fas fa-exclamation-circle"></i> Status: <span>?</span></p>
+			</div>
+		</div>
+
+		<div class='central'>
+			<div class='map'></div>
+		</div>
+
+		<div class='search'>
+			<div class='nav-container'>
+				<input type="text" placeholder="Search" class='inp'>
+				<div class="find-container">
+					<i class="fas fa-search"></i>
+				</div>
+			</div>
+			<div class='container'>
+				<div class='card-container'>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='footer'>
+		this is footer
+	</div>
+
+	<div class='chat-container'></div>
+	<div id="myModal" class="modal">
+		<div class="pop-container">
+			<span class="close">&times;</span>
+			<div class='profile'>
+					<div class='avatar-container'>
+						<img src='./img/default.png' class='avatar'>
+					</div>
+		
+					<div class='about'>
+						<p class='name'>
+							Username
+						</p>
+						<q class='quote'>
+							Userquote
+						</q>
+						<div class='item-container'>
+							<div class='item'>
+								<p>?</p>
+								<p>comments</p>
+							</div>
+							<div class='item'>
+								<p>?</p>
+								<p>rates</p>
+							</div>
+							<div class='item'>
+								<p>?</p>
+								<p>stars</p>
+							</div>
+						</div>
+		
+					</div>
+					<div class='link'>
+						<p><i class="fab fa-facebook"></i> <a href='https://www.facebook.com/profile.php?id=100011308802167'>Facebook</a><span class='show'></span></p>
+						<p><i class="fab fa-twitter-square"></i> <a>Twitter</a><span class='show'></span></p>
+						<p><i class="fab fa-instagram"></i> <a href='https://www.instagram.com/kardoanh/'>Instagram</a><span class='show'></span></p>
+						<p><i class="far fa-envelope"></i> <a>Gmail</a><span class='show'></span></p>
+					</div>
+					<div class='info'>
+						<p><i class="fas fa-user"></i> Tuổi <span>?</span></p>
+						<p><i class="far fa-id-card"></i> CMND <span>?</span></p>
+						<p><i class="fas fa-birthday-cake"></i> Date of birth <span>?</span></p>
+						<p><i class="fas fa-briefcase"></i> Work at <span>?</span></p>
+						<p><i class="fas fa-phone"></i>Telephone <span>?</span></p>
+						Status: <span>?</span>
+					</div>
+				</div>
+		
+		<!--
+			<table style="text-align: center; border: 0; width: 100%; margin-bottom: 20px; border-bottom: 1px solid #ecf0f1">
+				<tr>
+					<td colspan="2" style='font-weight: 700'>
+						Duy dn
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style='color: #7f8c8d; font-style: italic;'>
+						<q>Nice to meet you</q>
+					</td>
+				</tr>
+				<tr style="display: flex;">
+					<td style="flex: 1;">
+							<p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>27</p>
+							<p style='color: #bdc3c7; margin: 0; font-size: 12px'>Comments</p>
+					</td>
+					<td style="flex: 1; margin: 0;">
+							<p style='font-weight: 800;font-size: 14px; font-weight: 700; margin: 0;'>45</p>
+							<p style='color: #bdc3c7; margin: 0; font-size: 12px'>Stars</p>
+					</td>
+				</tr>
+			</table>
+			<div class='link'>
+				<p class='yes'><i class="fab fa-facebook"></i> <a href='https://www.facebook.com/profile.php?id=100011308802167'>Facebook</a></p>
+				<p class='no'><i class="fab fa-twitter-square"></i> <a>Twitter</a></p>
+				<p class='yes'><i class="fab fa-instagram"></i> <a href='https://www.instagram.com/kardoanh/'>Instagram</a></p>
+				<p class='yes'><i class="far fa-envelope"></i><a>Gmail</a></p>
+			</div>
+			<div class='info'>
+				<p><i class="fas fa-user"></i> Age: <span>18</span></p>
+				<p><i class="far fa-id-card"></i> Id card: <span>000364601106</span></p>
+				<p><i class="fas fa-birthday-cake"></i> Date of birth: <span>13/01/2001</span></p>
+				<p><i class="fas fa-briefcase"></i> Work at: <span>Ly Tu Trong highschool for the gifted</span></p>
+				<p><i class="fas fa-phone"></i> <span>Telephone: </span></p>
+				<p>Status: visitor</p>
+			</div>
+
+		</div>
+		-->
+		</div>
+	</div>
+	
+	<script src="src/menuHandler.js"></script>
+	<script src="src/requestHandler.js"></script>
+	<script src="src/chat.js"></script>
+	<script src="src/card.js"></script>
+	<script src="src/logOut.js"></script>
+	<script src="src/showInfo.js"></script>
+	<script src="src/requestHandler.js"></script>
+	<!--<script src="src/googleapi.js"></script>-->
+	<script src="src/app.js"></script>
 </body>
 </html>

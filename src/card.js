@@ -1,9 +1,11 @@
-ready.push(() => { chat.ready = () => {
+function guideme_card() {
   while (cardContainer.children[0] != null) cardContainer.children[0].remove()
-  list.uid.forEach(k => {
-    const user = list.data[k]
-    showCard(user)
-  })
+
+  for (let k in userList) {
+    if (k != user.uid) showCard(userList[k]);
+  }
+
+  if (firstLoad) return;
 
   function showCard(target) {
     let src = target.photoURL
@@ -16,11 +18,11 @@ ready.push(() => { chat.ready = () => {
       avatar.setAttribute('style', 'background: #bdc3c7')
       avatarContainer.append(avatar)
   
-      let infoContainer = newElement('DIV', 'info-container')
-    let _name = newElement('P', 'name', name)
-    let _quote = newElement('Q', 'quote', quote)
-    infoContainer.append(_name)
-    infoContainer.append(_quote)
+    let infoContainer = newElement('DIV', 'info-container')
+      let _name = newElement('P', 'name', name)
+      let _quote = newElement('Q', 'quote', quote)
+      infoContainer.append(_name)
+      infoContainer.append(_quote)
   
     let toolbarContainer = newElement('DIV', 'toolbar')
     let _user = newElement('DIV', 'user-container')
@@ -28,7 +30,12 @@ ready.push(() => { chat.ready = () => {
     let _req = newElement('DIV', 'req-container')
     let usericon = newElement('I', 'far fa-user-circle')
     let mesicon = newElement('I', 'fas fa-comment-dots')
+    if (!chat.loaded) {
+      mesicon.style.color = 'rgba(255, 255, 255, 0.5)';
+      chat.ready.push(() => mesicon.style.color = 'white');
+    }
     let reqicon = newElement('I', 'fas fa-check-square')
+    
     _user.append(usericon)
     _mes.append(mesicon)
     _req.append(reqicon)
@@ -36,26 +43,41 @@ ready.push(() => { chat.ready = () => {
     toolbarContainer.append(_mes)
     toolbarContainer.append(_req)
     
-    _mes.onclick = () => {
-      getRoom(target.uid, (roomId, msg) => {
-        // close mesBox
-        turnOff('mes-box')
-        //remove if over 2 child
-        mesToChatContainer(roomId, msg, target)
-        
-      })
-      let _src = './img/duydn.png'
-      let _name = name
-  
+    _req.onclick = () => {
+      showReq(target, 'Im please to guide you')
     }
+    _mes.onclick = () => {
+      if (!chat.loaded) return;
+        getRoom(target.uid, (roomId, msg) => {
+          mesToChatContainer(roomId, msg, target)
+      })
+    }
+
+    let modal = document.getElementById("myModal")
+    let span = document.getElementsByClassName("close")[0]
+    let targetProfile = modal.children[0].children[1]
+    _user.onclick = () => {
+      viewProfile = new Profile(target, targetProfile)
+      viewProfile.getInfo()
+      modal.style.display = "block"
+    }
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.addEventListener('click', function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    })
+
     let card = newElement('DIV', 'card')
     card.append(avatarContainer)
     card.append(infoContainer)
     cardContainer.append(card)
     cardContainer.append(toolbarContainer)
-    
-    toolbarCard = document.querySelectorAll('[class~=toolbar]')
   }
   
+  incProBar();
   console.log('card.js loaded')
-}})
+  //}
+}

@@ -1,5 +1,6 @@
 {
     "require": {
-        "pusher/pusher-chatkit-server": "^1.2"
+        "pusher/pusher-chatkit-server": "^1.2",
+        "cboden/ratchet": "^0.4.1"
     }
 }
