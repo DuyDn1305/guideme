@@ -28,8 +28,10 @@ function guideme_menuHandler() {
       menu.children[1].children[0].style.color = '#bdc3c7'
     }
     if (event.target != reqContainer.children[0] && event.target != reqBox && reqBox.style.display != 'none') {
-      reqBox.style.display = 'none'
-      menu.children[2].children[0].style.color = '#bdc3c7'
+      if (!reqBox.contains(event.target)) {
+        reqBox.style.display = 'none'
+        menu.children[2].children[0].style.color = '#bdc3c7'
+      }
     }
   })
 

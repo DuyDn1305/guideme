@@ -1,5 +1,5 @@
 function roomIsOnChat(e) {
-  return $(`[chatroomid~='${e}']`).length != 0
+  return $(`[chatroomid='${e}']`).length != 0
 }
 
 function addMes (me, context, mesTime, tname, src, roomId, mid, ids = []) {
@@ -48,6 +48,8 @@ function addMes (me, context, mesTime, tname, src, roomId, mid, ids = []) {
 }
 
 function mesToChatContainer(roomId, messages, target) {
+  if (roomIsOnChat(roomId)) return;
+  
   // tao chat trong chat-container
   let mes = newElement('DIV', 'chat')
   // tao header
@@ -118,17 +120,15 @@ function mesToChatContainer(roomId, messages, target) {
   mes.append(_header)
   mes.append(_body)
   
-  // add action
-  if (!roomIsOnChat(roomId)) {
-    if (chatContainer.childElementCount > 1) chatContainer.removeChild(chatContainer.children[0])
-    chatContainer.append(mes)
-  }
+  if (chatContainer.childElementCount > 1) chatContainer.removeChild(chatContainer.children[0])
+  chatContainer.append(mes)
 
   let cursor = chat.getReadCursor(roomId, target.uid);
   messages.forEach(mes => {
     if (cursor && mes.id == cursor.position) addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id, [target.uid])
     else addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id)
   })
+  $(_mainMes).animate({scrollTop: _mainMes.scrollHeight}, 200);
 
   _input.focus();
 }
