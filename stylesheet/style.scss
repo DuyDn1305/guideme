@@ -18,15 +18,6 @@ body, html {
   font-style: italic;
 }
 
-@mixin avatar {
-  height: 100px;
-  width: 100px;
-  border: 3px solid white;
-  box-shadow: 0 0 10px 2px #ecf0f1;   
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
 %box-avatar > .avatar-container {
   flex: 1;
   margin-right: 10px;
@@ -40,6 +31,15 @@ body, html {
   }
 } 
 
+@mixin avatar {
+  height: 100px;
+  width: 100px;
+  border: 3px solid white;
+  box-shadow: 0 0 10px 2px #ecf0f1;   
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
 @mixin title {
   background: white;
   border-bottom: 1px solid #ecf0f1;
@@ -50,6 +50,47 @@ body, html {
   text-align: center;
   margin-bottom: 5px
 }
+
+@mixin mes-avatar-container {
+  flex: 1;
+  .avatar {
+    border: 0;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+@mixin mes {
+  margin-left: 10px;
+  background: #ecf0f1;
+  border: 0;
+  border-radius: 10px;
+  padding: 7px;
+}
+
+@mixin menu-box ($h, $w, $pos: -200px) {
+  height: $h;
+  width: $w;
+  background: white;
+  border: 1px solid #95a5a6;
+  top: 60px;
+  right: $pos;
+  position: absolute;
+  box-shadow: 0 0 5px #bdc3c7;
+}
+
+#progress {
+  width: 100%;
+  background-color: #4267b2;
+  #progressBar {
+    background-color: rgb(81, 156, 255);
+    width: 1%;
+    height: 3px;
+    transition: 0.5s;
+  }
+}
+
 
 %profile {
   width: 300px;
@@ -76,8 +117,10 @@ body, html {
       margin-top: 20px;
       display: flex;
       align-items: center;
+      position: relative;
         > .item {
           flex: 1;
+         
           > p:first-child {
             font-weight: 800;
           }
@@ -85,6 +128,25 @@ body, html {
             color: #bdc3c7; 
             margin: 0; 
             font-size: 12px
+          }
+        }
+        &:hover {
+          .inspect {
+            display: block;
+            opacity: 1;
+            z-index: 2;
+          } 
+        }
+        .inspect {
+          @include menu-box(300px, 400px);
+          position: absolute;
+          //display: none;
+          z-index: -1;
+          opacity: 0;
+          transition: 1s;
+          transition-timing-function: ease-out;
+          > .card {
+            
           }
         }
     }
@@ -105,6 +167,7 @@ body, html {
     color: #7f8c8d;
   } 
 }
+
 .title {
   @include title;
 }
@@ -248,17 +311,6 @@ body, html {
   }
 }
 
-#progress {
-  width: 100%;
-  background-color: #4267b2;
-  #progressBar {
-    background-color: rgb(81, 156, 255);
-    width: 1%;
-    height: 3px;
-    transition: 0.5s;
-  }
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -290,35 +342,6 @@ body, html {
       }
     }
   }
-}
-
-@mixin mes-avatar-container {
-  flex: 1;
-  .avatar {
-    border: 0;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-  }
-}
-
-@mixin mes {
-  margin-left: 10px;
-  background: #ecf0f1;
-  border: 0;
-  border-radius: 10px;
-  padding: 7px;
-}
-
-@mixin menu-box ($h, $w, $pos: -200px) {
-  height: $h;
-  width: $w;
-  background: white;
-  border: 1px solid #95a5a6;
-  top: 60px;
-  right: $pos;
-  position: absolute;
-  box-shadow: 0 0 5px #bdc3c7;
 }
 
 .chat-container {
