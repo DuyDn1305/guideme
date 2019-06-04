@@ -15,24 +15,24 @@ function addLeadingZero(value) {
 	return value;
 }
 
-const dayName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const dayName = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
 function getTimeFormat(value, needDayName = 1) {
-	let res = (needDayName ? dayName[value.getDay()] : '') + ' ' + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + value.getFullYear() + ' at ';
+	let res = (needDayName ? dayName[value.getDay()] : '') + ' ' + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + (value.getFullYear() % 100) + ' at ';
 	res += addLeadingZero(value.getHours()) + ':' + addLeadingZero(value.getMinutes()) + ':' + addLeadingZero(value.getSeconds());
 	return res;
 }
 
-function newElement(type, classname = '', context = '') {
+function newElement(type, classname, context = '') {
 	let newEle = document.createElement(type)
-	newEle.setAttribute('class', classname)
-	newEle.innerHTML = context
+	if (classname) newEle.setAttribute('class', classname)
+	if (classname) newEle.innerHTML = context
 	return newEle
 }
 
 let db = firebase.database();
 let user, userList, chat, firstLoad = 0, ready = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
-let header, menu, message, notiBtn, chatContainer, mesOnMesBox, containerSearch, cardContainer, toolbarCard, logOut, profilePane, xMap, map, infoWindow
+let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox
 
 function incProBar() {
@@ -53,8 +53,24 @@ ready.push(() => {
 	// chat
 	chatContainer = document.body.getElementsByClassName('chat-container')[0]
 	// card pane
-	containerSearch = document.body.children[1].children[2].children[1]
-	cardContainer = containerSearch.children[0]
+	let searchInput = document.getElementsByClassName('inp')[0];
+	searchInput.oninput = function() {
+		let root = cardContainer.children, pattern = this.value.toLowerCase();
+		if (pattern == '') for (let i = 0; i < root.length; ++i) root[i].style.display = 'block';
+		else {
+			for (let i = 0; i < root.length; ++i) {
+				let card = root[i];
+				if ($(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
+				else card.style.display = 'block';
+			}
+		}
+	}
+	document.getElementsByClassName('fa-eraser')[0].onclick = () => {
+		let root = cardContainer.children;
+		for (let i = 0; i < root.length; ++i) root[i].style.display = 'block';
+		searchInput.value = '';
+	}
+	cardContainer = document.body.children[1].children[2].children[1].children[0]
 	logOut = menu.lastElementChild
 	// profile pane
 	profilePane = document.getElementsByClassName('profile')[0]

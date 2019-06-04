@@ -237,6 +237,10 @@ body, html {
         flex: 1;
         text-align: center;
         color: #2c3e50;
+        .fa-eraser {
+          font-size: 20px;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -73,8 +73,10 @@ function guideme_card() {
     let card = newElement('DIV', 'card')
     card.append(avatarContainer)
     card.append(infoContainer)
-    cardContainer.append(card)
-    cardContainer.append(toolbarContainer)
+    let _div = newElement('div');
+    _div.append(card);
+    _div.append(toolbarContainer);
+    cardContainer.append(_div);
   }
   
   incProBar();
