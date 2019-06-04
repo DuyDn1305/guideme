@@ -133,6 +133,8 @@ body, html {
       padding: 0;
       .card-container {
         margin: 10px;
+        height: 512px;
+        overflow-y: auto;
         .card {
           padding: 5px 0px 5px 0px;
           display: flex;
@@ -379,6 +381,12 @@ body, html {
     .main-mess {
       overflow-y: scroll;
       height: 240px;
+      .loadItem {
+        color: rgb(189, 195, 199);
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
       .message {
         padding: 5px;
         margin: 10px 0 10px 0;
