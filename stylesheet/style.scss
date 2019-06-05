@@ -521,6 +521,57 @@ body, html {
 
 .noti-box {
   @include menu-box(550px, 400px, -130px);
+  > .item {
+    height:90px;
+    padding: 5px;
+    border-bottom: 1px solid #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+      cursor: pointer;
+    }
+    > .content {
+      @extend %box-avatar;
+      color: black;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      > .info {
+        > .name {
+          font-weight: 700;
+          font-size: 14px;
+        }
+        > .rate {
+          color: #f1c40f;
+        }
+        > .action {
+          margin: 0;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 300px;
+          overflow: hidden;
+          font-style: italic;
+        }
+        > .footer {
+          > .icon {
+            font-size: 12px;
+          }
+          > .comment {color: #2ecc71cf;}
+          > .req {color: #365899;}
+          > .reject {color: #95a5a6;}
+          > .start {color: #007bff;}
+          > .complete {color: #27ae60;}
+          > .time {
+            color: #bdc3c7;
+          }
+        }
+      }
+    }
+  }
+  > .comment {
+    border-left: 3px solid #4267b2;
+  }
 }
 
 .req-box {
