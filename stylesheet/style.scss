@@ -530,20 +530,19 @@ body, html {
     padding: 5px;
     border-bottom: 1px solid #ecf0f1;
     display: flex;
-    @extend %box-avatar;
+    justify-content: space-between;
     align-items: center;
+    &:hover {
+      cursor: pointer;
+    }
     > .content {
-      flex: 8;
-      display: flex;
+      @extend %box-avatar;
       color: black;
-      justify-content: space-between;
-      align-items: center;
       font-size: 13px;
+      display: flex;
+      align-items: center;
       > .info {
-        white-space: nowrap;
-        width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;  
+        
         > .name {
           font-weight: 700;
           font-size: 14px;
@@ -551,79 +550,98 @@ body, html {
         > .action {
         }
       }
-      > .btn {
-        > .btnAccept {
-          display: inline-block;
-          text-align: right;
-          height: 24px;
-          padding-left: 8px;
-          padding-right: 8px;
-          background-color: #4267b2;
-          border: 1px solid #4267b2;
-          color: white;
-          border-radius: 2px;
-          font-weight: 600;
-          justify-content: center;
-          font-size: 14px;
-          line-height: 22px;
-          text-shadow: none;
-          vertical-align: middle;
-          -webkit-font-smoothing: antialiased;
-          transition: 200ms cubic-bezier(.08,.52,.52,1) background-color, 200ms cubic-bezier(.08,.52,.52,1) box-shadow, 200ms cubic-bezier(.08,.52,.52,1) transform; 
-          &:hover {
-            cursor: pointer;
-            background-color: #365899;
-            border-color: #365899;
-          }
-        }
-        > .btnDecline {
-          margin-left: 8px; 
-          display: inline-block;
-          background-color: #f5f6f7;
-          border-color: #ccd0d5;
-          box-sizing: content-box;
-          color: #4b4f56;
-          border: 1px solid;
-          border-radius: 2px;
-          font-size: 14px;
-          -webkit-font-smoothing: antialiased;
-          font-weight: 600;
-          justify-content: center;
-          padding: 0 8px;
-          text-align: center;
-          text-shadow: none;
-          vertical-align: middle;
-          transition: 200ms cubic-bezier(.08,.52,.52,1) background-color, 200ms cubic-bezier(.08,.52,.52,1) box-shadow, 200ms cubic-bezier(.08,.52,.52,1) transform;
-          &:hover {
-            background-color: #ccd0d5;
-            color: #4b4f56;
-          }
-        }
-      }
     }
-    /*
-    > .option {
-      width: 30px;
-      height: 30px;
-      align-items: center;
-      > i {
-        display: none;
+    > .btn {
+      %btn-property {
+        display: inline-block;
+        height: 24px;
+        border-radius: 2px;
+        justify-content: center;
+        font-size: 14px;
+        line-height: 22px;
+        text-shadow: none;
+        vertical-align: middle;
+        -webkit-font-smoothing: antialiased;
+        transition: 200ms cubic-bezier(.08,.52,.52,1) background-color, 200ms cubic-bezier(.08,.52,.52,1) box-shadow, 200ms cubic-bezier(.08,.52,.52,1) transform; 
+        padding: 0 8px;
       }
-      &:hover > i {
-        display: block;
-        color: #bdc3c7;  
+      > .btnAccept {
+        @extend %btn-property;
+        font-weight: 600;
+        background-color: #4267b2;
+        border: 1px solid #4267b2;
+        color: white;
         &:hover {
-          color: #95a5a6;
+          cursor: pointer;
+          background-color: #365899;
+          border-color: #365899;
+        }
+      }
+      > .btnDecline {
+        @extend %btn-property;
+        background-color: #f5f6f7;
+        border-color: #ccd0d5;
+        color: #4b4f56;
+        border: 1px solid;
+        font-weight: 600;
+        &:hover {
+          background-color: #ccd0d5;
+          color: #4b4f56;
           cursor: pointer;
         }
-        &:active {
-          color: #7f8c8d;
-        }
+      }
+      > .btnCancel {
+        @extend %btn-property;
+        color: #ecf0f1;
       }
     }
-    */
     &:hover {
       background: #ecf0f1;
+    }
+  }
+  > .accepted {
+    color: black;
+    border-left: 2px solid #007bff;
+    &:hover {
+      background-color: #007bff27;
+    }
+    > .btn > .btnAccept {
+      background-color: #007bff;
+      border: 0;
+      &:hover {
+        cursor: default;
+        background-color: #3498db;
+      }
+    }
+  }
+  > .complete {
+    color: black;
+    border-left: 2px solid #2ecc71;
+    &:hover {
+      background-color: #2ecc7140;
+    }
+    > .btn > .btnAccept {
+      background-color: #2ecc71;
+      border: 0;
+      &:hover {
+        cursor: default;
+        background-color: #27ae60;
+      }
+    }
+  }
+  > .cancel {
+    color: black;
+    border-left: 2px solid #bdc3c7;
+    &:hover {
+      background-color: #bdc3c727;
+    }
+    > .btn > .btnAccept {
+      background-color: #bdc3c7;
+      border: 0;
+      &:hover {
+        cursor: default;
+        background-color: #95a5a6;
+      }
     }
   }
 }
@@ -657,4 +675,24 @@ body, html {
   text-decoration: none;
   cursor: pointer;
   }
+}
+
+.dotload {
+	.dot {
+		display:inline-block;
+		animation: inout 1.3s linear infinite;
+    font-size: 30px;
+    line-height: 13px;
+		&:nth-child(2) {
+			animation-delay: -1.1s;
+		}
+
+		&:nth-child(3) {
+			animation-delay: -0.9s;
+		}
+	}
+}
+
+@keyframes inout {
+	to {opacity: 0;}
 }
