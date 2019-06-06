@@ -92,6 +92,7 @@ body, html {
 
 
 %profile {
+  position: relative;
   width: 300px;
   @extend %bg ;
   > .avatar-container {
@@ -188,7 +189,7 @@ body, html {
       }
     }
   }
-  .link {
+  > .link {
     margin-bottom: 20px; 
     border-bottom: 1px solid #ecf0f1;
     > p {
@@ -200,9 +201,31 @@ body, html {
       }
     }
   }
-  .info {
+  > .info {
     color: #7f8c8d;
   } 
+  > .state {
+    width: 100%;
+    position: absolute;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    background: #007bff;
+    border: 3px solid white;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    &:first-child {
+      font-size: 10px;
+    }
+    &:nth-child(2) {
+      font-size: 12px;
+      font-weight: 700;
+    }
+    &:hover{
+      opacity: 0.95;
+    }
+  }
 }
 
 .title {
