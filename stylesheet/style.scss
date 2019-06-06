@@ -209,6 +209,56 @@ body, html {
   @include title;
 }
 
+@mixin select-form($paddingright: 18px) {
+  > label {
+    > select {
+    padding:3px;
+    margin: 0;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
+    background: #f8f8f8;
+    color:#888;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    padding-right : $paddingright;
+    }
+    position: relative;
+    &:after {
+      content:'<>';
+      font:14px "Consolas", monospace;
+      color:#aaa;
+      -webkit-transform:rotate(90deg);
+      -moz-transform:rotate(90deg);
+      -ms-transform:rotate(90deg);
+      transform:rotate(90deg);
+      right:8px; 
+      top:6px;
+      padding:0 0 2px;
+      border-bottom:1px solid #ddd;
+      position:absolute;
+      pointer-events:none;
+    }
+    &:before {
+      content:'';
+      right:6px; top:0px;
+      width:20px; height:20px;
+      background:#f8f8f8;
+      position:absolute;
+      pointer-events:none;
+      display:block;
+    }
+  }  
+}
+
 .main {
   display: flex;
   margin-top: 5px;
@@ -218,10 +268,33 @@ body, html {
   .central {
     flex: 6;
     @extend %bg ;
-    .map {
+    > .map {
       height: 600px;
     }
+    > .filter {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background: #ecf0f1;
+      padding-top: 8px;
+      > .province {
+        @include select-form(30px)
+      }
+      > .distric {
+        @include select-form(30px);
+      }
+      > .type {
+        > label {
+          margin: 0;
+        }
+        color: #888;
+      }
+      > .icon {
+        color: #888;
+      }
+    }
   }
+
   .search {
     flex: 3;
     box-shadow: 2px -10px 50px -10px #7f8c8d;

@@ -343,6 +343,36 @@
 
 		<div class='central'>
 			<div class='map'></div>
+			<div class='filter'>
+				<div class='province'>
+					<label>
+						<select>
+							<option value="haugiang">Hậu Giang</option>
+							<option value="cantho">Cần Thơ</option>
+							<option value="vinhlong">Vĩnh Long</option>
+							<option value="travinh">Trà Vinh</option>
+						</select>
+					</label>
+				</div>
+				<div class='distric'>
+						<label>
+								<select>
+									<option value="null">-------</option>
+								</select>
+							</label>
+				</div>
+				<div class='type'>
+					<label for='visitor'>Visitor</label>
+					<input type="checkbox" name="visitor" value="visitor" id='visitor'>
+					<label for='guide'>Guide</label>
+					<input type="checkbox" name="guide" value="guide" id='guide'>
+					<label for='busy'>busy</label>
+					<input type="checkbox" name="guide" value="busy" id='busy'>
+				</div>
+				<div class='icon'>
+					<i class="fas fa-search"></i>
+				</div>
+			</div>
 		</div>
 
 		<div class='search'>
@@ -518,7 +548,7 @@
 	<script src="src/logOut.js"></script>
 	<script src="src/showInfo.js"></script>
 	<script src="src/requestHandler.js"></script>
-	<!--<script src="src/googleapi.js"></script>-->
+	<script src="src/googleapi.js"></script>
 	<script src="src/app.js"></script>
 </body>
 </html>
