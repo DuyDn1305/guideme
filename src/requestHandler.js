@@ -1,6 +1,7 @@
 function guideme_request () {
   if (firstLoad) return;
 
+  // type = [sent, waiting, accepted, complete, cancel]
   function renderReq(target, type) {
     // distingush
     let userAction = ''

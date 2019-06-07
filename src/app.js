@@ -82,6 +82,7 @@ ready.push(() => {
   incProBar();
 })
 
+ready.push(guideme_notiHandler)
 ready.push(guideme_popupHandler)
 ready.push(guideme_menuHandler)
 ready.push(guideme_card)
