@@ -1,7 +1,7 @@
 function guideme_request () {
   if (firstLoad) return;
 
-  function renderReq(userName, type) {
+  function renderReq(target, type) {
     // distingush
     let userAction = ''
     let expand = ''
@@ -13,11 +13,11 @@ function guideme_request () {
       let content = newElement("DIV", "content")
         let avatarContainer = newElement("DIV", "avatar-container")
           let avatar = newElement("IMG", "avatar")
-          avatar.src = './img/default.png'
+          avatar.src = target.photoURL
         avatarContainer.append(avatar)
       content.append(avatarContainer)
         let info = newElement("DIV", "info")
-          let name = newElement("SPAN", "name", userName) 
+          let name = newElement("SPAN", "name", target.displayName) 
         info.append(name)
         if (userAction) {
           let action = newElement("SPAN", 'action', userAction)
@@ -49,24 +49,25 @@ function guideme_request () {
     console.log('rendered '+type)      
   }
 
-  window.sentReq = (target) => {
-    renderReq(target.displayName, 'sent')
+  window.sentReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
+    renderReq(target, 'sent')
+    addPopup(target, 'sent you a request')
   }
 
-  window.waitingReq = (target) => {
-    renderReq(target.displayName, 'waiting')
+  window.waitingReq = (target= {displayName: 'USER', photoURL: './img/default.png'}) => {
+    renderReq(target, 'waiting')
   }
 
-  window.acceptedReq = (target) => {
-    renderReq(target.displayName, 'accepted')
+  window.acceptedReq = (target= {displayName: 'USER', photoURL: './img/default.png'}) => {
+    renderReq(target, 'accepted')
   }
   
-  window.completeReq = (target) => {
-    renderReq(target.displayName, 'complete')
+  window.completeReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
+    renderReq(target, 'complete')
   }
 
-  window.cancelReq = (target) => {
-    renderReq(target.displayName, 'cancel')
+  window.cancelReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
+    renderReq(target, 'cancel')
   }
 
   incProBar()
