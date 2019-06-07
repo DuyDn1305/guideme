@@ -44,7 +44,7 @@ function guideme_card() {
     toolbarContainer.append(_req)
     
     _req.onclick = () => {
-      showReq(target, 'Im please to guide you')
+      sentReq(target)
     }
     _mes.onclick = () => {
       if (!chat.loaded) return;

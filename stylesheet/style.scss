@@ -205,6 +205,7 @@ body, html {
     color: #7f8c8d;
   } 
   > .state {
+    display: none;
     width: 100%;
     position: absolute;
     opacity: 0.4;
@@ -901,6 +902,38 @@ body, html {
       @extend %btn-property;
       background-color: #2ecc71;
       color: white;
+    }
+  }
+}
+
+.popupContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 245px;
+  > .popup {
+    display: flex;
+    padding: 8px;
+    font-size: 12px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+    box-shadow: 0 0 2px #95a5a6;
+    margin: 8px;
+    @extend %box-avatar;
+    align-items: center;
+    &:hover {
+      cursor: pointer;
+      background-color: #ecf0f1;
+    }
+    > .info {
+      > .name {
+        font-weight: 700;
+      }
+      > .action {
+
+      }
     }
   }
 }
