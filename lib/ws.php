@@ -21,7 +21,7 @@ class RequestHandler implements MessageComponentInterface {
 	}
 
 	function onMessage(ConnectionInterface $from, $req) {
-		if ($req == '"[WS_SERVER]: STOP"') {
+		if ($req == '[WS_SERVER]: STOP') {
 			global $db, $server;
 			$db->query("UPDATE wsport SET status=0 WHERE port=$this->port");
 			$server->loop->stop();

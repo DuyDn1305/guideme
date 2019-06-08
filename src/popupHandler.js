@@ -20,7 +20,7 @@ function guideme_popupHandler () {
     $(popup).fadeIn(200)
     setTimeout(() => {
       $(popup).fadeOut(2500)
-      $(popup).mouseenter(function () {$(popup).stop().fadeIn(1)})
+      $(popup).mouseenter(function () {$(popup).stop(true).css('opacity', '1')})
       $(popup).mouseleave(function () {$(popup).fadeOut(2500)})
     }, 2000);
   }
