@@ -33,7 +33,7 @@ function guideme_notiHandler () {
         notiBox.prepend(item)
     }
 
-    window.addComment = function (target, numStar, comment, timeSent = '30/4/1975') {
+    window.addComment = function (target, data) {
         let item = newElement("DIV", "item comment")
             let content = newElement("DIV", 'content')
                 let avatarContainer = newElement("DIV", "avatar-container")
@@ -45,25 +45,25 @@ function guideme_notiHandler () {
                     let name = newElement("SPAN", "name", target.displayName)
                 info.append(name)
                     let rate = newElement("SPAN", "rate")
-                    while (numStar--) {
+                    while (data.rate--) {
                         let star = newElement("I", "fas fa-star")
                         rate.append(star)
                     }
                 info.append(rate)
-                    let action = newElement("P", "action"," "+comment)
+                    let action = newElement("P", "action"," "+data.comment)
                 info.append(action)
                     let footer = newElement("DIV", "footer")
-                        let icon = newElement("SPAN", "icon "+type)
+                        let icon = newElement("SPAN", "icon comment")
                             let i = newElement("I", "fas fa-comment-alt")
                             i.style.marginRight = "2px"
                         icon.append(i)
                     footer.append(icon)
-                        let time = newElement("SPAN", "time", timeSent)
+                        let time = newElement("SPAN", "time", data.time)
                     footer.append(time)
                 info.append(footer)
             content.append(info)
         item.append(content)
-        notiBox.append(item)
+        notiBox.prepend(item)
         console.log('add comment')
     }
 

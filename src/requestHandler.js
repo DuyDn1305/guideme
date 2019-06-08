@@ -17,6 +17,11 @@ function guideme_request () {
         db.ref('request/'+user.uid+'/'+req.key).update({type: 'canceled', time: String(req.time), target: req.receiver, isNew: 1})
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'canceled', time: String(req.time), target: user.uid, isNew: 1})
     }
+
+    window.completingRequest = (req) => {
+        db.ref('request/'+user.uid+'/'+req.key).update({type: 'completed', time: String(req.time), target: req.receiver, isNew: 1})
+        db.ref('request/'+req.receiver+'/'+req.key).update({type: 'completed', time: String(req.time), target: user.uid, isNew: 1, comment: req.comment, rate: req.rate})
+    }
     // data = {displayName, photoURL}
     function createRequest(target, data) {
         let req = newElement("DIV", "item")
@@ -36,7 +41,7 @@ function guideme_request () {
             let btn = newElement("DIV",  "btn")
                 let btnAccept = newElement("DIV", "btnAccept", "Accept")
                 btnAccept.onclick = () => {
-                    accpetingRequest({type: 'accepted', receiver: target.uid, time: new Date(), key: data.key})
+                    acceptingRequest({type: 'accepted', receiver: target.uid, time: new Date(), key: data.key})
                     req.remove()
                     console.log('accepted request')
                 }
@@ -55,6 +60,7 @@ function guideme_request () {
     }
 
     function createWaiting(target, data) {
+        console.log(data)
         let req = newElement("DIV", "item")
             let content = newElement("DIV", "content")
                 let avatarContainer = newElement("DIV", "avatar-container")
@@ -96,6 +102,9 @@ function guideme_request () {
             let btn = newElement("DIV",  "btn")
                 btn.append(newElement("DIV", "btnAccept", "Trip started <i class='fas fa-walking'></i>"))
         req.append(btn)
+        req.onclick = () => {
+            showTripAccepted([user.uid, target.uid], data)
+        }
         if (data.key) req.setAttribute('reqId', data.key)
         reqBox.prepend(req)
     }
@@ -121,7 +130,7 @@ function guideme_request () {
         console.log('created complte')
     }
 
-    function createCanceled(target, data, key) {
+    function createCanceled(target, data) {
         let req = newElement("DIV", "item cancel")
             let content = newElement("DIV", "content")
                 let avatarContainer = newElement("DIV", "avatar-container")
@@ -165,8 +174,24 @@ function guideme_request () {
             addNoti(target, 'reject', data.time)
             if (realtime && user.moreinfo.type == 'visitor') addPopup(target, ' rejected your request')
         }
+        if (data.type == 'completed') {
+            createCompleted(target, data)
+            addNoti(target, 'complete', data.time)
+            if (realtime) addPopup(target, ' and you have just completed a trip!')
+            if (user.moreinfo.type == 'guide') {
+                setTimeout(() => {
+                    if (realtime) addPopup(target, 'rated for you '+data.rate)
+                    setTimeout(() => {
+                        if (realtime)  addPopup(target, 'commented: '+data.comment)
+                        setTimeout(() => {
+                            addComment(target, data)
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            }
+        }
     }
-    
+
     incProBar()
     console.log('request.js loaded')
 }

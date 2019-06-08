@@ -910,8 +910,38 @@ body, html {
     display: flex;
     > .btn {
       @extend %btn-property;
+    }
+    > .end {
       background-color: #2ecc71;
       color: white;
+      font-weight: 600;
+      &:hover {
+        cursor: pointer;
+        background-color: #27ae60;
+      }
+    }
+    > .confirm {
+      font-weight: 600;
+      background-color: #4267b2;
+      border: 1px solid #4267b2;
+      color: white;
+      &:hover {
+        cursor: pointer;
+        background-color: #365899;
+        border-color: #365899;
+      }
+    }
+    > .cancel {
+      background-color: #f5f6f7;
+      border-color: #ccd0d5;
+      color: #4b4f56;
+      border: 1px solid;
+      font-weight: 600;
+      &:hover {
+        background-color: #ccd0d5;
+        color: #4b4f56;
+        cursor: pointer;
+      }
     }
   }
 }
