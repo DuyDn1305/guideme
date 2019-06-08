@@ -44,7 +44,7 @@ function incProBar() {
 ready.push(() => {
 	if (firstLoad) return;
 	chat = new WebChat(user.uid);
-	reqHandler = new RequestHandler(user.uid)
+	reqHandler = new RequestHandler()
 	header = document.getElementsByClassName('header')[0]
 	// menu
 	menu = header.children[1]
