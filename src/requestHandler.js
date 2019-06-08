@@ -1,108 +1,172 @@
 function guideme_request () {
-  if (firstLoad) return;
+    if (firstLoad) return;
 
-  // type = [req, waiting, accepted, complete, cancel]
-  window.renderReq = (target, type) => {
-	if (user.moreinfo.type == 'visitor' && type =='req') type = 'waiting'
-	// distingush
-	let userAction = ''
-	let expand = ''
-	if (type == 'accepted' || type == 'complete' || type == 'cancel') expand = ' '+type;
-	if (type == 'req') userAction = ' sent you a request'
-	if (type == 'waiting') userAction = ' are responding your request'
-	// add element
-	let req = newElement("DIV", "item"+expand)
-	  let content = newElement("DIV", "content")
-		let avatarContainer = newElement("DIV", "avatar-container")
-		  let avatar = newElement("IMG", "avatar")
-		  avatar.src = target.photoURL
-		avatarContainer.append(avatar)
-	  content.append(avatarContainer)
-		let info = newElement("DIV", "info")
-		  let name = newElement("SPAN", "name", target.displayName) 
-		info.append(name)
-		if (userAction) {
-		  let action = newElement("SPAN", 'action', userAction)
-		  info.append(action)
-		  if (type == 'waiting') {
-			let dotLoad = newElement("SPAN", "dotload")
-			for (let i = 0; i < 3; ++i) {
-			  let dot = newElement("SPAN", 'dot', '.')
-			  dotLoad.append(dot)
-			}
-			action.append(dotLoad)
-		  }
-		}
-	  content.append(info)
-	req.append(content)
-	if (type != 'waiting') {
-	  let btn = newElement("DIV",  "btn"+expand)
-		if (type == 'req') {
-		  btn.append(newElement("DIV", "btnAccept", "Accept"))
-		  btn.append(newElement("DIV", "btnDecline", "Decline"))
-		  btn.children[1].style.marginLeft = '4px'
-		}
-		if (type == 'accepted') btn.append(newElement("DIV", "btnAccept", "Trip started <i class='fas fa-walking'></i>"))
-		if (type == 'complete') btn.append(newElement("DIV", "btnAccept", "Trip completed <i class='fas fa-check'></i>"))
-		if (type == 'cancel') btn.append(newElement("DIV", "btnAccept", "Trip canceled <i class='far fa-frown-open'></i>"))
-	  req.append(btn)
-	}
-	reqBox.append(req)
-	console.log('rendered '+type)      
-  }
+    // type = [req, waiting, accepted, complete, cancel]
+    window.sendingRequest =  (req) => {
+        let newReqRef = reqListRef.push()
+        newReqRef.set({type: req.type, time: String(req.time), target: req.receiver, isNew: 1});
+        db.ref('request/'+req.receiver+'/'+newReqRef.key).update({type: req.type, time: String(req.time), target: user.uid, isNew: 1})
+    }
 
-  window.waitingReq = (target= {displayName: 'USER', photoURL: './img/default.png'}) => {
-	renderReq(target, 'waiting')
-  }
+    function acceptingRequest (req) {
+        db.ref('request/'+user.uid+'/'+req.key).update({type: 'accepted', time: String(req.time), target: req.receiver, isNew: 1})
+        db.ref('request/'+req.receiver+'/'+req.key).update({type: 'accepted', time: String(req.time), target: user.uid, isNew: 1})
+    }
 
-  window.acceptedReq = (target= {displayName: 'USER', photoURL: './img/default.png'}) => {
-	renderReq(target, 'accepted')
-  }
-  
-  window.completeReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
-	renderReq(target, 'complete')
-  }
+    function cancelingRequest (req) {
+        db.ref('request/'+user.uid+'/'+req.key).update({type: 'canceled', time: String(req.time), target: req.receiver, isNew: 1})
+        db.ref('request/'+req.receiver+'/'+req.key).update({type: 'canceled', time: String(req.time), target: user.uid, isNew: 1})
+    }
+    // data = {displayName, photoURL}
+    function createRequest(target, data) {
+        let req = newElement("DIV", "item")
+            let content = newElement("DIV", "content")
+                let avatarContainer = newElement("DIV", "avatar-container")
+                    let avatar = newElement("IMG", "avatar")
+                    avatar.src = target.photoURL
+                avatarContainer.append(avatar)
+            content.append(avatarContainer)
+                let info = newElement("DIV", "info")
+                    let name = newElement("SPAN", "name", target.displayName) 
+                info.append(name)
+                    let action = newElement("SPAN", 'action', ' sent you a request')
+                info.append(action)
+            content.append(info)
+        req.append(content)
+            let btn = newElement("DIV",  "btn")
+                let btnAccept = newElement("DIV", "btnAccept", "Accept")
+                btnAccept.onclick = () => {
+                    accpetingRequest({type: 'accepted', receiver: target.uid, time: new Date(), key: data.key})
+                    req.remove()
+                    console.log('accepted request')
+                }
+                let btnDecline = newElement("DIV", "btnDecline", "Decline")
+                btnDecline.onclick = () => {
+                    cancelingRequest({type: 'canceled', receiver: target.uid, time: new Date(), key: data.key})
+                    req.remove()
+                    console.log('canceled request')
+                }
+            btn.append(btnAccept)
+            btn.append(btnDecline)
+            btn.children[1].style.marginLeft = '4px'
+        req.append(btn)
+        if (data.key) req.setAttribute('reqId', data.key)
+        reqBox.prepend(req)
+    }
 
-  window.cancelReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
-	renderReq(target, 'cancel')
-  }
+    function createWaiting(target, data) {
+        let req = newElement("DIV", "item")
+            let content = newElement("DIV", "content")
+                let avatarContainer = newElement("DIV", "avatar-container")
+                    let avatar = newElement("IMG", "avatar")
+                    avatar.src = target.photoURL
+                avatarContainer.append(avatar)
+            content.append(avatarContainer)
+                let info = newElement("DIV", "info")
+                    let name = newElement("SPAN", "name", target.displayName) 
+                info.append(name)
+                    let action = newElement("SPAN", 'action', ' are responding your request')
+                info.append(action)
+                    let dotLoad = newElement("SPAN", "dotload")
+                    for (let i = 0; i < 3; ++i) {
+                        let dot = newElement("SPAN", 'dot', '.')
+                        dotLoad.append(dot)
+                    }
+                    action.append(dotLoad)
+            content.append(info)
+        req.append(content)
+        if (data.key) req.setAttribute('reqId', data.key)
+        reqBox.prepend(req)
+        console.log('created waiting')   
+    }
 
-  window.sendingRequest = (req) => {
-	let sender = {displayName: user.displayName, photoURL: user.photoURL}
-	let receiver = {displayName: userList[req.receiver].displayName, photoURL: userList[req.receiver].photoURL}
-	if (req.type == 'req') {
-	  // update for user on Firebase
-	  let postData = {
-		type: req.type,
-		time: req.time,
-		target: req.receiver
-	  }
-	  let reqId = 1
-	  if (reqList) reqId = String(Object.keys(reqList).length+1)
-	  db.ref('request/' + user.uid+ '/' + reqId).update(postData);
-	  reqHandler.send(req, user.uid)
-	}
-  }
+    function createAccepted(target, data) {
+        let req = newElement("DIV", "item accepted")
+            let content = newElement("DIV", "content")
+                let avatarContainer = newElement("DIV", "avatar-container")
+                    let avatar = newElement("IMG", "avatar")
+                    avatar.src = target.photoURL
+                avatarContainer.append(avatar)
+            content.append(avatarContainer)
+                let info = newElement("DIV", "info")
+                    let name = newElement("SPAN", "name", target.displayName) 
+                info.append(name)
+            content.append(info)
+        req.append(content)
+            let btn = newElement("DIV",  "btn")
+                btn.append(newElement("DIV", "btnAccept", "Trip started <i class='fas fa-walking'></i>"))
+        req.append(btn)
+        if (data.key) req.setAttribute('reqId', data.key)
+        reqBox.prepend(req)
+    }
 
-  // receive-data function
-  reqHandler.on('Request', req => { 
-	if (req.data.receiver == user.uid) {
-	  let sender = {displayName: userList[req.id].displayName, photoURL: userList[req.id].photoURL}
-	  let data = req.data;
-	  // update for user
-	  let postData = {
-		type: data.type,
-		time: data.time,
-		target: req.id
-	  }
-	  let reqId = 1
-	  if (reqList) reqId = String(Object.keys(reqList).length+1)
-	  db.ref('request/' + user.uid+ '/' + reqId).update(postData);
-	  addNoti(sender, data.type, null, null, data.time)
-	  addPopup(sender, 'sent you a request')
-	}
-  })
+    function createCompleted(target, data) {
+        let req = newElement("DIV", "item complete")
+            let content = newElement("DIV", "content")
+                let avatarContainer = newElement("DIV", "avatar-container")
+                    let avatar = newElement("IMG", "avatar")
+                    avatar.src = target.photoURL
+                avatarContainer.append(avatar)
+            content.append(avatarContainer)
+                let info = newElement("DIV", "info")
+                    let name = newElement("SPAN", "name", target.displayName) 
+                info.append(name)
+            content.append(info)
+        req.append(content)
+            let btn = newElement("DIV",  "btn")
+                btn.append(newElement("DIV", "btnAccept", "Trip completed <i class='fas fa-check'></i>"))
+        req.append(btn)
+        if (data.key) req.setAttribute('reqId', data.key)
+        reqBox.prepend(req)
+        console.log('created complte')
+    }
 
-  incProBar()
-  console.log('request.js loaded')
+    function createCanceled(target, data, key) {
+        let req = newElement("DIV", "item cancel")
+            let content = newElement("DIV", "content")
+                let avatarContainer = newElement("DIV", "avatar-container")
+                    let avatar = newElement("IMG", "avatar")
+                    avatar.src = target.photoURL
+                avatarContainer.append(avatar)
+            content.append(avatarContainer)
+                let info = newElement("DIV", "info")
+                    let name = newElement("SPAN", "name", target.displayName) 
+                info.append(name)
+            content.append(info)
+            req.append(content)
+                let btn = newElement("DIV",  "btn")
+                    btn.append(newElement("DIV", "btnAccept", "Trip canceled <i class='far fa-frown-open'></i>"))
+            req.append(btn)
+            if (data.key) req.setAttribute('reqId', data.key)
+        reqBox.prepend(req)
+    }
+    // data = {type, key, time}
+    window.requestAction = (target, data, realtime = 1) => {
+        if (data.type == 'req') {
+            if (user.moreinfo.type == 'guide') {
+                createRequest(target, data)
+                addNoti(target, 'req', data.time)
+                if (realtime) addPopup(target, ' sent you a request', data.time)
+            }
+            else {
+                createWaiting(target, data)
+            }
+        }
+        if (data.type == 'accepted') {
+            createAccepted(target, data)
+            addNoti(target, 'start', data.time)
+            if (realtime) {
+                if (user.moreinfo.type == 'visitor') addPopup(target, ' accepted your request')
+                else addPopup(target, ' i am your visitor')
+            }
+        }
+        if (data.type == 'canceled') {
+            createCanceled(target, data)
+            addNoti(target, 'reject', data.time)
+            if (realtime && user.moreinfo.type == 'visitor') addPopup(target, ' rejected your request')
+        }
+    }
+    
+    incProBar()
+    console.log('request.js loaded')
 }
