@@ -1,13 +1,14 @@
 function guideme_request () {
   if (firstLoad) return;
 
-  // type = [sent, waiting, accepted, complete, cancel]
-  function renderReq(target, type) {
+  // type = [req, waiting, accepted, complete, cancel]
+  window.renderReq = (target, type) => {
+    if (user.moreinfo.type == 'visitor' && type =='req') type = 'waiting'
     // distingush
     let userAction = ''
     let expand = ''
     if (type == 'accepted' || type == 'complete' || type == 'cancel') expand = ' '+type;
-    if (type == 'sent') userAction = ' sent you a request'
+    if (type == 'req') userAction = ' sent you a request'
     if (type == 'waiting') userAction = ' are responding your request'
     // add element
     let req = newElement("DIV", "item"+expand)
@@ -36,7 +37,7 @@ function guideme_request () {
     req.append(content)
     if (type != 'waiting') {
       let btn = newElement("DIV",  "btn"+expand)
-        if (type == 'sent') {
+        if (type == 'req') {
           btn.append(newElement("DIV", "btnAccept", "Accept"))
           btn.append(newElement("DIV", "btnDecline", "Decline"))
           btn.children[1].style.marginLeft = '4px'
@@ -48,11 +49,6 @@ function guideme_request () {
     }
     reqBox.append(req)
     console.log('rendered '+type)      
-  }
-
-  window.sentReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
-    renderReq(target, 'sent')
-    addPopup(target, 'sent you a request')
   }
 
   window.waitingReq = (target= {displayName: 'USER', photoURL: './img/default.png'}) => {
@@ -70,6 +66,45 @@ function guideme_request () {
   window.cancelReq = (target = {displayName: 'USER', photoURL: './img/default.png'}) => {
     renderReq(target, 'cancel')
   }
+
+  window.sendingRequest = (req) => {
+    let sender = {displayName: user.displayName, photoURL: user.photoURL}
+    let receiver = {displayName: userList[req.receiver].displayName, photoURL: userList[req.receiver].photoURL}
+    if (req.type == 'req') {
+      // update for user on Firebase
+      let postData = {
+        type: req.type,
+        time: req.time,
+        target: req.receiver
+      }
+      let reqId = 1
+      if (reqList) reqId = String(Object.keys(reqList).length+1)
+      db.ref('request/' + user.uid+ '/' + reqId).update(postData);
+      reqHandler.send(req, user.uid)
+    }
+
+  }
+
+  // receive-data function
+  reqHandler.on('Request', req => { 
+    if (req.data.receiver == user.uid) {
+      let sender = {displayName: userList[req.sender].displayName, photoURL: userList[req.sender].photoURL}
+      let data = req.data;
+      // update for user
+      let postData = {
+        type: data.type,
+        time: data.time,
+        target: req.sender
+      }
+      let reqId = 1
+      if (reqList) reqId = String(Object.keys(reqList).length+1)
+      db.ref('request/' + user.uid+ '/' + reqId).update(postData);
+      addNoti(sender, data.type, null, null, data.time)
+      addPopup(sender, 'sent you a request')
+    }
+  })
+
+
 
   incProBar()
   console.log('request.js loaded')

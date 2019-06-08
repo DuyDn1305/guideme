@@ -30,7 +30,7 @@ function newElement(type, classname, context = '') {
 }
 
 let db = firebase.database();
-let user, userList, chat, firstLoad = 0, ready = [];
+let user, userList, chat, firstLoad = 0, ready = [], reqList;
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
@@ -44,6 +44,7 @@ function incProBar() {
 ready.push(() => {
 	if (firstLoad) return;
 	chat = new WebChat(user.uid);
+	reqHandler = new RequestHandler(user.uid)
 	header = document.getElementsByClassName('header')[0]
 	// menu
 	menu = header.children[1]
@@ -91,17 +92,17 @@ ready.push(guideme_showInfo)
 ready.push(guideme_chat)
 //ready.push(guideme_googleApi)
 ready.push(guideme_logout)
+ready.push(guideme_showReqList)
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {
 		proBarAddition = 100.0 / ready.length;
-
 		db.ref('user').on('value', snap => {
-			userList = snap.val();
-			user = userList[currentUser.uid];
-			ready.forEach(e => e());
-			firstLoad = 1;
-		});
+			userList = snap.val()
+			user = userList[currentUser.uid]
+			ready.forEach(e => e())
+			firstLoad = 1
+		})
 	} else {
 		console.log('logged out');
 		window.location = './mainpage'

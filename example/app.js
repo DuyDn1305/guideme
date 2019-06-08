@@ -6,7 +6,6 @@
 	const closeBtn = document.getElementById('close');
 
   let reqHandler = new RequestHandler('app.js');
-  // nhin tao gui 1 cai khac ne`.
 	reqHandler.on('Open', event => {
 		socketStatus.innerHTML = `Connected to: ${event.currentTarget.url}`;
 		socketStatus.className = 'open';
@@ -21,7 +20,7 @@
 
 		var message = messageField.value;
 
-		reqHandler.send(message); // dau
+		reqHandler.send(message);
 
 		messageField.value = '';
 	};

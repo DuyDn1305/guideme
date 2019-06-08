@@ -44,7 +44,7 @@ function guideme_card() {
     toolbarContainer.append(_req)
     
     _req.onclick = () => {
-      sentReq(target)
+      sendingRequest({type: 'req', time: new Date(), receiver: target.uid})
     }
     _mes.onclick = () => {
       if (!chat.loaded) return;
