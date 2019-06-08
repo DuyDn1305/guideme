@@ -77,6 +77,7 @@ body, html {
   right: $pos;
   position: absolute;
   box-shadow: 0 0 5px #bdc3c7;
+  overflow-y: scroll;
 }
 
 #progress {
@@ -100,6 +101,15 @@ body, html {
     margin-bottom: 20px;
     .avatar {
       @include avatar;
+    }
+    > .edit {
+      position: absolute;
+      z-index: 100;
+      right: 2px;
+      color: #bdc3c7;
+      &:hover {
+        color: #95a5a6;
+      }
     }
   }
   > .about {
