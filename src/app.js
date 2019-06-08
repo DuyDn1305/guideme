@@ -17,8 +17,8 @@ function addLeadingZero(value) {
 
 const dayName = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
 function getTimeFormat(value, needDayName = 1) {
-	let res = (needDayName ? dayName[value.getDay()] : '') + ' ' + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + (value.getFullYear() % 100) + ' at ';
-	res += addLeadingZero(value.getHours()) + ':' + addLeadingZero(value.getMinutes()) + ':' + addLeadingZero(value.getSeconds());
+	let res = (needDayName ? dayName[value.getDay()] : '') + ' ' + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + (value.getFullYear() % 100) + ' lúc ';
+	res += addLeadingZero(value.getHours()) + ':' + addLeadingZero(value.getMinutes());
 	return res;
 }
 
