@@ -1,5 +1,5 @@
 function guideme_showReqList() {
-  db.ref('request/'+user.uid).on('value', snap => {
+  db.ref('request/'+user.uid).once('value').then(snap => {
     reqList = snap.val()
     while (reqBox.children[0] != null) reqBox.children[0].remove()
     
