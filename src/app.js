@@ -17,7 +17,7 @@ function addLeadingZero(value) {
 
 const dayName = ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"];
 function getTimeFormat(value, needDayName = 1) {
-	let res = (needDayName ? dayName[value.getDay()] : '') + ' ' + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + (value.getFullYear() % 100) + ' lúc ';
+	let res = (needDayName ? (dayName[value.getDay()] + ' ') : '') + addLeadingZero(value.getDate()) + '/' + addLeadingZero(value.getMonth() + 1) + '/' + (value.getFullYear() % 100) + ' lúc ';
 	res += addLeadingZero(value.getHours()) + ':' + addLeadingZero(value.getMinutes());
 	return res;
 }
@@ -34,7 +34,7 @@ let user, userList, chat, firstLoad = 0, ready = [], reqList;
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
-let reqListRef
+let reqListRef, reqReady = [];
 
 function incProBar() {
 	proBarWidth += proBarAddition;

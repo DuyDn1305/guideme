@@ -9,6 +9,7 @@ function guideme_showReqList() {
 			let target = userList[req.target]
 			db.ref('request/'+user.uid+'/'+k).update({isNew: 0})
 			requestAction(target, {...req, key: k}, 0)
+			if (req.type == 'req') reqReady.forEach(e => e(target.uid));
 		}
 		reqListRef.orderByChild("isNew").startAt(1).on('child_added', snap => {
 			// info

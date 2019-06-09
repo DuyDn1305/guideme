@@ -35,6 +35,9 @@ function guideme_card() {
       chat.ready.push(() => mesicon.style.color = 'white');
     }
     let reqicon = newElement('I', 'fas fa-check-square')
+    reqReady.push((id) => {
+      if (id == target.uid) reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
+    });
     
     _user.append(usericon)
     _mes.append(mesicon)
@@ -44,6 +47,8 @@ function guideme_card() {
     toolbarContainer.append(_req)
     
     _req.onclick = () => {
+      if (reqicon.style.color == 'rgba(255, 255, 255, 0.5)') return;
+      reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
       sendingRequest({type: 'req', time: new Date(), receiver: target.uid})
     }
     _mes.onclick = () => {
