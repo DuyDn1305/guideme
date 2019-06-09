@@ -45,7 +45,7 @@ function incProBar() {
 ready.push(() => {
 	if (firstLoad) return;
 	chat = new WebChat(user.uid);
-	reqHandler = new RequestHandler()
+	//reqHandler = new RequestHandler()
 	header = document.getElementsByClassName('header')[0]
 	// menu
 	menu = header.children[1]
@@ -64,8 +64,10 @@ ready.push(() => {
 		else {
 			for (let i = 0; i < root.length; ++i) {
 				let card = root[i];
-				if ($(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
-				else card.style.display = 'block';
+				try {
+					if ($(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
+					else card.style.display = 'block';
+				} catch(e) {}
 			}
 		}
 	}
