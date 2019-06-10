@@ -4,8 +4,8 @@ function guideme_request () {
     // type = [req, waiting, accepted, complete, cancel]
     window.sendingRequest =  (req) => {
         let newReqRef = reqListRef.push()
-        newReqRef.set({type: req.type, time: String(req.time), target: req.receiver, isNew: 1});
-        db.ref('request/'+req.receiver+'/'+newReqRef.key).update({type: req.type, time: String(req.time), target: user.uid, isNew: 1})
+        newReqRef.set({type: 'req', time: String(req.time), target: req.receiver, isNew: 1});
+        db.ref('request/'+req.receiver+'/'+newReqRef.key).update({type: 'req', time: String(req.time), target: user.uid, isNew: 1})
     }
 
     function acceptingRequest (req) {
@@ -60,7 +60,6 @@ function guideme_request () {
     }
 
     function createWaiting(target, data) {
-        console.log(data)
         let req = newElement("DIV", "item")
             let content = newElement("DIV", "content")
                 let avatarContainer = newElement("DIV", "avatar-container")
@@ -126,6 +125,9 @@ function guideme_request () {
                 btn.append(newElement("DIV", "btnAccept", "Trip completed <i class='fas fa-check'></i>"))
         req.append(btn)
         if (data.key) req.setAttribute('reqId', data.key)
+        req.onclick = () => {
+            showTripCompleted([user.uid, target.uid], data)
+        }
         reqBox.prepend(req)
         console.log('created complte')
     }
@@ -162,6 +164,7 @@ function guideme_request () {
             }
         }
         if (data.type == 'accepted') {
+            $(`[reqid="${data.key}"]`).hide(400, function () {this.remove()})
             createAccepted(target, data)
             addNoti(target, 'start', data.time)
             if (realtime) {
@@ -170,14 +173,22 @@ function guideme_request () {
             }
         }
         if (data.type == 'canceled') {
+            $(`[reqid="${data.key}"]`).hide(400, function () {this.remove()})
             createCanceled(target, data)
             addNoti(target, 'reject', data.time)
-            if (realtime && user.moreinfo.type == 'visitor') addPopup(target, ' rejected your request')
+            if (realtime && user.moreinfo.type == 'visitor') {
+                addPopup(target, ' rejected your request')
+                $(`[cardid="${target.uid}"]`).find('.req-container').find('.fa-paper-plane').css('color', 'white')
+            }
         }
         if (data.type == 'completed') {
+            $(`[reqid="${data.key}"]`).hide(400, function () {this.remove()})
             createCompleted(target, data)
             addNoti(target, 'complete', data.time)
-            if (realtime) addPopup(target, ' and you have just completed a trip!')
+            if (realtime) {
+                addPopup(target, ' and you have just completed a trip!')
+                $(`[cardid="${target.uid}"]`).find('.req-container').find('.fa-paper-plane').css('color', 'white')
+            }
             if (user.moreinfo.type == 'guide') {
                 setTimeout(() => {
                     if (realtime) addPopup(target, 'rated for you '+data.rate)

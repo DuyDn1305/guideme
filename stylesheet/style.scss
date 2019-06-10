@@ -371,9 +371,8 @@ body, html {
           display: flex;
           justify-content: flex-end;
           color: white;
-          .user-container {
+          %toolbar-btn-property {
             background: #3498db;
-            margin: 0px 5px 0px 5px;
             padding: 5px;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
@@ -381,40 +380,25 @@ body, html {
             text-align: center;
             &:hover {
               cursor: pointer;
+              opacity: .7;
             }
             &:active {
-              opacity: .7
+              text-shadow: 0 0 1px white;
+              color: white;
             }
+          }
+          .user-container {
+            @extend %toolbar-btn-property;
+            margin: 0px 5px 0px 5px;
           }
           .mes-container {
-            background: #3498db;
+            @extend %toolbar-btn-property;
             margin: 0px 5px 0px 5px;
-            padding: 5px;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            width: 35px;
-            text-align: center;
-            &:hover {
-              cursor: pointer;
-            }
-            &:active {
-              opacity: .7
-            }
           }
+          
           .req-container {
-            background: #3498db;
+            @extend %toolbar-btn-property;
             margin: 0px 0px 0px 5px;
-            padding: 5px;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            width: 35px;
-            text-align: center;
-            &:hover {
-              cursor: pointer;
-            }
-            &:active {
-              opacity: .7
-            }
           }
         }
       }
