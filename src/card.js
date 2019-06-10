@@ -5,6 +5,8 @@ function guideme_card() {
     if (k != user.uid) showCard(userList[k]);
   }
 
+  filterCard();
+
   if (firstLoad) return;
 
   function showCard(target) {
@@ -35,9 +37,6 @@ function guideme_card() {
       chat.ready.push(() => mesicon.style.color = 'white');
     }
     let reqicon = newElement('I', 'fas fa-check-square')
-    reqReady.push((id) => {
-      if (id == target.uid) reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
-    });
     
     _user.append(usericon)
     _mes.append(mesicon)
@@ -79,6 +78,7 @@ function guideme_card() {
     card.append(avatarContainer)
     card.append(infoContainer)
     let _div = newElement('div');
+    _div.setAttribute('cardid', target.uid);
     _div.append(card);
     _div.append(toolbarContainer);
     cardContainer.append(_div);

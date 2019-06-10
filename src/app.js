@@ -34,12 +34,40 @@ let user, userList, chat, firstLoad = 0, ready = [], reqList;
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
-let reqListRef, reqReady = [];
+let searchInput, reqListRef
+let filter = {
+	'visitor': false,
+	'guide': false,
+	'busy': false
+};
 
 function incProBar() {
 	proBarWidth += proBarAddition;
 	progBar.style.width = Math.round(proBarWidth) + '%';
 	if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
+}
+
+function filterCard() {
+	function filterValid(id) {
+		if (filter.busy) return filter[userList[id].moreinfo.type];
+		return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
+	}
+
+	let root = cardContainer.children, pattern = searchInput.value.toLowerCase();
+	if (pattern == '') {
+		for (let i = 0; i < root.length; ++i) {
+			if (filterValid(root[i].getAttribute('cardid'))) root[i].style.display = 'block';
+			else root[i].style.display = 'none';
+		}
+	} else {
+		for (let i = 0; i < root.length; ++i) {
+			let card = root[i];
+			try {
+				if (!filterValid(card.getAttribute('cardid')) || $(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
+				else card.style.display = 'block';
+			} catch(e) {}
+		}
+	}
 }
 
 ready.push(() => {
@@ -56,21 +84,22 @@ ready.push(() => {
 	chatContainer = document.body.getElementsByClassName('chat-container')[0]
 	// popupContainer
 	popupContainer = document.body.getElementsByClassName('popupContainer')[0]
-	// card pane
-	let searchInput = document.getElementsByClassName('inp')[0];
-	searchInput.oninput = function() {
-		let root = cardContainer.children, pattern = this.value.toLowerCase();
-		if (pattern == '') for (let i = 0; i < root.length; ++i) root[i].style.display = 'block';
-		else {
-			for (let i = 0; i < root.length; ++i) {
-				let card = root[i];
-				try {
-					if ($(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
-					else card.style.display = 'block';
-				} catch(e) {}
-			}
-		}
+	//filter
+	if (user.moreinfo.type == 'visitor') {
+		$('#guide').attr('checked', true);
+		filter.guide = true;
+	} else if (user.moreinfo.type == 'guide') {
+		$('#visitor').attr('checked', true);
+		filter.visitor = true;
 	}
+
+	$('.filter').children('.type').find("[type='checkbox']").click(function() {
+		filter[this.getAttribute('id')] = this.checked;
+		filterCard();
+	})
+	// card pane
+	searchInput = document.getElementsByClassName('inp')[0];
+	searchInput.oninput = () => filterCard();
 	document.getElementsByClassName('fa-eraser')[0].onclick = () => {
 		let root = cardContainer.children;
 		for (let i = 0; i < root.length; ++i) root[i].style.display = 'block';
@@ -83,7 +112,7 @@ ready.push(() => {
 	// center
 	xMap = document.getElementsByClassName('map')[0];
 	
-  incProBar();
+  	incProBar();
 })
 
 ready.push(guideme_notiHandler)

@@ -9,7 +9,7 @@ function guideme_showReqList() {
 			let target = userList[req.target]
 			db.ref('request/'+user.uid+'/'+k).update({isNew: 0})
 			requestAction(target, {...req, key: k}, 0)
-			if (req.type == 'req') reqReady.forEach(e => e(target.uid));
+			if (req.type == 'req') $(`[cardid='${target.uid}']`).find('.fa-check-square').css('color', 'rgba(255, 255, 255, 0.5)');
 		}
 		reqListRef.orderByChild("isNew").startAt(1).on('child_added', snap => {
 			// info
