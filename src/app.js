@@ -38,7 +38,7 @@ let searchInput, reqListRef
 let filter = {
 	'visitor': false,
 	'guide': false,
-	'busy': false
+	'avail': true
 };
 
 function incProBar() {
@@ -49,7 +49,7 @@ function incProBar() {
 
 function filterCard() {
 	function filterValid(id) {
-		if (filter.busy) return filter[userList[id].moreinfo.type];
+		if (!filter.avail) return filter[userList[id].moreinfo.type];
 		return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
 	}
 
