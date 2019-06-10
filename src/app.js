@@ -47,12 +47,12 @@ function incProBar() {
 	if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
 }
 
-function filterCard() {
-	function filterValid(id) {
-		if (!filter.avail) return filter[userList[id].moreinfo.type];
-		return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
-	}
+function filterValid(id) {
+	if (!filter.avail) return filter[userList[id].moreinfo.type];
+	return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
+}
 
+function filterCard() {
 	let root = cardContainer.children, pattern = searchInput.value.toLowerCase(), card;
 	if (pattern == '') {
 		for (let i = 0; i < root.length; ++i) {
