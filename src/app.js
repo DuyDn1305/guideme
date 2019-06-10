@@ -65,7 +65,9 @@ function filterCard() {
 			try {
 				if (!filterValid(card.getAttribute('cardid')) || $(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
 				else card.style.display = 'block';
-			} catch(e) {}
+			} catch(e) {
+				card.style.display = 'none';
+			}
 		}
 	}
 }
@@ -101,9 +103,8 @@ ready.push(() => {
 	searchInput = document.getElementsByClassName('inp')[0];
 	searchInput.oninput = () => filterCard();
 	document.getElementsByClassName('fa-eraser')[0].onclick = () => {
-		let root = cardContainer.children;
-		for (let i = 0; i < root.length; ++i) root[i].style.display = 'block';
 		searchInput.value = '';
+		filterCard();
 	}
 	cardContainer = document.body.children[1].children[2].children[1].children[0]
 	logOut = menu.lastElementChild
