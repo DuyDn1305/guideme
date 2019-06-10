@@ -53,15 +53,16 @@ function filterCard() {
 		return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
 	}
 
-	let root = cardContainer.children, pattern = searchInput.value.toLowerCase();
+	let root = cardContainer.children, pattern = searchInput.value.toLowerCase(), card;
 	if (pattern == '') {
 		for (let i = 0; i < root.length; ++i) {
-			if (filterValid(root[i].getAttribute('cardid'))) root[i].style.display = 'block';
-			else root[i].style.display = 'none';
+			card = root[i];
+			if (filterValid(card.getAttribute('cardid'))) card.style.display = 'block';
+			else card.style.display = 'none';
 		}
 	} else {
 		for (let i = 0; i < root.length; ++i) {
-			let card = root[i];
+			card = root[i];
 			try {
 				if (!filterValid(card.getAttribute('cardid')) || $(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
 				else card.style.display = 'block';
