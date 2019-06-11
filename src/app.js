@@ -135,6 +135,7 @@ firebase.auth().onAuthStateChanged(currentUser => {
 			userList = snap.val()
 			user = userList[currentUser.uid]
 			ready.forEach(e => e())
+			loadData()
 			firstLoad = 1
 		})
 	} else {
