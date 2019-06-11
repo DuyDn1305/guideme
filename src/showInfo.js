@@ -9,8 +9,8 @@ function getInfo(user, profile) {
 	
 	let link = profile.children[2] // links
 		let moreinfo = user.moreinfo
-		let linkName = [moreinfo.fb, moreinfo.twitter, moreinfo.ig, user.email] 
-		let	linkURL = [moreinfo.fbURL, moreinfo.twitterURL, moreinfo.igURL, moreinfo.emailURL]
+		let linkName = [moreinfo.fb, moreinfo.twitter, moreinfo.ig, user.displayName] 
+		let	linkURL = [moreinfo.fbURL, moreinfo.twitterURL, moreinfo.igURL, user.email]
 		linkName.forEach((value, k) => {
 			if (value) {
 				link.children[k].style.display = 'block'
