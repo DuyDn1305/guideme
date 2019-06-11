@@ -20,7 +20,7 @@ function getInfo(user, profile) {
 		})
 		linkURL.forEach((value, k) => {
 			if (value) {
-				link.children[k].children[1].attributes.href = value
+				$(link.children[k].children[1]).attr('href', value).attr('target', '_blank').attr('title', value)
 				link.children[k].children[2].style.display = 'none'
 			}
 			else link.children[k].children[2].style.display = 'inline-block'
