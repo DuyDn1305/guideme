@@ -405,82 +405,82 @@
 					<button type="button" class="close" data-dismiss="modal">×</button>
 				</div>
 
-				<form class='was-validated form-group'>
-					<div class="modal-body">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Full Name" pattern="[ a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{2,16}" required>
-								<div class="valid-feedback">Hợp lệ</div>
-								<div class="invalid-feedback">*Từ 2 -> 16 kí tự</div>
-							</div> <!--full name-->
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="quote" required>
+				<div class="modal-body">
+					<form class='was-validated form-group'>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Full Name" pattern="[ a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{2,16}" required>
+							<div class="valid-feedback">Hợp lệ</div>
+							<div class="invalid-feedback">*Từ 2 -> 16 kí tự</div>
+						</div> <!--full name-->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="quote" required>
+							<div class="valid-feedback">Hợp lệ</div>
+							<div class="invalid-feedback">*Không được bỏ trống</div>
+						</div> <!--quote-->
+						<div class="input-group" style="display: flex;">
+							<div style='flex: 1'>
+								<input type="date" class="form-control" placeholder="dob" required>
 								<div class="valid-feedback">Hợp lệ</div>
 								<div class="invalid-feedback">*Không được bỏ trống</div>
-							</div> <!--quote-->
-							<div class="input-group" style="display: flex;">
-								<div style='flex: 1'>
-									<input type="date" class="form-control" placeholder="dob" required>
-									<div class="valid-feedback">Hợp lệ</div>
-									<div class="invalid-feedback">*Không được bỏ trống</div>
-								</div>
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="cmnd" required pattern="[0-9]{9,12}">
-									<div class="valid-feedback">Hợp lệ</div>
-									<div class="invalid-feedback">*Từ 9 -> 12 số</div>
-								</div>
-							</div> <!--Dob+cmnd-->
-							<div class="input-group" style="display: flex;">
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="fb name">
-									<div class="valid-feedback">Optional</div>
-								</div>
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="fb URL">
-									<div class="valid-feedback">Optional</div>
-								</div>
-							</div> <!--fb-->
-							<div class="input-group" style="display: flex;">
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="tw name">
-									<div class="valid-feedback">Optional</div>
-								</div>
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="tw URL">
-									<div class="valid-feedback">Optional</div>
-								</div>
-							</div> <!--tw-->
-							<div class="input-group" style="display: flex;">
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="ig name">
-									<div class="valid-feedback">Optional</div>
-								</div>
-								<div style='flex: 1'>
-									<input type="text" class="form-control" placeholder="ig URL">
-									<div class="valid-feedback">Optional</div>
-								</div>
-							</div> <!--ig-->
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="email" required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}">
+							</div>
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="cmnd" required pattern="[0-9]{9,12}">
 								<div class="valid-feedback">Hợp lệ</div>
-								<div class="invalid-feedback">*Email không hợp lệ</div>
-							</div> <!--email-->
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="workplace" required pattern="[ a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{4,32}">
-								<div class="valid-feedback">Hợp lệ</div>
-								<div class="invalid-feedback">*Từ 4 -> 32 kí tự</div>
-							</div> <!--Work place-->
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="job" required pattern="[ a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{4,32}">
-								<div class="valid-feedback">Hợp lệ</div>
-								<div class="invalid-feedback">*Từ 4 -> 32 kí tự</div>
-							</div> <!--Job-->
-					</div>
+								<div class="invalid-feedback">*Từ 9 -> 12 số</div>
+							</div>
+						</div> <!--Dob+cmnd-->
+						<div class="input-group" style="display: flex;">
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="fb name">
+								<div class="valid-feedback">Optional</div>
+							</div>
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="fb URL">
+								<div class="valid-feedback">Optional</div>
+							</div>
+						</div> <!--fb-->
+						<div class="input-group" style="display: flex;">
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="tw name">
+								<div class="valid-feedback">Optional</div>
+							</div>
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="tw URL">
+								<div class="valid-feedback">Optional</div>
+							</div>
+						</div> <!--tw-->
+						<div class="input-group" style="display: flex;">
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="ig name">
+								<div class="valid-feedback">Optional</div>
+							</div>
+							<div style='flex: 1'>
+								<input type="text" class="form-control" placeholder="ig URL">
+								<div class="valid-feedback">Optional</div>
+							</div>
+						</div> <!--ig-->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="email" required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}">
+							<div class="valid-feedback">Hợp lệ</div>
+							<div class="invalid-feedback">*Email không hợp lệ</div>
+						</div> <!--email-->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="workplace" required pattern="[ a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{4,32}">
+							<div class="valid-feedback">Hợp lệ</div>
+							<div class="invalid-feedback">*Từ 4 -> 32 kí tự</div>
+						</div> <!--Work place-->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="job" required pattern="[ a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{4,32}">
+							<div class="valid-feedback">Hợp lệ</div>
+							<div class="invalid-feedback">*Từ 4 -> 32 kí tự</div>
+						</div> <!--Job-->
+					</form>
+				</div>
 
-					<div class="modal-footer justify-content-center">
-						<button type="submit" class="btn btn-primary">Submit</button>
-						<button type="button" class="btn btn-secondary">Reset</button>
-					</div>
-				</form>
+				<div class="modal-footer justify-content-center">
+					<button type="button" class="btn btn-primary">Submit</button>
+					<button type="button" class="btn btn-secondary">Reset</button>
+				</div>
 			</div>
 		</div>
 	</div>
