@@ -3,6 +3,7 @@ function guideme_card() {
 
     for (let k in userList) {
         if (k != user.uid) showCard(userList[k]);
+        getInfo(userList[k], profilePanel[k]);
     }
 
     filterCard();
@@ -61,10 +62,9 @@ function guideme_card() {
         let modal = document.getElementById("myModal")
         let span = document.getElementsByClassName("close")[0]
         let targetProfile = modal.children[0].children[1]
+        profilePanel[target.uid] = targetProfile;
         _user.onclick = () => {
-        viewProfile = new Profile(target, targetProfile)
-        viewProfile.getInfo()
-        modal.style.display = "block"
+            modal.style.display = "block"
         }
         span.onclick = function() {
         modal.style.display = "none";
