@@ -33,8 +33,8 @@ function guideme_card() {
         let usericon = newElement('I', 'far fa-user-circle')
         let mesicon = newElement('I', 'far fa-comment-dots')
         if (!chat.loaded) {
-        mesicon.style.color = 'rgba(255, 255, 255, 0.5)';
-        chat.ready.push(() => mesicon.style.color = 'white');
+            mesicon.style.color = 'rgba(255, 255, 255, 0.5)';
+            chat.ready.push(() => mesicon.style.color = 'white');
         }
         let reqicon = newElement('I', 'far fa-paper-plane')
         
@@ -62,9 +62,9 @@ function guideme_card() {
         let span = document.getElementsByClassName("close")[0]
         let targetProfile = modal.children[0].children[1]
         _user.onclick = () => {
-        viewProfile = new Profile(target, targetProfile)
-        viewProfile.getInfo()
-        modal.style.display = "block"
+            viewProfile = new Profile(target, targetProfile)
+            viewProfile.getInfo()
+            modal.style.display = "block"
         }
         span.onclick = function() {
         modal.style.display = "none";

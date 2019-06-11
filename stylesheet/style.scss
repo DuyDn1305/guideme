@@ -97,10 +97,20 @@ body, html {
   width: 300px;
   @extend %bg ;
   > .avatar-container {
-    text-align: center;
+    text-align: center; 
     margin-bottom: 20px;
     .avatar {
       @include avatar;
+    }
+    > i {
+      margin: 8px;
+      color: black !important;
+      &:active {
+        text-shadow: 0 0 1px black;
+      }
+      &:hover {
+        opacity: 0.7;
+      }
     }
     > .edit {
       position: absolute;
@@ -206,15 +216,15 @@ body, html {
       display: none;
       color: #3498db;
       overflow: hidden;
-      > .show {
-        display: none;
+      > .notation {
+        color: #e74c3c;
       }
     }
   }
   > .info {
     color: #7f8c8d;
   } 
-  > .state {
+  > .type {
     display: none;
     width: 100%;
     position: absolute;
