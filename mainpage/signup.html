@@ -154,7 +154,8 @@
                     type: type,
                     positionLat: 10.003115,  
                     positionLng: 105.775900
-                }
+                },
+                isBusy: 0
             };
             firebase.database().ref('user/' + uid).update(postData);
             window.location = '../';
@@ -210,7 +211,8 @@
                         twitter: twitter,
                         fb: fb,
                         type: type,
-                    }
+                    },
+                    isBusy: 0
                 };
                 if(dob != null) {
                     firebase.database().ref('user/' + user.uid).update(postData);

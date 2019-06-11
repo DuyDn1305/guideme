@@ -79,9 +79,9 @@ function guideme_card() {
 		modal.style.display = "none";
 		}
 		window.addEventListener('click', function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
-		}
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
 		})
 
 		let card = newElement('DIV', 'card')

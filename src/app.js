@@ -126,6 +126,7 @@ ready.push(guideme_chat)
 //ready.push(guideme_googleApi)
 ready.push(guideme_logout)
 ready.push(guideme_showReqList)
+ready.push(guideme_editInfo)
 ready.push(guideme_trip)
 
 firebase.auth().onAuthStateChanged(currentUser => {
