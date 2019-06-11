@@ -838,13 +838,18 @@ body, html {
   }
 }
 
-.modal {
+.mymodal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   display: none; /* Hidden by default */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  overflow: scroll;
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
@@ -977,18 +982,7 @@ body, html {
 .form-group {
   margin: auto;
   background: white;
-  width: 50%;
-  border-radius: 5px;
-  border: 1px solid #ecf0f1;
-  box-shadow: 0 0 5px #ecf0f1;
-  height: 100%;
-  overflow-y: scroll;
   .input-group {
     padding: 8px;
-    width: 100%;
-  }
-  > .edit-btn-group {
-    display: flex;
-    justify-content: space-around;
   }
 }

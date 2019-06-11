@@ -1,7 +1,7 @@
 function guideme_trip () {
 	if (firstLoad) return
 	
-	let modal = $('.modal')[1]
+	let modal = $('.mymodal')[1]
 
 	window.showTripAccepted = (list = [], data) => {
 		modal.style.display = 'block'
