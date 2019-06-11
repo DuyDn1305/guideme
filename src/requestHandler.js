@@ -178,7 +178,7 @@ function guideme_request () {
             addNoti(target, 'reject', data.time)
             if (realtime && user.moreinfo.type == 'visitor') {
                 addPopup(target, ' rejected your request')
-                $(`[cardid="${target.uid}"]`).find('.req-container').find('.fa-paper-plane').css('color', 'white')
+                $(`[cardid="${target.uid}"]`).find('.fa-paper-plane').css('color', 'white')
             }
         }
         if (data.type == 'completed') {
@@ -187,7 +187,7 @@ function guideme_request () {
             addNoti(target, 'complete', data.time)
             if (realtime) {
                 addPopup(target, ' and you have just completed a trip!')
-                $(`[cardid="${target.uid}"]`).find('.req-container').find('.fa-paper-plane').css('color', 'white')
+                $(`[cardid="${target.uid}"]`).find('.fa-paper-plane').css('color', 'white')
             }
             if (user.moreinfo.type == 'guide') {
                 setTimeout(() => {

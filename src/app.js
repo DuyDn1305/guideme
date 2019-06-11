@@ -34,7 +34,7 @@ let user, userList, chat, firstLoad = 0, ready = [], reqList;
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
-let searchInput, reqListRef
+let searchInput, reqListRef, profilePanel = {};
 let filter = {
 	'visitor': false,
 	'guide': false,
@@ -47,25 +47,28 @@ function incProBar() {
 	if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
 }
 
-function filterCard() {
-	function filterValid(id) {
-		if (!filter.avail) return filter[userList[id].moreinfo.type];
-		return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
-	}
+function filterValid(id) {
+	if (!filter.avail) return filter[userList[id].moreinfo.type];
+	return filter[userList[id].moreinfo.type] && userList[id].isBusy == 0;
+}
 
-	let root = cardContainer.children, pattern = searchInput.value.toLowerCase();
+function filterCard() {
+	let root = cardContainer.children, pattern = searchInput.value.toLowerCase(), card;
 	if (pattern == '') {
 		for (let i = 0; i < root.length; ++i) {
-			if (filterValid(root[i].getAttribute('cardid'))) root[i].style.display = 'block';
-			else root[i].style.display = 'none';
+			card = root[i];
+			if (filterValid(card.getAttribute('cardid'))) card.style.display = 'block';
+			else card.style.display = 'none';
 		}
 	} else {
 		for (let i = 0; i < root.length; ++i) {
-			let card = root[i];
+			card = root[i];
 			try {
 				if (!filterValid(card.getAttribute('cardid')) || $(card).find('.name').text().toLowerCase().search(pattern) == -1) card.style.display = 'none';
 				else card.style.display = 'block';
-			} catch(e) {}
+			} catch(e) {
+				card.style.display = 'none';
+			}
 		}
 	}
 }
@@ -101,14 +104,14 @@ ready.push(() => {
 	searchInput = document.getElementsByClassName('inp')[0];
 	searchInput.oninput = () => filterCard();
 	document.getElementsByClassName('fa-eraser')[0].onclick = () => {
-		let root = cardContainer.children;
-		for (let i = 0; i < root.length; ++i) root[i].style.display = 'block';
 		searchInput.value = '';
+		filterCard();
 	}
 	cardContainer = document.body.children[1].children[2].children[1].children[0]
 	logOut = menu.lastElementChild
 	// profile pane
 	profilePane = document.getElementsByClassName('profile')[0]
+	profilePanel[user.uid] = profilePane;
 	// center
 	xMap = document.getElementsByClassName('map')[0];
 	
@@ -120,7 +123,6 @@ ready.push(guideme_popupHandler)
 ready.push(guideme_menuHandler)
 ready.push(guideme_card)
 ready.push(guideme_request)
-ready.push(guideme_showInfo)
 ready.push(guideme_chat)
 //ready.push(guideme_googleApi)
 ready.push(guideme_logout)
