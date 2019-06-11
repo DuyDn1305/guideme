@@ -34,7 +34,7 @@ let user, userList, chat, firstLoad = 0, ready = [], reqList;
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
-let searchInput, reqListRef, profilePanel = {};
+let searchInput, reqListRef;
 let filter = {
 	'visitor': false,
 	'guide': false,
@@ -110,7 +110,6 @@ ready.push(() => {
 	logOut = menu.lastElementChild
 	// profile pane
 	profilePane = document.getElementsByClassName('profile')[0]
-	profilePanel[user.uid] = profilePane;
 	// center
 	xMap = document.getElementsByClassName('map')[0];
 

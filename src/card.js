@@ -1,12 +1,13 @@
 function guideme_card() {
 	while (cardContainer.children[0] != null) cardContainer.children[0].remove()
 
+	getInfo(user, profilePane)
+
 	for (let k in userList) {
 		if (k != user.uid) showCard(userList[k]);
-		getInfo(userList[k], profilePanel[k]);
 	}
-	$('[data-toggle="tooltip"]').tooltip()
 
+	$('[data-toggle="tooltip"]').tooltip()
 	filterCard();
 
 	if (firstLoad) return;
@@ -71,8 +72,8 @@ function guideme_card() {
 		let modal = document.getElementById("myModal")
 		let span = document.getElementsByClassName("close")[0]
 		let targetProfile = modal.children[0].children[1]
-		profilePanel[target.uid] = targetProfile;
 		_user.onclick = () => {
+			getInfo(target, targetProfile);
 			modal.style.display = "block"
 		}
 		span.onclick = function() {
