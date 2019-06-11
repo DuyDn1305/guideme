@@ -16,6 +16,9 @@
 	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 	<script src="lib/webchat.js"></script>
 	<script src="lib/RequestHandler.js"></script>
 </head>
@@ -161,13 +164,25 @@
 			</div>
 			<div class='link'>
 				<p>
-					<i class="fab fa-facebook"></i>
-					<a href='https://www.facebook.com/profile.php?id=100011308802167'>fbName</a>
-					<span class='notation' title="You have not add ULR to this link">*</span>
+					<img src="https://img.icons8.com/color/20/000000/facebook-new.png">
+					<a data-toggle="tooltip" data-placement="top" title="fbURL">fbName</a>
+					<span class='notation' data-toggle="tooltip" data-placement="right" title="You have not add URL">*</span>
 				</p>
-				<p><i class="fab fa-twitter-square"></i> <a>Twitter</a><span class='show'></span></p>
-				<p><i class="fab fa-instagram"></i> <a href='https://www.instagram.com/kardoanh/'>Instagram</a><span class='show'></span></p>
-				<p><i class="far fa-envelope"></i> <a>Gmail</a><span class='show'></span></p>
+				<p>
+					<img src="https://img.icons8.com/ultraviolet/20/000000/twitter.png">
+					<a data-toggle="tooltip" data-placement="top" title="twURL">twName</a>
+					<span class='notation' data-toggle="tooltip" data-placement="right" title="You have not add URL">*</span>
+				</p>
+				<p>
+					<img src="https://img.icons8.com/office/20/000000/instagram-new.png">
+					<a data-toggle="tooltip" data-placement="top" title="igURL">igName</a>
+					<span class='notation' data-toggle="tooltip" data-placement="right" title="You have not add URL">*</span>
+				</p>
+				<p>
+					<img src="https://img.icons8.com/color/20/000000/google-logo.png">
+					<a data-toggle="tooltip" data-placement="top" title="gmailURL">gmailName</a>
+					<span class='notation' data-toggle="tooltip" data-placement="right" title="You have not add URL">*</span>
+				</p>
 			</div>
 			<div class='info'>
 				<p><i class="fas fa-user"></i> Tuổi <span>?</span></p>
@@ -381,6 +396,9 @@
 				<div class='btn confirm'>Return</div>
 			</div>
 		</div>
+	</div>
+	<div class='modal'>
+		
 	</div>
 	<div class='popupContainer'>
 	</div>

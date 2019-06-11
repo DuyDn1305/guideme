@@ -72,7 +72,6 @@ function filterCard() {
 		}
 	}
 }
-
 ready.push(() => {
 	if (firstLoad) return;
 	chat = new WebChat(user.uid);
@@ -114,7 +113,7 @@ ready.push(() => {
 	profilePanel[user.uid] = profilePane;
 	// center
 	xMap = document.getElementsByClassName('map')[0];
-	
+
   	incProBar();
 })
 

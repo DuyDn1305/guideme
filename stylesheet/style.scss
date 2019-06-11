@@ -213,11 +213,13 @@ body, html {
     margin-bottom: 20px; 
     border-bottom: 1px solid #ecf0f1;
     > p {
-      display: none;
       color: #3498db;
       overflow: hidden;
       > .notation {
         color: #e74c3c;
+        &:hover {
+          text-shadow: 0 0 2px red;
+        }
       }
     }
   }
