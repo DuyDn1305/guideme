@@ -23,7 +23,7 @@ function guideme_editInfo() {
     let workplace = tmp.find('[placeholder="workplace"]');
     let job = tmp.find('[placeholder="job"]');
 
-    tmp.on('click', () => {
+    $('.fa-pen').on('click', () => {
         getValue(name, user.displayName)
         getValue(quote, user.quote)
         getValue(dob, user.moreinfo.dob)
@@ -72,19 +72,19 @@ function guideme_editInfo() {
     }
 
     btnReset.onclick = () => {
-        tmp.find('[placeholder="Full Name"]').val(user.displayName)
-        tmp.find('[placeholder="quote" ]').val(user.quote)
-        tmp.find('[placeholder="dob"]').val(user.moreinfo.dob)
-        tmp.find('[placeholder="cmnd"]').val(user.moreinfo.cmnd)
-        tmp.find('[placeholder="fb name"]').val(user.moreinfo.fbName)
-        tmp.find('[placeholder="fb URL"]').val(user.moreinfo.fbURL)
-        tmp.find('[placeholder="tw name"]').val(user.moreinfo.twName)
-        tmp.find('[placeholder="tw URL"]').val(user.moreinfo.twURL)
-        tmp.find('[placeholder="ig name"]').val(user.moreinfo.igName)
-        tmp.find('[placeholder="ig URL"]').val(user.moreinfo.igURL)
-        tmp.find('[placeholder="email"]').val(user.email)
-        tmp.find('[placeholder="workplace"]').val(user.moreinfo.workplace)
-        tmp.find('[placeholder="job"]').val(user.moreinfo.job)
+        name.val(user.displayName)
+        quote.val(user.quote)
+        dob.val(user.moreinfo.dob)
+        cmnd.val(user.moreinfo.cmnd)
+        fbName.val(user.moreinfo.fbName)
+        fbUrl.val(user.moreinfo.fbURL)
+        twName.val(user.moreinfo.twName)
+        twUrl.val(user.moreinfo.twURL)
+        igName.val(user.moreinfo.igName)
+        igUrl.val(user.moreinfo.igURL)
+        email.val(user.email)
+        workplace.val(user.moreinfo.workplace)
+        job.val(user.moreinfo.job)
     }
 
     incProBar()
