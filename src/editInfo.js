@@ -27,7 +27,6 @@ function guideme_editInfo() {
 
     let form = $('.was-validated')[0];
     btnSubmit.onclick = () => {
-        console.log(form);
         if (form.checkValidity()) {
             profilePane.style.opacity = '0.5';
             db.ref("user/"+user.uid).update({
