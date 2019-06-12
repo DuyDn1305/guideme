@@ -4,7 +4,7 @@ function guideme_showReqList() {
 	// get full list of request
 	reqListRef.once('value').then(snap => {
 		reqList = snap.val()
-		console.log("#BUG once value")
+		console.log("#RECEIVE value from once")
 		for (let k in reqList) {
 			let req = reqList[k]
 			let target = userList[req.target]
@@ -16,7 +16,7 @@ function guideme_showReqList() {
 			
 		}
 		reqListRef.orderByChild("isNew").startAt(1).on('child_added', snap => {
-			console.log("#BUG on child_added")
+			console.log("#RECEIVE value from child_added")
 			// info
 			let newReq = snap.val()
 			let target = userList[newReq.target]
@@ -24,7 +24,7 @@ function guideme_showReqList() {
 			requestAction(target, {...newReq, key: snap.key})
 		})
 		reqListRef.on('child_changed', snap => {
-			console.log("#BUG on child_changed")
+			console.log("#RECEIVE value from child_changed")
 			// info
 			let changedReq = snap.val()
 			let target = userList[changedReq.target]

@@ -9,19 +9,19 @@ function guideme_editInfo() {
     let btnReset = $(".btn-secondary")[0]
 
     let tmp = $("#editModal");
-    let name = tmp.find('[placeholder="Full Name"]');
-    let quote = tmp.find('[placeholder="quote"]');
+    let name = tmp.find('[placeholder="Tên của bạn"]');
+    let quote = tmp.find('[placeholder="Lời chào"]');
     let dob = tmp.find('[placeholder="dob"]');
-    let cmnd = tmp.find('[placeholder="cmnd"]');
-    let fbName = tmp.find('[placeholder="fb name"]');
-    let fbUrl = tmp.find('[placeholder="fb URL"]');
-    let twName = tmp.find('[placeholder="tw name"]');
-    let twUrl = tmp.find('[placeholder="tw URL"]');
-    let igName = tmp.find('[placeholder="ig name"]');
-    let igUrl = tmp.find('[placeholder="ig URL"]');
+    let cmnd = tmp.find('[placeholder="Số CMND"]');
+    let fbName = tmp.find('[placeholder="Tên facebook"]');
+    let fbUrl = tmp.find('[placeholder="Địa chỉ FB"]');
+    let twName = tmp.find('[placeholder="Tên twitter"]');
+    let twUrl = tmp.find('[placeholder="Địa chỉ TW"]');
+    let igName = tmp.find('[placeholder="Tên instaram"]');
+    let igUrl = tmp.find('[placeholder="Địa chỉ IG"]');
     let email = tmp.find('[placeholder="email"]');
-    let workplace = tmp.find('[placeholder="workplace"]');
-    let job = tmp.find('[placeholder="job"]');
+    let workplace = tmp.find('[placeholder="Nơi làm việc"]');
+    let job = tmp.find('[placeholder="Công việc"]');
 
     $('.fa-pen').on('click', () => {
         getValue(name, user.displayName)
