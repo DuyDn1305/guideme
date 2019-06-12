@@ -190,15 +190,20 @@ function guideme_request () {
                 $(`[cardid="${target.uid}"]`).find('.fa-paper-plane').css('color', 'white').attr('data-original-title', 'Request guide')
             }
             if (user.moreinfo.type == 'guide') {
-                setTimeout(() => {
-                    if (realtime) addPopup(target, 'rated for you '+data.rate)
+                if (realtime) {
                     setTimeout(() => {
-                        if (realtime)  addPopup(target, 'commented: '+data.comment)
+                        if (realtime) addPopup(target, 'rated for you '+data.rate)
                         setTimeout(() => {
-                            addComment(target, data)
+                            if (realtime)  addPopup(target, 'commented: '+data.comment)
+                            setTimeout(() => {
+                                notiComment(target, data)
+                            }, 1000);
                         }, 1000);
                     }, 1000);
-                }, 1000);
+                }
+                else {
+                    notiComment(target, data)
+                }
             }
         }
     }

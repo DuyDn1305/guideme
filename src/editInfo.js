@@ -43,7 +43,8 @@ function guideme_editInfo() {
                     igName: tmp.find('[placeholder="ig name"]').val(),
                     tgURL: tmp.find('[placeholder="ig URL"]').val(),
                     workplace: tmp.find('[placeholder="workplace"]').val(),
-                    job:tmp.find('[placeholder="job"]').val()
+                    job: tmp.find('[placeholder="job"]').val(),
+                    type: user.moreinfo.type
                 }
             }, error => {
                 if (!error) {

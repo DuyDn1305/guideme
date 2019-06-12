@@ -56,6 +56,7 @@ function guideme_card() {
 			reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
 			$(reqicon).attr('data-original-title', 'You cannot send request');
 		}
+		else $(reqicon).attr('data-original-title', 'send request');
 		_req.onclick = () => {
 			if (reqicon.style.color == 'rgba(255, 255, 255, 0.5)') return;
 			reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
