@@ -8,11 +8,13 @@ function getInfo(user, profile) {
 		about.children[3].style.display = 'none' // hide if no comment
 		let inspect = about.children[3].children[2]
 			// add comment
-			if (user.moreinfo.type == 'guide') db.ref('request/'+user.uid).orderByChild("comment").on('child_added', snap => {
+			if (user.moreinfo.type == 'guide') db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
 				let data = snap.val()
+				console.log(data)
 				let target = userList[data.target]
+				stars += data.rate
 				about.children[3].children[0].children[0].innerHTML = ++cmt // comments
-				about.children[3].children[1].children[0].innerHTML = (stars += data.rate)// stars
+				about.children[3].children[1].children[0].innerHTML = stars// stars
 				about.children[3].style.display = 'flex' // show 
 				let card = newElement("DIV", "card")
 					let content = newElement("DIV", "content")
