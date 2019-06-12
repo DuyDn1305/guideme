@@ -8,21 +8,35 @@ function guideme_editInfo() {
     let btnSubmit = $(".btn-primary")[0]
     let btnReset = $(".btn-secondary")[0]
 
-    let tmp = $("#editModal")
+    let tmp = $("#editModal");
+    let name = tmp.find('[placeholder="Full Name"]');
+    let quote = tmp.find('[placeholder="quote"]');
+    let dob = tmp.find('[placeholder="dob"]');
+    let cmnd = tmp.find('[placeholder="cmnd"]');
+    let fbName = tmp.find('[placeholder="fb name"]');
+    let fbUrl = tmp.find('[placeholder="fb URL"]');
+    let twName = tmp.find('[placeholder="tw name"]');
+    let twUrl = tmp.find('[placeholder="tw URL"]');
+    let igName = tmp.find('[placeholder="ig name"]');
+    let igUrl = tmp.find('[placeholder="ig URL"]');
+    let email = tmp.find('[placeholder="email"]');
+    let workplace = tmp.find('[placeholder="workplace"]');
+    let job = tmp.find('[placeholder="job"]');
+
     tmp.on('click', () => {
-        getValue(tmp.find('[placeholder="Full Name"]'), user.displayName)
-        getValue(tmp.find('[placeholder="quote"]'), user.quote)
-        getValue(tmp.find('[placeholder="dob"]'), user.moreinfo.dob)
-        getValue(tmp.find('[placeholder="cmnd"]'), user.moreinfo.cmnd)
-        getValue(tmp.find('[placeholder="fb name"]'), user.moreinfo.fbName)
-        getValue(tmp.find('[placeholder="fb URL"]'), user.moreinfo.fbURL)
-        getValue(tmp.find('[placeholder="tw name"]'), user.moreinfo.twName)
-        getValue(tmp.find('[placeholder="tw URL"]'), user.moreinfo.twURL)
-        getValue(tmp.find('[placeholder="ig name"]'), user.moreinfo.igName)
-        getValue(tmp.find('[placeholder="ig URL"]'), user.moreinfo.igURL)
-        getValue(tmp.find('[placeholder="email"]'), user.email)
-        getValue(tmp.find('[placeholder="workplace"]'), user.moreinfo.workplace)
-        getValue(tmp.find('[placeholder="job"]'), user.moreinfo.job)
+        getValue(name, user.displayName)
+        getValue(quote, user.quote)
+        getValue(dob, user.moreinfo.dob)
+        getValue(cmnd, user.moreinfo.cmnd)
+        getValue(fbName, user.moreinfo.fbName)
+        getValue(fbUrl, user.moreinfo.fbURL)
+        getValue(twName, user.moreinfo.twName)
+        getValue(twUrl, user.moreinfo.twURL)
+        getValue(igName, user.moreinfo.igName)
+        getValue(igUrl, user.moreinfo.igURL)
+        getValue(email, user.email)
+        getValue(workplace, user.moreinfo.workplace)
+        getValue(job, user.moreinfo.job)
     });
 
     let form = $('.was-validated')[0];
@@ -30,20 +44,20 @@ function guideme_editInfo() {
         if (form.checkValidity()) {
             profilePane.style.opacity = '0.5';
             db.ref("user/"+user.uid).update({
-                displayName: tmp.find('[placeholder="Full Name"]').val(),
-                quote: tmp.find('[placeholder="quote" ]').val(),
-                email: tmp.find('[placeholder="email"]').val(),
+                displayName: name.val(),
+                quote: quote.val(),
+                email: email.val(),
                 moreinfo: {
-                    dob: tmp.find('[placeholder="dob"]').val(),
-                    cmnd: tmp.find('[placeholder="cmnd"]').val(),
-                    fbName: tmp.find('[placeholder="fb name"]').val(),
-                    fbURL: tmp.find('[placeholder="fb URL"]').val(),
-                    twName: tmp.find('[placeholder="tw name"]').val(),
-                    twURL: tmp.find('[placeholder="tw URL"]').val(),
-                    igName: tmp.find('[placeholder="ig name"]').val(),
-                    tgURL: tmp.find('[placeholder="ig URL"]').val(),
-                    workplace: tmp.find('[placeholder="workplace"]').val(),
-                    job: tmp.find('[placeholder="job"]').val(),
+                    dob: dob.val(),
+                    cmnd: cmnd.val(),
+                    fbName: fbName.val(),
+                    fbURL: fbUrl.val(),
+                    twName: twName.val(),
+                    twURL: twUrl.val(),
+                    igName: igName.val(),
+                    tgURL: igUrl.val(),
+                    workplace: workplace.val(),
+                    job: job.val(),
                     type: user.moreinfo.type
                 }
             }, error => {
