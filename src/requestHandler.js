@@ -175,14 +175,28 @@ function guideme_request () {
                 if (user.moreinfo.type == 'visitor') addPopup(target, ' accepted your request')
                 else addPopup(target, ' i am your visitor')
             }
+            // cancel all previous request (for visitor account)
+            if (user.moreinfo.type == 'visitor') {
+                db.ref('request/'+user.uid).orderByChild('type').equalTo('req').once('value').then(snap => {
+                    snap = snap.val()
+                    for (let k in snap) {
+                        let req = snap[k]
+                        db.ref('request/'+user.uid+'/'+k).update({type: 'canceled', time: String(data.time), target: req.target, isNew: 1})
+                        db.ref('request/'+req.target+'/'+k).update({type: 'canceled', time: String(data.time), target: user.uid, isNew: 1})
+                    }
+                })
+            }
         }
         if (data.type == 'canceled') {
             $(`[reqid="${data.key}"]`).hide(400, function () {this.remove()})
             createCanceled(target, data)
-            addNoti(target, 'reject', data.time)
+            if (target != user.uid) addNoti(target, 'reject', data.time)
             if (realtime && user.moreinfo.type == 'visitor') {
-                addPopup(target, ' rejected your request')
+                addPopup(target, ' rejected the request')
                 $(`[cardid="${target.uid}"]`).find('.fa-paper-plane').css('color', 'white').attr('data-original-title', 'Request guide')
+            }
+            if (realtime && user.moreinfo.type == 'visitor') {
+                addPopup(target, ' rejected the request')
             }
         }
         if (data.type == 'completed') {

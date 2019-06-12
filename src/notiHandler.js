@@ -16,7 +16,7 @@ function guideme_notiHandler () {
                     let action = newElement("SPAN")
                     if (type == 'req') action.innerHTML = ' sent you a request'
                     if (type == 'start') action.innerHTML = ' your trip has been started, enjoy it !'
-                    if (type == 'reject') action.innerHTML = ' canceled your request'
+                    if (type == 'reject') action.innerHTML = ' reject the trip'
                     if (type == 'complete') action.innerHTML = ' and you have just completed the trip !'
                 info.append(action)
                     let footer = newElement("DIV", "footer")
