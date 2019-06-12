@@ -4,8 +4,38 @@ function getInfo(user, profile) {
 	let about = profile.children[1] // about
 		about.children[0].innerHTML = user.displayName // name
 		about.children[2].children[0].innerHTML = user.quote || 'NICE TO MEET YOU' //quote
-		about.children[3].children[0].children[0].innerHTML = 23 // comments
-		about.children[3].children[1].children[0].innerHTML = 23 // stars
+		let cmt = 0, stars = 0
+		about.children[3].style.display = 'none' // hide if no comment
+		let inspect = about.children[3].children[2]
+			// add comment
+			if (user.moreinfo.type == 'guide') db.ref('request/'+user.uid).orderByChild("comment").on('child_added', snap => {
+				let data = snap.val()
+				let target = userList[data.target]
+				about.children[3].children[0].children[0].innerHTML = ++cmt // comments
+				about.children[3].children[1].children[0].innerHTML = (stars += data.rate)// stars
+				about.children[3].style.display = 'flex' // show 
+				let card = newElement("DIV", "card")
+					let content = newElement("DIV", "content")
+						let avatarContainer = newElement('DIV', 'avatar-container')
+							let avatar = newElement('IMG', 'avatar')
+								avatar.src = target.photoURL
+						avatarContainer.append(avatar)
+					content.append(avatarContainer)
+						let info = newElement("DIV", "info")
+							let name = newElement("SPAN", "name", target.displayName)
+							let rate = newElement("SPAN", "rate")
+								while (data.rate--) rate.append(newElement("I", "fas fa-star")) 
+							let text = newElement("P", "text", data.comment)
+							let time = newElement("DIV", "time", data.time)
+						info.append(name)
+						info.append(rate)
+						info.append(text)
+						info.append(time)
+					content.append(info)
+				card.append(content)
+				inspect.append(card)
+			})
+			
 	
 	let link = profile.children[2] // links
 		let moreinfo = user.moreinfo

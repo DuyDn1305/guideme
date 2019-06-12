@@ -33,7 +33,7 @@ function guideme_notiHandler () {
         notiBox.prepend(item)
     }
 
-    window.addComment = function (target, data) {
+    window.notiComment = function (target, data) {
         let item = newElement("DIV", "item comment")
             let content = newElement("DIV", 'content')
                 let avatarContainer = newElement("DIV", "avatar-container")
@@ -64,7 +64,7 @@ function guideme_notiHandler () {
             content.append(info)
         item.append(content)
         notiBox.prepend(item)
-        console.log('add comment')
+        console.log('notice comment')
     }
 
     incProBar()
