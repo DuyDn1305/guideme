@@ -9,7 +9,7 @@ function guideme_editInfo() {
     let btnReset = $(".btn-secondary")[0]
 
     let tmp = $("#editModal")
-    window.loadData = () => {
+    tmp.on('click', () => {
         getValue(tmp.find('[placeholder="Full Name"]'), user.displayName)
         getValue(tmp.find('[placeholder="quote" ]'), user.quote)
         getValue(tmp.find('[placeholder="dob"]'), user.moreinfo.dob)
@@ -23,7 +23,7 @@ function guideme_editInfo() {
         getValue(tmp.find('[placeholder="email"]'), user.email)
         getValue(tmp.find('[placeholder="workplace"]'), user.moreinfo.workplace)
         getValue(tmp.find('[placeholder="job"]'), user.moreinfo.job)
-    }
+    });
 
     let form = $('.was-validated')[0];
     btnSubmit.onclick = () => {
