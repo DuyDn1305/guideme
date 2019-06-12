@@ -11,7 +11,7 @@ function guideme_editInfo() {
     let tmp = $("#editModal")
     tmp.on('click', () => {
         getValue(tmp.find('[placeholder="Full Name"]'), user.displayName)
-        getValue(tmp.find('[placeholder="quote" ]'), user.quote)
+        getValue(tmp.find('[placeholder="quote"]'), user.quote)
         getValue(tmp.find('[placeholder="dob"]'), user.moreinfo.dob)
         getValue(tmp.find('[placeholder="cmnd"]'), user.moreinfo.cmnd)
         getValue(tmp.find('[placeholder="fb name"]'), user.moreinfo.fbName)
