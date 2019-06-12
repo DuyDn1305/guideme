@@ -103,7 +103,7 @@ body, html {
       @include avatar;
     }
     > i {
-      margin: 8px;
+      margin: 16px;
       color: black !important;
       &:active {
         text-shadow: 0 0 1px black;
@@ -114,7 +114,6 @@ body, html {
     }
     > .edit {
       position: absolute;
-      z-index: 100;
       right: 2px;
       color: #bdc3c7;
       &:hover {

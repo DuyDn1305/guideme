@@ -11,6 +11,8 @@ function guideme_request () {
     function acceptingRequest (req) {
         db.ref('request/'+user.uid+'/'+req.key).update({type: 'accepted', time: String(req.time), target: req.receiver, isNew: 1})
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'accepted', time: String(req.time), target: user.uid, isNew: 1})
+        db.ref('user/'+user.uid).update({isBusy: req.key})
+        db.ref('user/'+req.receiver).update({isBusy: req.key})
     }
 
     function cancelingRequest (req) {
@@ -21,6 +23,8 @@ function guideme_request () {
     window.completingRequest = (req) => {
         db.ref('request/'+user.uid+'/'+req.key).update({type: 'completed', time: String(req.time), target: req.receiver, isNew: 1})
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'completed', time: String(req.time), target: user.uid, isNew: 1, comment: req.comment, rate: req.rate})
+        db.ref('user/'+user.uid).update({isBusy: 0})
+        db.ref('user/'+req.receiver).update({isBusy: 0})
     }
     // data = {displayName, photoURL}
     function createRequest(target, data) {

@@ -60,7 +60,7 @@ function guideme_card() {
 		_req.onclick = () => {
 			if (reqicon.style.color == 'rgba(255, 255, 255, 0.5)') return;
 			reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
-			$(reqicon).attr('data-original-title', 'This user is busy');
+			$(reqicon).attr('data-original-title', 'You cannot send request');
 			sendingRequest({type: 'req', time: new Date(), receiver: target.uid})
 		}
 		_mes.onclick = () => {

@@ -10,7 +10,6 @@ function getInfo(user, profile) {
 			// add comment
 			if (user.moreinfo.type == 'guide') db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
 				let data = snap.val()
-				console.log(data)
 				let target = userList[data.target]
 				stars += data.rate
 				about.children[3].children[0].children[0].innerHTML = ++cmt // comments
@@ -65,4 +64,9 @@ function getInfo(user, profile) {
 			if (e) info.children[k].children[1].innerHTML = e
 			else info.children[k].style.display = 'none'
 		})
+	let typeBar = profile.children[4]
+	db.ref('user/'+user.uid+'/isBusy').on('value', snap => {
+		if (snap.val()) typeBar.style.display = 'block'
+		else typeBar.style.display = 'none'
+	})
 }
