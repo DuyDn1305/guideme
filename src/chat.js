@@ -98,9 +98,13 @@ function mesToChatContainer(roomId, messages, target) {
   _input.onkeydown = function (event) {
     if (event.key == 'Enter') {
       if (this.value != '') {
-        chat.sendMessage(roomId, this.value, mid => {
-          this.value = ''
-          chat.setReadCursor(roomId, parseInt(mid));      
+        let message = this.value;
+        this.value = '';
+        _input.setAttribute('placeholder', 'Pushing message ...')
+        chat.sendMessage(roomId, message, mid => {
+          chat.setReadCursor(roomId, parseInt(mid));
+          _input.setAttribute('placeholder', 'Type a message ...')
+          _mainMes.scrollTop = _mainMes.scrollHeight;
         })
       }
     }
