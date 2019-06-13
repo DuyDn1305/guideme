@@ -894,54 +894,335 @@ body, html {
 }
 
 .tripInfo {
-  width: 400px;
   margin: auto;
   top: 30%;
   background-color: white;
+  border: 1px solid #bdc3c7;
+  width: 50%;
+  border-radius: 5px;
+  box-shadow: 0 0 2px black;
+  padding: 8px;
   > .tripheader {
     text-align: center;
     font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.5;
+    border-bottom: 1px solid #bdc3c7;
+    padding: 8px 0;
   }
   > .tripmain {
     text-align: left;
+    border-bottom: 1px solid #bdc3c7;
+    padding: 20px 0;
+  }
+  > .tripfeedback {
+    border-bottom: 1px solid #bdc3c7;
+    padding: 20px 0;    
+    $face: #FFFF4C;
+    $outline: #3d3d3d;
+    $star: #FFDB19;
+    $outline-size: 6px;
+    #form {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      max-width: 800px;
+      height: 100%;
+      margin: auto;
+    }
+
+    // Icon Font
+    [class*="fontawesome-"]:before {
+      font-family: 'FontAwesome', sans-serif;
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      margin: auto;
+      width: 100%;
+      height: 100%;
+    }
+
+    // Reset Filter
+    .reset {
+      display: none;
+      position: absolute;
+      top: 100%; left: 50%;
+      margin: auto;
+      padding: 12px 24px;
+      color: $outline;
+      background: lighten($outline, 70%);
+      border: 4px solid $outline;
+      border-radius: 60px;
+      font-family: "Helvetica", sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: rgba(white, 0.8) 1px 1px 0;
+      cursor: pointer;
+      box-shadow: inset rgba(black, 0.06) 0 -15px 0;
+      outline: none;
+      transform: translateX(-50%);
+      &:hover {
+        background: $face;
+      }
+    }
+
+    // Inputs + Labels
+    input, label {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    .stars {
+      position: relative;
+      input {
+        display: none;
+        &:checked ~ label:not(.reset) {
+          animation: wobble 0.8s ease-out;
+          color: $star;
+        }
+        &:checked:not(#star-reset) ~ label.reset {
+          display: block;
+        }
+      }
+      label:not(.reset) {
+        display: inline-block;
+        float: right;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        font-size: 40px;
+        padding: 2px;
+        cursor: pointer;
+        color: $outline;
+        transition: color 0.1s ease-out;
+        z-index: 10;
+      }
+    }
+
+    // Face
+    .face {
+      box-sizing: content-box !important;
+      position: relative;
+      width: 200px;
+      background: white;
+      border: $outline-size solid lighten($outline, 70%);
+      border-radius: 100%;
+      margin: 80px 0 50px;
+      transition: box-shadow 0.4s ease-out;
+      &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+    }
+
+    // Eyes
+    i {
+      position: absolute;
+      top: 50%;
+      display: block;
+      width: 14px;
+      height: 14px;
+      border-radius: 100%;
+      background: lighten($outline, 70%);
+      &:nth-child(1) {
+        left: 30%;
+      }
+      &:nth-child(2) {
+        right: 30%;
+      }
+    }
+
+    // Smile
+    u {
+      box-sizing: content-box !important; 
+      position: absolute;
+      right: 0; bottom: 25%; left: 0;
+      margin: auto;
+      width: 24px;
+      height: 24px;
+      text-decoration: none;
+      border: $outline-size solid lighten($outline, 70%);
+      border-radius: 100%;
+      &:before, &:after {
+        box-sizing: content-box !important; 
+        content: "";
+        position: absolute;
+        top: 15px;
+        width: $outline-size;
+        height: $outline-size;
+        background: lighten($outline, 70%);
+        border-radius: 60px 60px 0 0;
+        z-index: 2;
+      }
+      &:before {
+        left: -$outline-size + 1;
+        transform: rotate(-32deg);
+      }
+      &:after {
+        right: -$outline-size + 1;
+        transform: rotate(32deg);
+      }
+      .cover {
+        box-sizing: content-box !important; 
+        position: absolute;
+        top: -$outline-size;
+        left: -$outline-size;
+        width: 100%;
+        height: 100%;
+        border: $outline-size solid white;
+        background: white;
+        transform: translate(0,-12px);
+      }
+    }
+
+    // Facial Expressions
+    input#star4:checked,
+    input#star2:checked {
+      ~ .face {
+        u {
+          width: 36px;
+          &:before, &:after {
+            top: 18px;
+            height: 10px;
+          }
+          &:before {
+            left: 0px;
+            transform: rotate(-66deg);
+          }
+          &:after {
+            right: 0px;
+            transform: rotate(66deg);
+          }
+          .cover {
+            transform: translate(0,-8px); 
+          }
+        }
+      }
+    }
+    input#star5:checked,
+    input#star4:checked {
+      ~ .face {
+        u {
+          transform: rotate(180deg)
+            translateY(-20px);
+        }
+      }
+    }
+    input#star3:checked {
+      ~ .face {
+        u {
+          width: 42px;
+          height: $outline-size;
+          background: $outline;
+          border: none;
+          border-radius: 60px;
+          transform: translateY(-4px);
+          &:before,
+          &:after,
+          .cover {
+            display: none;
+          }
+        }
+      }
+    }
+
+    // Face Color Changes
+    input:not(#star-reset):checked {
+      ~ .face {
+        animation: wobble 0.8s ease-out;
+      }
+      ~ .face,
+      ~ .face u {
+        border-color: $outline;
+      }
+      ~ .face i,
+      ~ .face u:before,
+      ~ .face u:after {
+        background: $outline;
+      }
+    }
+    input#star5:checked ~ .face {
+      background-color: lighten($face, 40%);
+      box-shadow: 
+        inset rgba(white, 0.5) 2px 2px 0 4px,
+        inset rgba(black, 0.06) -6px -4px 0 4px;
+      u .cover {
+        background: lighten($face, 40%);
+        border-color: lighten($face, 40%);
+      }
+    }
+    input#star4:checked ~ .face {
+      background-color: lighten($face, 30%);
+      box-shadow: 
+        inset rgba(white, 0.5) 2px 2px 0 4px,
+        inset rgba(black, 0.06) -6px -4px 0 4px,
+        rgba($face, 0.05) 0 0 0 20px;
+      u .cover {
+        background: lighten($face, 30%);
+        border-color: lighten($face, 30%);
+      }
+    }
+    input#star3:checked ~ .face {
+      background-color: lighten($face, 20%);
+      box-shadow: 
+        inset rgba(white, 0.5) 2px 2px 0 4px,
+        inset rgba(black, 0.06) -6px -4px 0 4px,
+        rgba($face, 0.3) 0 0 0 15px,
+        rgba($face, 0.1) 0 0 0 30px;
+    }
+    input#star2:checked ~ .face {
+      background-color: lighten($face, 10%);
+      box-shadow: 
+        inset rgba(white, 0.5) 2px 2px 0 4px,
+        inset rgba(black, 0.06) -6px -4px 0 4px,
+        rgba($face, 0.4) 0 0 0 20px,
+        rgba($face, 0.2) 0 0 0 40px;
+      u .cover {
+        background: lighten($face, 10%);
+        border-color: lighten($face, 10%);
+      }
+    }
+    input#star1:checked ~ .face {
+      background-color: $face;
+      box-shadow: 
+        inset rgba(white, 0.5) 2px 2px 0 4px,
+        inset rgba(black, 0.06) -6px -4px 0 4px,
+        rgba($face, 0.4) 0 0 0 25px,
+        rgba($face, 0.2) 0 0 0 50px;
+      u .cover {
+        background: $face;
+        border-color: $face;
+      }
+    }
+
+    // Star -- Animation
+    @keyframes wobble {
+      0% {
+        transform: scale(0.8);
+      }
+      20% {
+        transform: scale(1.1);
+      }
+      40% {
+        transform: scale(0.9);
+      }
+      60% {
+        transform: scale(1.05);
+      }
+      80% {
+        transform: scale(0.96);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
   }
   > .tripfooter {
-    justify-content: center;
     display: flex;
+    justify-content: center;
+    padding: 20px 0;
     > .btn {
-      @extend %btn-property;
-    }
-    > .end {
-      background-color: #2ecc71;
-      color: white;
-      font-weight: 600;
-      &:hover {
-        cursor: pointer;
-        background-color: #27ae60;
-      }
-    }
-    > .confirm {
-      font-weight: 600;
-      background-color: #4267b2;
-      border: 1px solid #4267b2;
-      color: white;
-      &:hover {
-        cursor: pointer;
-        background-color: #365899;
-        border-color: #365899;
-      }
-    }
-    > .cancel {
-      background-color: #f5f6f7;
-      border-color: #ccd0d5;
-      color: #4b4f56;
-      border: 1px solid;
-      font-weight: 600;
-      &:hover {
-        background-color: #ccd0d5;
-        color: #4b4f56;
-        cursor: pointer;
-      }
+      margin: 0 8px;
     }
   }
 }

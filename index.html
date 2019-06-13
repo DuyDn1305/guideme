@@ -331,17 +331,38 @@
 				<div>Guide:</div>
 				<div>Visitor:</div>
 				<div>time:</div>
-				<div>comment:</div>
-				<div>rate:</div>
+			</div>		
+			<div class='tripfeedback'>
+				<form id="form" class="was-validated form-group">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Nhận xét" required>
+						<div class="valid-feedback">Hợp lệ</div>
+						<div class="invalid-feedback">Hãy nhận xét về guide</div>
+					</div> <!--comment-->
+					<fieldset class="stars">
+						<input type="radio" name="stars" id="star1" ontouchstart="ontouchstart"/>
+						<label class="fa fa-star" for="star1"></label>
+						<input type="radio" name="stars" id="star2" ontouchstart="ontouchstart"/>
+						<label class="fa fa-star" for="star2"></label>
+						<input type="radio" name="stars" id="star3" ontouchstart="ontouchstart"/>
+						<label class="fa fa-star" for="star3"></label>
+						<input type="radio" name="stars" id="star4" ontouchstart="ontouchstart"/>
+						<label class="fa fa-star" for="star4"></label>
+						<input type="radio" name="stars" id="star5" ontouchstart="ontouchstart"/>
+						<label class="fa fa-star" for="star5"></label>
+						<figure class="face"><i></i><i></i><u><div class="cover"></div></u></figure>
+					</fieldset><!--rate-->
+					
+				</form>
 			</div>
 			<div class='tripfooter'>
-				<div class='btn end'>End trip</div>
-				<div class='btn confirm'>Confirm</div>
-				<div class='btn cancel'>Cancel</div>
-				<div class='btn confirm'>Return</div>
+				<button type="button" class="btn btn-success">Kết thúc</button>
+				<button type="button" class="btn btn-primary">Xác nhận</button>
+				<button type="button" class="btn btn-secondary">Quay lại</button>
+				<button type="button" class="btn btn-primary">Trở về</button>
 			</div>
 		</div>
-	</div>
+	</div> <!--Trip modal-->
 	<div class='modal fade' id="editModal">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
