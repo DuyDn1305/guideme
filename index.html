@@ -6,9 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" media="screen" href="stylesheet/style.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<!--Add opensan font-->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
-	<!--Include firebase-->
 	
 	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
@@ -18,6 +17,8 @@
 	<script src="https://unpkg.com/@pusher/chatkit-client@1/dist/web/chatkit.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
 
 	<script src="lib/webchat.min.js"></script>
 	<script src="lib/RequestHandler.min.js"></script>
@@ -333,12 +334,12 @@
 				<div>time:</div>
 			</div>		
 			<div class='tripfeedback'>
-				<form id="form" class="was-validated form-group">
-					<div class="input-group">
+				<form id="comment-form" class="was-validated form-group">
+					<div class="input-group" style="justify-content: center;">
 						<input type="text" class="form-control" placeholder="Nhận xét" required>
-						<div class="valid-feedback">Hợp lệ</div>
-						<div class="invalid-feedback">Hãy nhận xét về guide</div>
-					</div> <!--comment-->
+						<div class="valid-feedback">Cảm ơn sự phản hồi của bạn</div>
+						<div class="invalid-feedback">Hãy cho tôi sự phản hồi của bạn</div>
+					</div>
 					<fieldset class="stars">
 						<input type="radio" name="stars" id="star1" ontouchstart="ontouchstart"/>
 						<label class="fa fa-star" for="star1"></label>
@@ -351,8 +352,7 @@
 						<input type="radio" name="stars" id="star5" ontouchstart="ontouchstart"/>
 						<label class="fa fa-star" for="star5"></label>
 						<figure class="face"><i></i><i></i><u><div class="cover"></div></u></figure>
-					</fieldset><!--rate-->
-					
+					</fieldset>
 				</form>
 			</div>
 			<div class='tripfooter'>

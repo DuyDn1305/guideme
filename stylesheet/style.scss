@@ -922,7 +922,7 @@ body, html {
     $outline: #3d3d3d;
     $star: #FFDB19;
     $outline-size: 6px;
-    #form {
+    #comment-form {
       display: flex;
       flex-direction: column-reverse;
       justify-content: center;
@@ -942,6 +942,7 @@ body, html {
       height: 100%;
     }
 
+        
     // Reset Filter
     .reset {
       display: none;

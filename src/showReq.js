@@ -16,7 +16,8 @@ function guideme_showReqList() {
 			
 		}
 		reqListRef.orderByChild("isNew").startAt(1).on('child_added', snap => {
-			console.log("#RECEIVE value from child_added")
+			console.log("#RECEIVE value from child_added "+snap.key)
+			console.log(snap.val())
 			// info
 			let newReq = snap.val()
 			let target = userList[newReq.target]
@@ -24,7 +25,8 @@ function guideme_showReqList() {
 			requestAction(target, {...newReq, key: snap.key})
 		})
 		reqListRef.on('child_changed', snap => {
-			console.log("#RECEIVE value from child_changed")
+			console.log("#RECEIVE value from child_changed "+snap.key)
+			console.log(snap.val())
 			// info
 			let changedReq = snap.val()
 			let target = userList[changedReq.target]

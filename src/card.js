@@ -1,10 +1,9 @@
 function guideme_card() {
 	while (cardContainer.children[0] != null) cardContainer.children[0].remove()
-
+	
 	getInfo(user, profilePane)
-
 	for (let k in userList) {
-		if (k != user.uid) showCard(userList[k]);
+		if (k != user.uid && userList[k].moreinfo) showCard(userList[k]);
 	}
 
 	$('[data-toggle="tooltip"]').tooltip()
@@ -51,7 +50,7 @@ function guideme_card() {
 		toolbarContainer.append(_user)
 		toolbarContainer.append(_mes)
 		toolbarContainer.append(_req)
-		
+
 		if (target.moreinfo.type == 'visitor' || user.moreinfo.type == 'guide') {
 			reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
 			$(reqicon).attr('data-original-title', 'You cannot send request');
@@ -94,6 +93,7 @@ function guideme_card() {
 		_div.append(card);
 		_div.append(toolbarContainer);
 		cardContainer.append(_div);
+		console.log(_div)
 	}
 	
 	incProBar();

@@ -30,7 +30,7 @@ function newElement(type, classname, context = '') {
 }
 
 let db = firebase.database();
-let user, userList, chat, firstLoad = 0, ready = [], reqList;
+let user, userList, chat, firstLoad = 0, ready = [], reqList, userDataLog = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer

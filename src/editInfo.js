@@ -5,10 +5,10 @@ function guideme_editInfo() {
         if (!element.val()) element.val(value);
     }
 
-    let btnSubmit = $(".btn-primary")[0]
-    let btnReset = $(".btn-secondary")[0]
-
+    
     let tmp = $("#editModal");
+    let btnSubmit = tmp.find(".btn-primary")
+    let btnReset = tmp.find(".btn-secondary")
     let name = tmp.find('[placeholder="Tên của bạn"]');
     let quote = tmp.find('[placeholder="Lời chào"]');
     let dob = tmp.find('[placeholder="dob"]');
@@ -39,8 +39,8 @@ function guideme_editInfo() {
         getValue(job, user.moreinfo.job)
     });
 
-    let form = $('.was-validated')[0];
-    btnSubmit.onclick = () => {
+    let form = tmp.find('.was-validated')[0];
+    $(btnSubmit).click(function() {
         if (form.checkValidity()) {
             profilePane.style.opacity = '0.5';
             db.ref("user/"+user.uid).update({
@@ -69,9 +69,10 @@ function guideme_editInfo() {
         } else {
             form.reportValidity();
         }
-    }
+    })
 
-    btnReset.onclick = () => {
+    $(btnReset).click(function() {
+        console.log(form)
         name.val(user.displayName)
         quote.val(user.quote)
         dob.val(user.moreinfo.dob)
@@ -85,7 +86,7 @@ function guideme_editInfo() {
         email.val(user.email)
         workplace.val(user.moreinfo.workplace)
         job.val(user.moreinfo.job)
-    }
+    })
 
     incProBar()
     console.log('editInfo.js loadded')

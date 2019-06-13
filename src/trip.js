@@ -5,10 +5,10 @@ function guideme_trip () {
 
 	window.showTripAccepted = (list = [], data) => {
 		$(modal).fadeIn()
-		modal.style.display = 'block'
 		let header = modal.children[0].children[0] // title
 			header.children[0].innerHTML = '#Trip'
 		let main = modal.children[0].children[1] // main
+			$(main).css('display', 'block')
 			main.children[0].innerHTML = "Guide: "
 			main.children[1].innerHTML = "Visitor: "
 			let time = main.children[2]
@@ -21,6 +21,8 @@ function guideme_trip () {
 			})
 		let feedback = modal.children[0].children[2] //comment+rate
 			feedback.style.display = 'none'
+			let form = $('#comment-form')[0];
+			
 		let footer = modal.children[0].children[3] // button
 			let btnEnd = footer.children[0]
 			let btnConfirm = footer.children[1]
@@ -52,10 +54,32 @@ function guideme_trip () {
 					$(feedback).fadeOut()
 					$(main).fadeIn()
 				}
+
+				let disable = 0
 				btnConfirm.onclick = () => {
-					$(`[reqId='${data.key}']`).fadeOut('fast', function() { this.remove(); });
-					completingRequest({type: 'completed', time: new Date(), receiver: data.target, key: data.key, comment: 'thank hihi', rate: 5})
-					$(modal).fadeOut()
+					if (disable) return
+					setTimeout(() => {
+						disable = 0
+					}, 1000);
+					disable = 1
+					if (form.checkValidity()) {
+						let starId = $(form).find("input:checked").attr("id")
+						if (!starId) {
+							let stars = $(form).find("label")
+							for (let k = 0; k < 5; ++k) {
+								setTimeout(() => {
+									$(stars[k]).effect("bounce", "fast")
+								}, 250-k*50);	
+							}
+						}
+						else {
+							$(`[reqId='${data.key}']`).fadeOut('fast', function() { this.remove(); });
+							completingRequest({type: 'completed', time: new Date(), receiver: data.target, key: data.key, comment: $(form).find("[placeholder='Nhận xét']").val(), rate: Number(6-starId[4])})
+							$(modal).fadeOut()
+						}
+					} else {
+						form.reportValidity();
+					}
 				}
 			}
 	}
