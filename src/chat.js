@@ -95,14 +95,17 @@ function mesToChatContainer(roomId, messages, target) {
   let _input = newElement('INPUT', 'input')
   _input.setAttribute('type', 'text')
   _input.setAttribute('placeholder', 'Type a message ...')
+  let tmp = true;
   _input.onkeydown = function (event) {
     if (event.key == 'Enter') {
-      if (this.value != '') {
+      if (tmp && this.value != '') {
         let message = this.value;
         this.value = '';
+        tmp = false;
         _input.setAttribute('placeholder', 'Pushing message ...')
         chat.sendMessage(roomId, message, mid => {
           chat.setReadCursor(roomId, parseInt(mid));
+          tmp = true;
           _input.setAttribute('placeholder', 'Type a message ...')
           _mainMes.scrollTop = _mainMes.scrollHeight;
         })
