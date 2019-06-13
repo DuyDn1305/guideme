@@ -11,8 +11,8 @@ function guideme_request () {
     function acceptingRequest (req) {
         db.ref('request/'+user.uid+'/'+req.key).update({type: 'accepted', time: String(req.time), target: req.receiver, isNew: 1})
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'accepted', time: String(req.time), target: user.uid, isNew: 1})
-        db.ref('user/'+user.uid).update({isBusy: req.key})
-        db.ref('user/'+req.receiver).update({isBusy: req.key})
+        db.ref('user/'+user.uid).update({isBusy: req.receiver})
+        db.ref('user/'+req.receiver).update({isBusy: user.uid})
     }
 
     function cancelingRequest (req) {
@@ -42,7 +42,7 @@ function guideme_request () {
                 info.append(action)
             content.append(info)
         req.append(content)
-            let btn = newElement("DIV",  "btn")
+            let btn = newElement("DIV",  "btnHolder")
                 let btnAccept = newElement("DIV", "btnAccept", "Accept")
                 btnAccept.onclick = () => {
                     acceptingRequest({type: 'accepted', receiver: target.uid, time: new Date(), key: data.key})
@@ -102,10 +102,10 @@ function guideme_request () {
                 info.append(name)
             content.append(info)
         req.append(content)
-            let btn = newElement("DIV",  "btn")
+            let btn = newElement("DIV",  "btnHolder")
                 btn.append(newElement("DIV", "btnAccept", "Trip started <i class='fas fa-walking'></i>"))
         req.append(btn)
-        req.onclick = () => {
+        profilePane.children[4].onclick = req.onclick = () => {
             showTripAccepted([user.uid, target.uid], data)
         }
         if (data.key) req.setAttribute('reqId', data.key)
@@ -125,13 +125,12 @@ function guideme_request () {
                 info.append(name)
             content.append(info)
         req.append(content)
-            let btn = newElement("DIV",  "btn")
+            let btn = newElement("DIV",  "btnHolder")
                 btn.append(newElement("DIV", "btnAccept", "Trip completed <i class='fas fa-check'></i>"))
         req.append(btn)
         if (data.key) req.setAttribute('reqId', data.key)
-        req.onclick = () => {
-            showTripCompleted([user.uid, target.uid], data)
-        }
+        req.onclick = showTripCompleted([user.uid, target.uid], data)
+        
         reqBox.prepend(req)
         console.log('created complte')
     }
@@ -149,7 +148,7 @@ function guideme_request () {
                 info.append(name)
             content.append(info)
             req.append(content)
-                let btn = newElement("DIV",  "btn")
+                let btn = newElement("DIV",  "btnHolder")
                     btn.append(newElement("DIV", "btnAccept", "Trip canceled <i class='far fa-frown-open'></i>"))
             req.append(btn)
             if (data.key) req.setAttribute('reqId', data.key)

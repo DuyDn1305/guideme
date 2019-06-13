@@ -129,8 +129,11 @@ body, html {
       font-weight: 700;
       margin: 0;
     }
-    div > .quote {
-      @extend %quote;
+    > div {
+      margin-bottom: 16px;
+      > .quote {
+        @extend %quote;
+      }
     }
     > .rate {
       color: #f1c40f;
@@ -246,6 +249,10 @@ body, html {
     }
     &:hover{
       opacity: 0.95;
+      cursor: pointer;
+    }
+    &:active {
+      opacity: 0.8;
     }
   }
 }
@@ -304,13 +311,13 @@ body, html {
   }  
 }
 
-.main {
+body > .main {
   display: flex;
   margin-top: 5px;
-  .profile {
+  > .profile {
     @extend %profile;
   }
-  .central {
+  > .central {
     flex: 6;
     @extend %bg ;
     > .map {
@@ -340,81 +347,83 @@ body, html {
     }
   }
 
-  .search {
+  > .search {
     flex: 3;
     box-shadow: 2px -10px 50px -10px #7f8c8d;
     background: #ecf0f1;
     margin: 10px;
     
     margin-top: 15px;
-    .container {
+    > .container {
       padding: 0;
-      .card-container {
+      > .card-container {
         margin: 10px;
         height: 512px;
         overflow-y: auto;
-        .card {
-          padding: 5px 0px 5px 0px;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          justify-content: flex-start;
-          border-bottom: 5px solid #3498db;
-          border-radius: 0px;
-          border-bottom-left-radius: 5px;
-          //border: 0px;
-          background: white;
-          .avatar-container {
-            .avatar {
-              @include avatar;
-            }
-          }
-          .info-container {
-            .name {
-              font-weight: bold;
-            }
-            .quote {
-              @extend %quote;
-            }
-          }
-        }
-        .toolbar {
-          display: flex;
-          justify-content: flex-end;
-          color: white;
-          %toolbar-btn-property {
-            background: #3498db;
-            padding: 5px;
+        div {
+          > .card {
+            padding: 5px 0px 5px 0px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            border-bottom: 5px solid #3498db;
+            border-radius: 0px;
             border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            width: 35px;
-            text-align: center;
-            &:hover {
-              cursor: pointer;
-              opacity: .7;
+            //border: 0px;
+            background: white;
+            > .avatar-container {
+              > .avatar {
+                @include avatar;
+              }
             }
-            &:active {
-              text-shadow: 0 0 1px white;
-              color: white;
+            > .info-container {
+              > .name {
+                font-weight: bold;
+              }
+              > .quote {
+                @extend %quote;
+              }
             }
           }
-          .user-container {
-            @extend %toolbar-btn-property;
-            margin: 0px 5px 0px 5px;
-          }
-          .mes-container {
-            @extend %toolbar-btn-property;
-            margin: 0px 5px 0px 5px;
-          }
-          
-          .req-container {
-            @extend %toolbar-btn-property;
-            margin: 0px 0px 0px 5px;
+          > .toolbar {
+            display: flex;
+            justify-content: flex-end;
+            color: white;
+            %toolbar-btn-property {
+              background: #3498db;
+              padding: 5px;
+              border-bottom-left-radius: 5px;
+              border-bottom-right-radius: 5px;
+              width: 35px;
+              text-align: center;
+              &:hover {
+                cursor: pointer;
+                opacity: .7;
+              }
+              &:active {
+                text-shadow: 0 0 1px white;
+                color: white;
+              }
+            }
+            > .user-container {
+              @extend %toolbar-btn-property;
+              margin: 0px 5px 0px 5px;
+            }
+            > .mes-container {
+              @extend %toolbar-btn-property;
+              margin: 0px 5px 0px 5px;
+            }
+            
+            > .req-container {
+              @extend %toolbar-btn-property;
+              margin: 0px 0px 0px 5px;
+            }
           }
         }
       }
     }
-    .nav-container {
+    > .nav-container {
       display: flex;
       padding: 10px;
       background: white;
@@ -423,7 +432,7 @@ body, html {
       border-top-right-radius: 10px;
       margin-top: -10px;
       
-      .inp {
+      > .inp {
         flex: 9;
         border-radius: 5px;
         border: 0;
@@ -436,12 +445,12 @@ body, html {
         color: #7f8c8d;
         opacity: .5;
       }
-      .find-container {
+      > .find-container {
         padding: 5px;
         flex: 1;
         text-align: center;
         color: #2c3e50;
-        .fa-eraser {
+        > .fa-eraser {
           font-size: 20px;
           cursor: pointer;
         }
@@ -755,7 +764,9 @@ body, html {
         }
       }
     }
-    > .btn {
+    > .btnHolder {
+      display: flex;
+      justify-content: space-between;
       > .btnAccept {
         @extend %btn-property;
         font-weight: 600;
@@ -796,7 +807,7 @@ body, html {
     &:hover {
       background-color: #007bff27;
     }
-    > .btn > .btnAccept {
+    > .btnHolder > .btnAccept {
       background-color: #007bff;
       border: 0;
       &:hover {
@@ -811,7 +822,7 @@ body, html {
     &:hover {
       background-color: #2ecc7140;
     }
-    > .btn > .btnAccept {
+    > .btnHolder > .btnAccept {
       background-color: #2ecc71;
       border: 0;
       &:hover {
@@ -826,7 +837,7 @@ body, html {
     &:hover {
       background-color: #bdc3c727;
     }
-    > .btn > .btnAccept {
+    > .btnHolder > .btnAccept {
       background-color: #bdc3c7;
       border: 0;
       &:hover {

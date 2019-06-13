@@ -93,7 +93,6 @@ function guideme_card() {
 		_div.append(card);
 		_div.append(toolbarContainer);
 		cardContainer.append(_div);
-		console.log(_div)
 	}
 	
 	incProBar();

@@ -45,7 +45,7 @@ function getInfo(user, profile) {
 			}
 		}
 		if (!userDataLog[user.uid].cmt) about.children[3].style.display = 'none' // hide if no comment
-
+		else  about.children[3].style.display = 'flex'
 	let link = profile.children[2] // links
 		let moreinfo = user.moreinfo
 		let linkName = [moreinfo.fbName, moreinfo.twName, moreinfo.igName, user.displayName] 
@@ -59,7 +59,7 @@ function getInfo(user, profile) {
 		})
 		linkURL.forEach((value, k) => {
 			if (value) {
-				$(link.children[k].children[1]).attr('href', value).attr('target', '_blank').attr('title', value)
+				$(link.children[k].children[1]).attr('href', value).attr('target', '_blank').attr('data-original-title', value)
 				link.children[k].children[2].style.display = 'none'
 			}
 			else link.children[k].children[2].style.display = 'inline-block'
@@ -73,8 +73,9 @@ function getInfo(user, profile) {
 			else info.children[k].style.display = 'none'
 		})
 	let typeBar = profile.children[4]
-	if (!userDataLog[user.uid].load) db.ref('user/'+user.uid+'/isBusy').on('value', snap => {
-		if (snap.val()) typeBar.style.display = 'block'
+		if (user.isBusy != 0) {
+			typeBar.style.display = 'block'
+			typeBar.children[1].innerHTML = userList[user.isBusy].displayName
+		}
 		else typeBar.style.display = 'none'
-	})
 }
