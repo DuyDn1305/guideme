@@ -40,13 +40,6 @@ function marker(latLng, map) {
     })
 }
 
-
-function renderMap() {
-    let script = document.createElement("SCRIPT")
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDg1tnHzh_T3WwLxAaCz8NpWLOgPjbw8lI&callback=initMap"
-    document.body.append(script)
-}
-
 function getUserPos (user) {
     let tmp = document.getElementById("map")
     console.log('run function')
