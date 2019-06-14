@@ -2,7 +2,7 @@ function getAvgStar(numStar, numCmt) {
 	let avg = (numStar/numCmt).toFixed(1);
 	let lo = Math.floor(avg);
 	let val = avg-lo;
-	if (val < 0.3) return [avg, lo, false];
+	if (val < 0.5) return [avg, lo, false];
 	if (val > 0.8) return [avg, lo+1, false];
 	return [avg, lo, true];
 }
@@ -54,8 +54,9 @@ function getInfo(user, profile) {
 						let avg = about.children[2].children[0]
 							avg.children[0].innerHTML = avStar[0]
 							avg.children[1].innerHTML = ""
-							for (let i = 1; i <= avStar[1]; ++i) avg.children[1].innerHTML += "<i class='fas fa-star' style='color: #f1c40f'></i>"
-							if (avStar[2]) avg.children[1].innerHTML += "<i class='fas fa-star-half-alt' style='color: #f1c40f'></i>"
+							for (let i = 0; i < avStar[1]; ++i) avg.children[1].innerHTML += "<i class='fas fa-star'></i>"
+							if (avStar[2]) avg.children[1].innerHTML += "<i class='fas fa-star-half-alt'></i>"
+							for (let i = 0; i < 5 - avStar[1] - avStar[2]; ++i) avg.children[1].innerHTML += "<i class='far fa-star'></i>"
 						let barContainer = about.children[2].children[1]
 						for (let k = 1; k <= 5; ++k) {
 							if (userDataLog[user.uid].type[k]) {
