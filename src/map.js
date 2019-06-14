@@ -1,22 +1,16 @@
 function guideme_map() {
+	if (firstLoad) return;
 	window.getUserCurrentPosition = (id) => {
 		if (navigator.geolocation) {
 			navigator.geolocation.watchPosition(pos => {
+				console.log(pos)
 				let latLng = {lat: pos.coords.latitude, lng: pos.coords.longitude}
-				db.ref('position/'+id).update({geolocation: latLng})
-				if (infoWindow) {
-					infoWindow.setPosition(latLng);
-					infoWindow.open(map);
-				}
 				if (map) map.setCenter(latLng);
-			}, () => {
-				// Cannot get position
-				handleLocationError(true, infoWindow, map.getCenter())
+				db.ref('position/'+id).update({geolocation: latLng})
 			})
-		} 
+		}
 		else {
-			// Browser doesn't support Geolocation
-			handleLocationError(false, infoWindow, map.getCenter());
+			console.log('cannot get')
 		}	
 	}
 		
