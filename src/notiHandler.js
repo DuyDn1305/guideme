@@ -45,7 +45,8 @@ function guideme_notiHandler () {
                     let name = newElement("SPAN", "name", target.displayName)
                 info.append(name)
                     let rate = newElement("SPAN", "rate")
-                    while (data.rate--) {
+                    let tmp = data.rate
+                    while (tmp--) {
                         let star = newElement("I", "fas fa-star")
                         rate.append(star)
                     }

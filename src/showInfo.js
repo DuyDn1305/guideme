@@ -37,7 +37,8 @@ function getInfo(user, profile) {
 							let info = newElement("DIV", "info")
 								let name = newElement("SPAN", "name", target.displayName)
 								let rate = newElement("SPAN", "rate")
-									while (data.rate--) rate.append(newElement("I", "fas fa-star")) 
+									let tmp = data.rate
+									while (tmp--) rate.append(newElement("I", "fas fa-star")) 
 								let text = newElement("P", "text", data.comment)
 								let time = newElement("DIV", "time", data.time)
 							info.append(name)

@@ -129,6 +129,7 @@ function guideme_request () {
                 btn.append(newElement("DIV", "btnAccept", "Chuyến đi kết thúc <i class='fas fa-check'></i>"))
         req.append(btn)
         if (data.key) req.setAttribute('reqId', data.key)
+        console.log(data)
         req.onclick = () => {showTripCompleted([user.uid, target.uid], data)}
         
         reqBox.prepend(req)
