@@ -1,12 +1,11 @@
 function guideme_map() {
 	window.getUserCurrentPosition = (id) => {
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(pos => {
+			navigator.geolocation.watchPosition(pos => {
 				let latLng = {lat: pos.coords.latitude, lng: pos.coords.longitude}
 				db.ref('position/'+id).update({geolocation: latLng})
 				if (infoWindow) {
 					infoWindow.setPosition(latLng);
-					infoWindow.setContent("Location found");
 					infoWindow.open(map);
 				}
 				if (map) map.setCenter(latLng);
