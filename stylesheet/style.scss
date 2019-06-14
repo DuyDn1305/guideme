@@ -136,8 +136,38 @@ body, html {
       }
     }
     > .rate {
-      color: #f1c40f;
-      font-size: 12px;
+      display: flex;
+      padding: 10px;
+      > .avg {
+        display: flex;
+        flex: 4;
+        flex-direction: column;
+        > .num {
+          line-height: 1.2;
+          font-size: 3rem;
+          font-weight: bold;
+          color: black;
+        }
+        > .star {
+          color: #f1c40f;
+          font-size: 14px;
+        }
+      }
+      > .barContainer {
+        flex: 6;
+        display: flex;
+        flex-direction: column-reverse;
+        > .item {
+          display: flex;
+          > .number {
+            flex: 1;
+            font-size: 12px;
+          }
+          > .bar {
+            flex: 19;
+          }
+        }
+      }
     }
     > .item-container {
       margin-top: 20px;

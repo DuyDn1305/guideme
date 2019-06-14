@@ -1,10 +1,10 @@
 function getAvgStar(numStar, numCmt) {
 	let avg = numStar/numCmt;
 	let lo = Math.floor(avg);
-	let val = avg - lo;
-	if (val < 0.3) return [avg, lo, false];
-	if (val > 0.8) return [avg, lo+1, false];
-	return [avg, lo, true];
+	let val = Math.floor((avg - lo)*10);
+	if (val < 3) return [avg, lo, false];
+	if (val > 8) return [avg, lo+1, false];
+	return [lo+val/10, lo, true];
 }
 
 function getInfo(user, profile) {
@@ -12,49 +12,69 @@ function getInfo(user, profile) {
 		avatar.src = user.photoURL
 	let about = profile.children[1] // about
 		about.children[0].innerHTML = user.displayName // name
-		about.children[2].children[0].innerHTML = user.quote || 'NICE TO MEET YOU' //quote
+		about.children[1].children[0].innerHTML = user.quote || 'NICE TO MEET YOU' //quote
+		about.children[2].style.display = 'none'
 		if (userDataLog[user.uid] == undefined) {
-			userDataLog[user.uid] = {load: 1, cmt: 0, stars: 0}
+			userDataLog[user.uid] = {load: 1, cmt: 0, stars: 0,type: [0, 0, 0, 0, 0, 0]}
 			if (user.moreinfo.type == 'guide') {
-				console.log(userDataLog[user.uid].cmt + " "+ userDataLog[user.uid].stars)
 				let inspect = about.children[3].children[2]
-				// add comment
-				if (user.moreinfo.type == 'guide') {
-					console.log("loaded"+user.displayName)
-					db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
-						console.log('added from added_child')
-						let data = snap.val()
-						let target = userList[data.target]
-						userDataLog[user.uid].stars += data.rate
-						about.children[3].children[0].children[0].innerHTML = ++userDataLog[user.uid].cmt // comments
-						about.children[3].children[1].children[0].innerHTML = userDataLog[user.uid].stars// stars
-						about.children[3].style.display = 'flex' // show 
-						let card = newElement("DIV", "card")
-							let content = newElement("DIV", "content")
-								let avatarContainer = newElement('DIV', 'avatar-container')
-									let avatar = newElement('IMG', 'avatar')
-										avatar.src = target.photoURL
-								avatarContainer.append(avatar)
-							content.append(avatarContainer)
-								let info = newElement("DIV", "info")
-									let name = newElement("SPAN", "name", target.displayName)
-									let rate = newElement("SPAN", "rate")
-										while (data.rate--) rate.append(newElement("I", "fas fa-star")) 
-									let text = newElement("P", "text", data.comment)
-									let time = newElement("DIV", "time", data.time)
-								info.append(name)
-								info.append(rate)
-								info.append(text)
-								info.append(time)
-							content.append(info)
-						card.append(content)
-						inspect.append(card)
-					})
-				}
+				db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
+					console.log('added from added_child')
+					let data = snap.val()
+					let target = userList[data.target]
+					userDataLog[user.uid].stars += data.rate
+					++userDataLog[user.uid].type[data.rate]
+					about.children[3].children[0].children[0].innerHTML = ++userDataLog[user.uid].cmt // comments
+					about.children[3].children[1].children[0].innerHTML = userDataLog[user.uid].stars// stars
+					about.children[3].style.display = 'flex' // show 
+					let card = newElement("DIV", "card")
+						let content = newElement("DIV", "content")
+							let avatarContainer = newElement('DIV', 'avatar-container')
+								let avatar = newElement('IMG', 'avatar')
+									avatar.src = target.photoURL
+							avatarContainer.append(avatar)
+						content.append(avatarContainer)
+							let info = newElement("DIV", "info")
+								let name = newElement("SPAN", "name", target.displayName)
+								let rate = newElement("SPAN", "rate")
+									while (data.rate--) rate.append(newElement("I", "fas fa-star")) 
+								let text = newElement("P", "text", data.comment)
+								let time = newElement("DIV", "time", data.time)
+							info.append(name)
+							info.append(rate)
+							info.append(text)
+							info.append(time)
+						content.append(info)
+					card.append(content)
+					inspect.append(card)
+					// comment rate
+					let avStar = getAvgStar(userDataLog[user.uid].stars, userDataLog[user.uid].cmt)
+					about.children[2].style.display = 'flex'
+						let avg = about.children[2].children[0]
+							avg.children[0].innerHTML = avStar[0]
+							avg.children[1].innerHTML = ""
+							for (let i = 1; i <= avStar[1]; ++i) avg.children[1].innerHTML += "<i class='fas fa-star' style='color: #f1c40f'></i>"
+							if (avStar[2]) avg.children[1].innerHTML += "<i class='fas fa-star-half-alt' style='color: #f1c40f'></i>"
+						let barContainer = about.children[2].children[1]
+						for (let k = 1; k <= 5; ++k) {
+							if (userDataLog[user.uid].type[k]) {
+								let bar = barContainer.children[k-1].children[1]
+									let progress = bar.children[0].children[0]
+									let unit = Math.floor(userDataLog[user.uid].type[k]/userDataLog[user.uid].cmt*100)
+									$(progress).attr("aria-valuemin", unit)
+									$(progress).css("width", unit+"%")
+							}
+						}
+					
+				})
 			}
 		}
 		if (!userDataLog[user.uid].cmt) about.children[3].style.display = 'none' // hide if no comment
-		else  about.children[3].style.display = 'flex'
+		else  {
+			about.children[2].style.display = 'flex'
+			about.children[3].style.display = 'flex'
+			about.children[1].style.display = 'block'
+		}
 	let link = profile.children[2] // links
 		let moreinfo = user.moreinfo
 		let linkName = [moreinfo.fbName, moreinfo.twName, moreinfo.igName, user.displayName] 
