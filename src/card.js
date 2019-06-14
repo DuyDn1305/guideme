@@ -51,7 +51,7 @@ function guideme_card() {
 		toolbarContainer.append(_mes)
 		toolbarContainer.append(_req)
 
-		if (target.moreinfo.type == 'visitor' || user.moreinfo.type == 'guide') {
+		if (target.moreinfo.type == 'visitor' || user.moreinfo.type == 'guide' || user.isBusy) {
 			reqicon.style.color = 'rgba(255, 255, 255, 0.5)';
 			$(reqicon).attr('data-original-title', 'You cannot send request');
 		}

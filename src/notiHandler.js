@@ -14,10 +14,10 @@ function guideme_notiHandler () {
                     let name = newElement("SPAN", "name", target.displayName)
                 info.append(name)
                     let action = newElement("SPAN")
-                    if (type == 'req') action.innerHTML = ' sent you a request'
-                    if (type == 'start') action.innerHTML = ' your trip has been started, enjoy it !'
-                    if (type == 'reject') action.innerHTML = ' reject the trip'
-                    if (type == 'complete') action.innerHTML = ' and you have just completed the trip !'
+                    if (type == 'req') action.innerHTML = ' gửi bạn một yêu cầu'
+                    if (type == 'start') action.innerHTML = ' chuyến đi của bạn đã bắt đầu !'
+                    if (type == 'reject') action.innerHTML = ' đã từ chối yêu cầu'
+                    if (type == 'complete') action.innerHTML = ' và bạn đã hoàn thành một chuyến đi !'
                 info.append(action)
                     let footer = newElement("DIV", "footer")
                         let icon = newElement("SPAN", "icon "+type)
@@ -25,7 +25,7 @@ function guideme_notiHandler () {
                             i.style.marginRight = "2px"
                         icon.append(i)
                     footer.append(icon)
-                        let time = newElement("SPAN", "time", timeSent)
+                        let time = newElement("SPAN", "time", getTimeFormat(new Date(timeSent)))
                     footer.append(time)
                 info.append(footer)
             content.append(info)
@@ -58,7 +58,7 @@ function guideme_notiHandler () {
                             i.style.marginRight = "2px"
                         icon.append(i)
                     footer.append(icon)
-                        let time = newElement("SPAN", "time", data.time)
+                        let time = newElement("SPAN", "time", getTimeFormat(new Date(data.time)))
                     footer.append(time)
                 info.append(footer)
             content.append(info)
