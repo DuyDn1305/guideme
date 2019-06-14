@@ -68,8 +68,11 @@ function guideme_trip () {
 							let stars = $(form).find("label")
 							for (let k = 0; k < 5; ++k) {
 								setTimeout(() => {
-									$(stars[k]).effect("bounce", "fast")
-								}, 250-k*50);	
+									$(stars[k]).css("animation", "wobble 0.8s ease-out")
+								}, 500-k*100);	
+								setTimeout(() => {
+									$(stars[k]).css("animation", "")
+								}, 900);
 							}
 						}
 						else {
