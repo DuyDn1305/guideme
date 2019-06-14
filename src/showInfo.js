@@ -54,8 +54,9 @@ function getInfo(user, profile) {
 						let avg = about.children[2].children[0]
 							avg.children[0].innerHTML = avStar[0]
 							avg.children[1].innerHTML = ""
-							for (let i = 1; i <= avStar[1]; ++i) avg.children[1].innerHTML += "<i class='fas fa-star' style='color: #f1c40f'></i>"
-							if (avStar[2]) avg.children[1].innerHTML += "<i class='fas fa-star-half-alt' style='color: #f1c40f'></i>"
+							for (let i = 0; i < avStar[1]; ++i) avg.children[1].innerHTML += "<i class='fas fa-star'></i>"
+							if (avStar[2]) avg.children[1].innerHTML += "<i class='fas fa-star-half-alt'></i>"
+							for (let i = 0; i < 5 - avStar[1] - avStar[2]; ++i) avg.children[1].innerHTML += "<i class='far fa-star'></i>"
 						let barContainer = about.children[2].children[1]
 						for (let k = 1; k <= 5; ++k) {
 							if (userDataLog[user.uid].type[k]) {
