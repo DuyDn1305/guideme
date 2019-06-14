@@ -30,7 +30,7 @@ function newElement(type, classname, context = '') {
 }
 
 let db = firebase.database();
-let user, userList, chat, firstLoad = 0, ready = [], reqList, userDataLog = [];
+let user, userList, chat, firstLoad = 0, ready = [], reqList, userDataLog = [], markers = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
@@ -72,6 +72,15 @@ function filterCard() {
 		}
 	}
 }
+
+function initUserLog(id) {
+	userDataLog[id] = {
+		stars: 0,
+		type: [0, 0, 0, 0, 0, 0], 
+		cmt: 0,
+	}
+}
+
 ready.push(() => {
 	if (firstLoad) return;
 	chat = new WebChat(user.uid);
@@ -122,11 +131,12 @@ ready.push(guideme_menuHandler)
 ready.push(guideme_card)
 ready.push(guideme_request)
 ready.push(guideme_chat)
-//ready.push(guideme_googleApi)
+ready.push(guideme_map)
 ready.push(guideme_logout)
 ready.push(guideme_showReqList)
 ready.push(guideme_editInfo)
 ready.push(guideme_trip)
+ready.push(guideme_positionHandler)
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {

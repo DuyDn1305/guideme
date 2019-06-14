@@ -15,7 +15,7 @@ function getInfo(user, profile) {
 		about.children[1].children[0].innerHTML = user.quote || 'NICE TO MEET YOU' //quote
 		about.children[2].style.display = 'none'
 		if (userDataLog[user.uid] == undefined) {
-			userDataLog[user.uid] = {load: 1, cmt: 0, stars: 0,type: [0, 0, 0, 0, 0, 0]}
+			initUserLog(user.uid)
 			if (user.moreinfo.type == 'guide') {
 				let inspect = about.children[3].children[2]
 				db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
