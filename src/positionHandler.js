@@ -12,5 +12,6 @@ function guideme_positionHandler () {
 			showPos(snap.val().geolocation, snap.key)		
 		})
 		console.log("positionHandler.js loaded")	
+		incProBar();
 	})
 }
