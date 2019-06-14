@@ -267,5 +267,4 @@ function guideme_chat() {
     lastMsg.append(avt);
   }
 
-  console.log('chat.js loaded')
 }

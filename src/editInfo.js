@@ -88,5 +88,4 @@ function guideme_editInfo() {
     })
 
     incProBar()
-    console.log('editInfo.js loadded')
 }

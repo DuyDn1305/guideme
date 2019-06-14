@@ -219,5 +219,4 @@ function guideme_request () {
     }
 
     incProBar()
-    console.log('request.js loaded')
 }

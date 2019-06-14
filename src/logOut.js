@@ -6,5 +6,4 @@ function guideme_logout() {
   }
 
   incProBar();
-  console.log('logOut.js loaded')
 }

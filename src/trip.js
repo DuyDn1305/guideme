@@ -133,5 +133,4 @@ function guideme_trip () {
 	})
 
 	incProBar()
-	console.log('trip.js loaded')
 }

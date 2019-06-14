@@ -9,8 +9,7 @@ function guideme_positionHandler () {
 		})
 		posRef.on("child_changed", snap => {
 			showPos(snap.val().geolocation, snap.key)		
-		})
-		console.log("positionHandler.js loaded")	
+		})	
 		incProBar();
 	})
 }

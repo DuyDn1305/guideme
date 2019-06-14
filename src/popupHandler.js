@@ -26,5 +26,4 @@ function guideme_popupHandler () {
   }
 
   incProBar()
-  console.log('popupHandler.js loaded')
 }

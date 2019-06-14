@@ -146,6 +146,7 @@ firebase.auth().onAuthStateChanged(currentUser => {
 			user = userList[currentUser.uid]
 			ready.forEach(e => e())
 			firstLoad = 1
+			console.log('loaded all guideme_function')
 		})
 	} else {
 		console.log('logged out');

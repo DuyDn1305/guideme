@@ -33,5 +33,4 @@ function guideme_showReqList() {
 	})
 	// get added request
 	incProBar()
-	console.log('showReq.js loaded')
 }

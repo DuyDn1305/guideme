@@ -40,6 +40,5 @@ function guideme_menuHandler() {
     }
   })
 
-  console.log('menuHandler loaded')
   incProBar()
 }

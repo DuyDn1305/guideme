@@ -96,5 +96,4 @@ function guideme_card() {
 	}
 	
 	incProBar();
-	console.log('card.js loaded')
 }

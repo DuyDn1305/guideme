@@ -68,5 +68,4 @@ function guideme_notiHandler () {
     }
 
     incProBar()
-    console.log('notiHandler.js loaded')
 }

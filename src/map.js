@@ -55,7 +55,6 @@ function guideme_map() {
 				console.log(e)
 			})
 		}
-		console.log('map+infowindow init')
 	}
 
 	incProBar();
