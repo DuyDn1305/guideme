@@ -1,10 +1,10 @@
 function getAvgStar(numStar, numCmt) {
 	let avg = (numStar/numCmt).toFixed(1);
 	let lo = Math.floor(avg);
-	let val = Math.floor((avg - lo)*10);
-	if (val < 3) return [avg, lo, false];
-	if (val > 8) return [avg, lo+1, false];
-	return [lo+val/10, lo, true];
+	let val = avg-lo;
+	if (val < 0.3) return [avg, lo, false];
+	if (val > 0.8) return [avg, lo+1, false];
+	return [avg, lo, true];
 }
 
 function getInfo(user, profile) {
