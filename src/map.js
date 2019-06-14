@@ -65,4 +65,6 @@ function guideme_map() {
 		}
 		console.log('map+infowindow init')
 	}
+
+	incProBar();
 }
