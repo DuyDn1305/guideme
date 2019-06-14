@@ -21,7 +21,7 @@ function guideme_request () {
     }
 
     window.completingRequest = (req) => {
-        db.ref('request/'+user.uid+'/'+req.key).update({type: 'completed', time: String(req.time), target: req.receiver, isNew: 1})
+        db.ref('request/'+user.uid+'/'+req.key).update({type: 'completed', time: String(req.time), target: req.receiver, isNew: 1, comment: req.comment, rate: req.rate})
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'completed', time: String(req.time), target: user.uid, isNew: 1, comment: req.comment, rate: req.rate})
         db.ref('user/'+user.uid).update({isBusy: 0})
         db.ref('user/'+req.receiver).update({isBusy: 0})
@@ -38,7 +38,7 @@ function guideme_request () {
                 let info = newElement("DIV", "info")
                     let name = newElement("SPAN", "name", target.displayName) 
                 info.append(name)
-                    let action = newElement("SPAN", 'action', ' sent you a request')
+                    let action = newElement("SPAN", 'action', ' đã gửi một yêu cầu')
                 info.append(action)
             content.append(info)
         req.append(content)
@@ -74,7 +74,7 @@ function guideme_request () {
                 let info = newElement("DIV", "info")
                     let name = newElement("SPAN", "name", target.displayName) 
                 info.append(name)
-                    let action = newElement("SPAN", 'action', ' are responding your request')
+                    let action = newElement("SPAN", 'action', ' đang phản hồi lời đề nghị')
                 info.append(action)
                     let dotLoad = newElement("SPAN", "dotload")
                     for (let i = 0; i < 3; ++i) {
@@ -103,7 +103,7 @@ function guideme_request () {
             content.append(info)
         req.append(content)
             let btn = newElement("DIV",  "btnHolder")
-                btn.append(newElement("DIV", "btnAccept", "Trip started <i class='fas fa-walking'></i>"))
+                btn.append(newElement("DIV", "btnAccept", "Chuyến đi bắt đầu <i class='fas fa-walking'></i>"))
         req.append(btn)
         profilePane.children[4].onclick = req.onclick = () => {
             showTripAccepted([user.uid, target.uid], data)
@@ -126,10 +126,10 @@ function guideme_request () {
             content.append(info)
         req.append(content)
             let btn = newElement("DIV",  "btnHolder")
-                btn.append(newElement("DIV", "btnAccept", "Trip completed <i class='fas fa-check'></i>"))
+                btn.append(newElement("DIV", "btnAccept", "Chuyến đi kết thúc <i class='fas fa-check'></i>"))
         req.append(btn)
         if (data.key) req.setAttribute('reqId', data.key)
-        req.onclick = showTripCompleted([user.uid, target.uid], data)
+        req.onclick = () => {showTripCompleted([user.uid, target.uid], data)}
         
         reqBox.prepend(req)
         console.log('created complte')
@@ -149,7 +149,7 @@ function guideme_request () {
             content.append(info)
             req.append(content)
                 let btn = newElement("DIV",  "btnHolder")
-                    btn.append(newElement("DIV", "btnAccept", "Trip canceled <i class='far fa-frown-open'></i>"))
+                    btn.append(newElement("DIV", "btnAccept", "Chuyến đi bị từ chối <i class='far fa-frown-open'></i>"))
             req.append(btn)
             if (data.key) req.setAttribute('reqId', data.key)
         reqBox.prepend(req)
@@ -160,7 +160,7 @@ function guideme_request () {
             if (user.moreinfo.type == 'guide') {
                 createRequest(target, data)
                 addNoti(target, 'req', data.time)
-                if (realtime) addPopup(target, ' sent you a request', data.time)
+                if (realtime) addPopup(target, ' gửi bạn một yêu cầu', data.time)
             }
             else {
                 createWaiting(target, data)
@@ -171,8 +171,8 @@ function guideme_request () {
             createAccepted(target, data)
             addNoti(target, 'start', data.time)
             if (realtime) {
-                if (user.moreinfo.type == 'visitor') addPopup(target, ' accepted your request')
-                else addPopup(target, ' i am your visitor')
+                if (user.moreinfo.type == 'visitor') addPopup(target, ' đã đồng ý yêu cầu của bạn')
+                else addPopup(target, ' tôi là visitor của bạn đây')
             }
             // cancel all previous request (for visitor account)
             if (user.moreinfo.type == 'visitor') {
@@ -193,7 +193,7 @@ function guideme_request () {
             createCanceled(target, data)
             if (target != user.uid) addNoti(target, 'reject', data.time)
             if (realtime && user.moreinfo.type == 'visitor') {
-                addPopup(target, ' rejected the request')
+                addPopup(target, ' đã từ chối yêu cầu')
             }
         }
         if (data.type == 'completed') {
@@ -201,15 +201,15 @@ function guideme_request () {
             createCompleted(target, data)
             addNoti(target, 'complete', data.time)
             if (realtime) {
-                addPopup(target, ' and you have just completed a trip!')
+                addPopup(target, ' và bạn đã cùng hoàn thành một chuyến đi !')
                 $(`[cardid="${target.uid}"]`).find('.fa-paper-plane').css('color', 'white').attr('data-original-title', 'Request guide')
             }
             if (user.moreinfo.type == 'guide') {
                 if (realtime) {
                     setTimeout(() => {
-                        if (realtime) addPopup(target, 'rated for you '+data.rate)
+                        if (realtime) addPopup(target, 'đã thêm sao cho bạn '+data.rate)
                         setTimeout(() => {
-                            if (realtime)  addPopup(target, 'commented: '+data.comment)
+                            if (realtime)  addPopup(target, 'nhận xét rằng: '+data.comment)
                             setTimeout(() => {
                                 notiComment(target, data)
                             }, 1000);
