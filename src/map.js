@@ -46,7 +46,7 @@ function guideme_map() {
 	window.initMap = () => {
 		map = new google.maps.Map(xMap, {
 			center: {lat: 10.035, lng: 105.775},
-			zoom: 16,
+			zoom: 12,
 		});
 		infoWindow = new google.maps.InfoWindow
 	
