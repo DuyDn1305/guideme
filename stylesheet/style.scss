@@ -161,6 +161,9 @@ body, html {
           display: flex;
           > .number {
             flex: 1;
+            line-height: 0.9;
+            margin-right: 4px;
+            margin-bottom: 10px;
             font-size: 12px;
           }
           > .bar {
