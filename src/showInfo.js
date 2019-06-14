@@ -19,7 +19,6 @@ function getInfo(user, profile) {
 			if (user.moreinfo.type == 'guide') {
 				let inspect = about.children[3].children[2]
 				db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
-					console.log('added from added_child')
 					let data = snap.val()
 					let target = userList[data.target]
 					userDataLog[user.uid].stars += data.rate

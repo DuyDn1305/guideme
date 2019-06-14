@@ -5,7 +5,6 @@ function guideme_showReqList() {
 	reqListRef.once('value').then(snap => {
 		// reqList[] = {type. time, target, comment, rate}
 		reqList = snap.val()
-		console.log("#RECEIVE value from once")
 		for (let k in reqList) {
 			let req = reqList[k]
 			let target = userList[req.target]
@@ -17,8 +16,6 @@ function guideme_showReqList() {
 			
 		}
 		reqListRef.orderByChild("isNew").startAt(1).on('child_added', snap => {
-			console.log("#RECEIVE value from child_added "+snap.key)
-			console.log(snap.val())
 			// info
 			let newReq = snap.val()
 			let target = userList[newReq.target]
@@ -26,8 +23,6 @@ function guideme_showReqList() {
 			requestAction(target, {...newReq, key: snap.key})
 		})
 		reqListRef.orderByChild("isNew").startAt(1).on('child_changed', snap => {
-			console.log("#RECEIVE value from child_changed "+snap.key)
-			console.log(snap.val())
 			// info
 			let changedReq = snap.val()
 			let target = userList[changedReq.target]

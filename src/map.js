@@ -44,7 +44,6 @@ function guideme_map() {
 		infoWindow = new google.maps.InfoWindow
 	
 		window.showPos = (latLng, id) => {
-			console.log(latLng)
 			if (markers[id]) markers[id].setMap(null)
 			let marker = new google.maps.Marker({
 				position: latLng,
@@ -52,7 +51,6 @@ function guideme_map() {
 			})
 			markers[id] = marker
 			markers[id].setMap(map);
-			console.log("created" + id)
 			marker.addListener('click', e => {
 				console.log(e)
 			})

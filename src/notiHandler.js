@@ -65,7 +65,6 @@ function guideme_notiHandler () {
             content.append(info)
         item.append(content)
         notiBox.prepend(item)
-        console.log('notice comment')
     }
 
     incProBar()

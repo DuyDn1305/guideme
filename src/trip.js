@@ -88,7 +88,6 @@ function guideme_trip () {
 	}
 
 	window.showTripCompleted = (list = [], data) => {
-		console.log(data.key)
 		$(modal).fadeIn()
 		let header = modal.children[0].children[0] // title
 			header.children[0].innerHTML = '#Trip'
@@ -107,7 +106,6 @@ function guideme_trip () {
 			main.children[3].innerHTML = "Nhận xét: "+data.comment
 			main.children[4].innerHTML = "Số sao bình chọn: "
 			//for (let k = 1; k <= data.rate; ++k) 
-			console.log(data.rate)
 			for (let k = 1; k <= data.rate; ++k) main.children[4].innerHTML += "<i class='fas fa-star' style='color: #f1c40f'></i>"
 			let feedback = modal.children[0].children[2] //comment+rate
 			feedback.style.display = 'none'

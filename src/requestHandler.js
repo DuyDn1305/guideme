@@ -47,13 +47,11 @@ function guideme_request () {
                 btnAccept.onclick = () => {
                     acceptingRequest({type: 'accepted', receiver: target.uid, time: new Date(), key: data.key})
                     req.remove()
-                    console.log('accepted request')
                 }
                 let btnDecline = newElement("DIV", "btnDecline", "Reject")
                 btnDecline.onclick = () => {
                     cancelingRequest({type: 'canceled', receiver: target.uid, time: new Date(), key: data.key})
                     req.remove()
-                    console.log('canceled request')
                 }
             btn.append(btnAccept)
             btn.append(btnDecline)
@@ -86,7 +84,6 @@ function guideme_request () {
         req.append(content)
         if (data.key) req.setAttribute('reqId', data.key)
         reqBox.prepend(req)
-        console.log('created waiting')   
     }
 
     function createAccepted(target, data) {
@@ -129,11 +126,9 @@ function guideme_request () {
                 btn.append(newElement("DIV", "btnAccept", "Chuyến đi kết thúc <i class='fas fa-check'></i>"))
         req.append(btn)
         if (data.key) req.setAttribute('reqId', data.key)
-        console.log(data)
         req.onclick = () => {showTripCompleted([user.uid, target.uid], data)}
         
         reqBox.prepend(req)
-        console.log('created complte')
     }
 
     function createCanceled(target, data) {
@@ -182,7 +177,6 @@ function guideme_request () {
                     for (let k in snap) {
                         if (k == data.key) continue
                         let req = snap[k]
-                        console.log(k+" "+req.target)
                         db.ref('request/'+user.uid+'/'+k).update({type: 'canceled', time: String(data.time), target: req.target, isNew: 1})
                         db.ref('request/'+req.target+'/'+k).update({type: 'canceled', time: String(data.time), target: user.uid, isNew: 1})
                     }

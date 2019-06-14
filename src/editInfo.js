@@ -72,7 +72,6 @@ function guideme_editInfo() {
     })
 
     $(btnReset).click(function() {
-        console.log(form)
         name.val(user.displayName)
         quote.val(user.quote)
         dob.val(user.moreinfo.dob)
