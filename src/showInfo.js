@@ -1,5 +1,5 @@
 function getAvgStar(numStar, numCmt) {
-	let avg = numStar/numCmt;
+	let avg = (numStar/numCmt).toFixed(1);
 	let lo = Math.floor(avg);
 	let val = avg - lo;
 	if (val < 0.3) return [avg, lo, false];
