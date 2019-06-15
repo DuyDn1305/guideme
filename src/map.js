@@ -71,7 +71,10 @@ function guideme_map() {
 			markers[id] = marker
 			markers[id].setMap(map);
 			marker.addListener('click', e => {
-				console.log(e)
+				let modal = document.getElementById("myModal")
+				let targetProfile = modal.children[0].children[1]
+				getInfo(userList[id], targetProfile);
+				modal.style.display = "block"
 			})
 		}
 		// handle position
