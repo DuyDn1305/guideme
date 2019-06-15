@@ -143,7 +143,7 @@ ready.push(guideme_logout)
 ready.push(guideme_showReqList)
 ready.push(guideme_editInfo)
 ready.push(guideme_trip)
-ready.push(guideme_map)
+//ready.push(guideme_map)
 
 firebase.auth().onAuthStateChanged(currentUser => {
 	if (currentUser) {
