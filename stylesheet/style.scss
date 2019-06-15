@@ -765,6 +765,7 @@ body > .main {
     align-items: center;
     &:hover {
       cursor: pointer;
+      background-color: rgba(235, 235, 235, 0.685);
     }
     > .content {
       @extend %box-avatar;
