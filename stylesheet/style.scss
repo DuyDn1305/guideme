@@ -296,6 +296,7 @@ body, html {
 
 @mixin select-form($paddingright: 18px) {
   > label {
+    font-size: 14px;
     > select {
     padding:3px;
     margin: 0;
@@ -363,7 +364,7 @@ body > .main {
       background: #ecf0f1;
       padding-top: 8px;
       > .province {
-        @include select-form(30px)
+        @include select-form(30px);
       }
       > .distric {
         @include select-form(30px);
@@ -1380,3 +1381,11 @@ body > .main {
     padding: 8px;
   }
 }
+
+.map-control {
+  @include select-form(30px);
+  > label:after {top: 2px !important;}
+  display: none;
+}
+
+.map .map-control { display: block; }
