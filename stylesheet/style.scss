@@ -662,6 +662,24 @@ body > .main {
 
 .mes-box {
   @include menu-box(550px, 400px, -200px);
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(192, 188, 188, 0.5);
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background:rgba(136, 136, 136, 0.5); 
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 1);
+  }
+
   > .mes-container {
     height:70px;
     padding: 5px;
@@ -700,8 +718,46 @@ body > .main {
   }
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 .noti-box {
   @include menu-box(550px, 400px, -130px);
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(192, 188, 188, 0.5);
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background:rgba(136, 136, 136, 0.5); 
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 1);
+  }
+
   > .item {
     height:90px;
     padding: 5px;
@@ -771,6 +827,23 @@ body > .main {
 
 .req-box {
   @include menu-box(550px, 400px, -120px);
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(192, 188, 188, 0.5);
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background:rgba(136, 136, 136, 0.5); 
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 1);
+  }
   > .item {
     height:70px;
     padding: 5px;

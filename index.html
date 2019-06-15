@@ -304,69 +304,69 @@
 				<div class="modal-body">
 					<form class='was-validated form-group'>
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Tên của bạn" pattern="[ a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{2,16}" required>
+							<input type="text" class="form-control" placeholder="Tên của bạn" title="*Từ 2 -> 16 kí tự" pattern="[ a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{2,16}" required>
 							<div class="valid-feedback">Hợp lệ</div>
 							<div class="invalid-feedback">*Từ 2 -> 16 kí tự</div>
 						</div> <!--full name-->
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Lời chào" required>
+							<input type="text" class="form-control" placeholder="Lời chào" title="*Không được bỏ trống" required>
 							<div class="valid-feedback">Hợp lệ</div>
 							<div class="invalid-feedback">*Không được bỏ trống</div>
 						</div> <!--quote-->
 						<div class="input-group" style="display: flex;">
 							<div style='flex: 1'>
-								<input type="date" class="form-control" placeholder="dob" required>
+								<input type="date" class="form-control" placeholder="dob" title="*Không được bỏ trống" required>
 								<div class="valid-feedback">Hợp lệ</div>
-								<div class="invalid-feedback">*Không được bỏ trống</div>
+								<div class="invalid-feedback">*Vui lòng điền ngày sinh</div>
 							</div>
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Số CMND" required pattern="[0-9]{9,12}">
+								<input type="text" class="form-control" placeholder="Số CMND" required title ="*Từ 9 -> 12 số" pattern="[0-9]{9,12}">
 								<div class="valid-feedback">Hợp lệ</div>
 								<div class="invalid-feedback">*Từ 9 -> 12 số</div>
 							</div>
 						</div> <!--Dob+cmnd-->
 						<div class="input-group" style="display: flex;">
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Tên facebook">
+								<input type="text" class="form-control" placeholder="Tên facebook" title="Không bắt buộc">
 								<div class="valid-feedback">Optional</div>
 							</div>
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Địa chỉ FB">
+								<input type="text" class="form-control" placeholder="Địa chỉ FB" title="Không bắt buộc">
 								<div class="valid-feedback">Optional</div>
 							</div>
 						</div> <!--fb-->
 						<div class="input-group" style="display: flex;">
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Tên twitter">
+								<input type="text" class="form-control" placeholder="Tên twitter" title="Không bắt buộc">
 								<div class="valid-feedback">Optional</div>
 							</div>
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Địa chỉ TW">
+								<input type="text" class="form-control" placeholder="Địa chỉ TW" title="Không bắt buộc">
 								<div class="valid-feedback">Optional</div>
 							</div>
 						</div> <!--tw-->
 						<div class="input-group" style="display: flex;">
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Tên instaram">
+								<input type="text" class="form-control" placeholder="Tên instaram" title="Không bắt buộc">
 								<div class="valid-feedback">Optional</div>
 							</div>
 							<div style='flex: 1'>
-								<input type="text" class="form-control" placeholder="Địa chỉ IG">
+								<input type="text" class="form-control" placeholder="Địa chỉ IG" title="Không bắt buộc">
 								<div class="valid-feedback">Optional</div>
 							</div>
 						</div> <!--ig-->
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="email" required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}">
+							<input type="text" class="form-control" placeholder="email" title="*Địa chỉ email không hợp lệ" required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,}">
 							<div class="valid-feedback">Hợp lệ</div>
-							<div class="invalid-feedback">*Email không hợp lệ</div>
+							<div class="invalid-feedback">*Địa chỉ email không hợp lệ</div>
 						</div> <!--email-->
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Nơi làm việc" required pattern="[ a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{4,32}">
+							<input type="text" class="form-control" placeholder="Nơi làm việc" required title="*Từ 4 -> 32 kí tự" pattern="[ a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{4,32}">
 							<div class="valid-feedback">Hợp lệ</div>
 							<div class="invalid-feedback">*Từ 4 -> 32 kí tự</div>
 						</div> <!--Work place-->
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Công việc" required pattern="[ a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{4,32}">
+							<input type="text" class="form-control" placeholder="Công việc" required title="*Từ 4 -> 32 kí tự" pattern="[ a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]{4,32}">
 							<div class="valid-feedback">Hợp lệ</div>
 							<div class="invalid-feedback">*Từ 4 -> 32 kí tự</div>
 						</div> <!--Job-->
