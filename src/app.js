@@ -50,9 +50,9 @@ let styles = {
 }
 
 function incProBar() {
-	proBarWidth += proBarAddition;
+	proBarWidth = proBarAddition;
 	progBar.style.width = Math.round(proBarWidth) + '%';
-	if (proBarWidth >= 100) progBar.style.backgroundColor = '#4267b2';
+	if (progBar.style.width == "100%") progBar.style.backgroundColor = '#4267b2';
 }
 
 function filterValid(id) {
