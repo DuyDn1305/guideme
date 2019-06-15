@@ -127,6 +127,18 @@
 		</div>
 
 		<div class='central'>
+			<div id="style-selector-control" class="map-control">
+				<label>
+					<select id="style-selector">
+						<option value="default">Default</option>
+						<option value="silver">Silver</option>
+						<option value="night">Night mode</option>
+						<option value="retro">Retro</option>
+						<option value="blue" selected="selected">Blue Essence</option>
+						<option value="hiding">Hide features</option>
+					</select>
+				</label>
+			</div>
 			<div class='map'></div>
 			<div class='filter'>
 				<div class='province'>
@@ -383,7 +395,6 @@
 	<div class='popupContainer'>
 	</div> <!--Pop up container-->
 	<script src="src/map.js"></script>
-	<script src="src/positionHandler.js"></script>
 	<script src='src/notiHandler.js'></script>
 	<script src='src/popupHandler.js'></script>
 	<script src="src/menuHandler.js"></script>
