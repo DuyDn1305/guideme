@@ -14,9 +14,12 @@ function getInfo(user, profile) {
 		about.children[0].innerHTML = user.displayName // name
 		about.children[1].children[0].innerHTML = user.quote || 'NICE TO MEET YOU' //quote
 		about.children[2].style.display = 'none'
-		if (userDataLog[user.uid] == undefined) {
-			initUserLog(user.uid)
+	console.log(userDataLog[user.uid])
+	if (userDataLog[user.uid] == undefined) initUserLog(user.uid)
+		if (!userDataLog[user.uid].loadProfile) {
+			userDataLog[user.uid].loadProfile = 1
 			if (user.moreinfo.type == 'guide') {
+				console.log('ok')
 				let inspect = about.children[3].children[2]
 				db.ref('request/'+user.uid).orderByChild("type").equalTo('completed').on('child_added', snap => {
 					let data = snap.val()

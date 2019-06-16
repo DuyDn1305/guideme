@@ -89,6 +89,7 @@ function initUserLog(id) {
 		stars: 0,
 		type: [0, 0, 0, 0, 0, 0], 
 		cmt: 0,
+		loadProfile: 0
 	}
 }
 
