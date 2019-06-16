@@ -20,3 +20,4 @@ function swap(&$x, &$y) {
 function vardump($var) {
 	echo '<pre>'; print_r($var); echo '<pre>';
 }
+?>
