@@ -80,7 +80,7 @@ body, html {
   overflow-y: auto;
 }
 
-@mixin box-scrollbar {
+@mixin box-scrollbar($time: 0.6s) {
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -94,15 +94,11 @@ body, html {
     border-radius: 5px;
   }
 
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgb(75, 74, 74);
-  }
-
   color: white;
-  transition: color 0.7s;
+  transition: color $time;
 
   &:hover {
-    color: rgb(128, 128, 128, 0.5);
+    color: #ffffff00;
   }
 }
 
@@ -702,7 +698,7 @@ body > .main {
 
 ::-webkit-scrollbar-thumb:hover {
   border-radius: 5px;
-  background: rgba(63, 81, 182, 1);
+  background: radial-gradient(circle, rgba(82, 101, 211, 0.8), rgba(63, 81, 182, 1));
 }
 
 .mes-box {
