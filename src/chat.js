@@ -1,8 +1,8 @@
 function roomIsOnChat(e) {
-  return $(`[chatroomid~='${e}']`).length != 0
+  return $(`[chatroomid='${e}']`).length != 0
 }
 
-function addMes (me, context, mesTime, tname, src, roomId, mid, ids = []) {
+function addMes (me, context, mesTime, tname, src, roomId, mid, ids = [], state = 1) {
   let mainMess = $(`[chatroomid='${roomId}'`)
   // add seen
   let seen = newElement('DIV', 'seen')
@@ -24,7 +24,8 @@ function addMes (me, context, mesTime, tname, src, roomId, mid, ids = []) {
     myMessage.append(content)
     // add seen
     myMessage.append(seen)
-    mainMess.append(myMessage)
+    if (state) mainMess.append(myMessage)
+    else mainMess.prepend(myMessage)
   } else {
     let message = newElement('DIV', 'message')
     let mesContent = newElement('DIV', 'mesContent')
@@ -43,11 +44,14 @@ function addMes (me, context, mesTime, tname, src, roomId, mid, ids = []) {
     // add seen
     message.append(mesContent)
     message.append(seen)
-    mainMess.append(message)
+    if (state) mainMess.append(message)
+    else mainMain.prepend(message)
   }
 }
 
 function mesToChatContainer(roomId, messages, target) {
+  if (roomIsOnChat(roomId)) return;
+  
   // tao chat trong chat-container
   let mes = newElement('DIV', 'chat')
   // tao header
@@ -91,12 +95,19 @@ function mesToChatContainer(roomId, messages, target) {
   let _input = newElement('INPUT', 'input')
   _input.setAttribute('type', 'text')
   _input.setAttribute('placeholder', 'Type a message ...')
+  let tmp = true;
   _input.onkeydown = function (event) {
     if (event.key == 'Enter') {
-      if (this.value != '') {
-        chat.sendMessage(roomId, this.value, mid => {
-          this.value = ''
-          chat.setReadCursor(roomId, parseInt(mid));      
+      if (tmp && this.value != '') {
+        let message = this.value;
+        this.value = '';
+        tmp = false;
+        _input.setAttribute('placeholder', 'Pushing message ...')
+        chat.sendMessage(roomId, message, mid => {
+          chat.setReadCursor(roomId, parseInt(mid));
+          tmp = true;
+          _input.setAttribute('placeholder', 'Type a message ...')
+          _mainMes.scrollTop = _mainMes.scrollHeight;
         })
       }
     }
@@ -118,17 +129,35 @@ function mesToChatContainer(roomId, messages, target) {
   mes.append(_header)
   mes.append(_body)
   
-  // add action
-  if (!roomIsOnChat(roomId)) {
-    if (chatContainer.childElementCount > 1) chatContainer.removeChild(chatContainer.children[0])
-    chatContainer.append(mes)
-  }
+  if (chatContainer.childElementCount > 1) chatContainer.removeChild(chatContainer.children[0])
+  chatContainer.append(mes)
 
   let cursor = chat.getReadCursor(roomId, target.uid);
   messages.forEach(mes => {
     if (cursor && mes.id == cursor.position) addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id, [target.uid])
     else addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id)
   })
+  //spin
+  let itemContaier = newElement("DIV", "loadItem")
+    let item = newElement("I", "fas fa-sync-alt fa-spin")
+    itemContaier.append(item)
+
+  $(_mainMes).animate({scrollTop: _mainMes.scrollHeight}, 200);
+  _mainMes.onscroll = function() {
+    if (this.scrollTop == 0) {  
+      _mainMes.prepend(itemContaier)
+      itemContaier.style.display = 'block'
+      let oldHeight = this.scrollHeight
+      chat.getMessages(roomId, parseInt($(_mainMes).find("[mid]").first().attr('mid')), 10, m => {
+        m.forEach(mes => {
+          if (cursor && mes.id == cursor.position) addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id, [target.uid], 0)
+          else addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id, [], 0)
+        })
+        if (m.length) this.scrollTop = this.scrollHeight-oldHeight
+        itemContaier.style.display = 'none'
+      })
+    }
+  }
 
   _input.focus();
 }
@@ -150,13 +179,13 @@ function guideme_chat() {
 
   chat.readyLastRun = () => {
 		chat.getAllRooms(room => {
-      chat.subscribe(room.id);
       chat.getMessages(room.id, null, 1, m => {
-        if (m.length) setTimeout(() => {
-          let targetId;
-          room.userIds.forEach(v => {if (v != user.uid) targetId = v;});
-          showMes(userList[targetId], getMsg(m[0]), m[0].updatedAt, room.id)
-        }, 500);
+        if (m.length) {
+          room.name.split(' ').forEach(v => {
+            if (v != user.uid)
+              showMes(userList[v], getMsg(m[0]), m[0].updatedAt, room.id)
+          });
+        }
       });
 		});
 		incProBar();
@@ -238,5 +267,4 @@ function guideme_chat() {
     lastMsg.append(avt);
   }
 
-  console.log('chat.js loaded')
 }
