@@ -9,9 +9,7 @@ const config = {
 }
 firebase.initializeApp(config);
 
-let db = firebase.database();
-
-db.ref()
+// let db = firebase.database();
 
 let userPos = {}
 
@@ -22,6 +20,14 @@ function initMap() {
         zoom: 16,
         styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}]
     });
+    let topPane = $("#map-top-push")[0]
+    let indicatorIcon = $("#map-indicator")[0]
+    let mapTypeSelector = $("#map-type-select")[0]
+    //var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(mapTypeSelector);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(topPane);
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(indicatorIcon);
+    $("input[type='radio']").change(() => {console.log($("input[type='radio']:checked").val())})
     map.addListener("click", e => {
         console.log(e)
         console.log(e.latLng.lat)
@@ -80,7 +86,7 @@ function getUserPos (user) {
 
 function creatingScript (cb) {
     let script = document.createElement('script')
-    db.ref("key").once("value", snap => {
+    firebase.database().ref("key").once("value", snap => {
         key = snap.val()
         script.src = "https://maps.googleapis.com/maps/api/js?key="+key+"&callback=initMap"
         document.body.append(script)
