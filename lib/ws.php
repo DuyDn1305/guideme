@@ -6,7 +6,7 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 
-$db = new mysqli('localhost', 'root', '', 'webchat')  or die('Falied while connecting to database');
+$db = new mysqli('localhost', 'admin', 'happy2code', 'webchat')  or die('Falied while connecting to database');
 
 class RequestHandler implements MessageComponentInterface {
 	private $clients, $port;
