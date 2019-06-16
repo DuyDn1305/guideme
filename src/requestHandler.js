@@ -13,8 +13,6 @@ function guideme_request () {
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'accepted', time: String(req.time), target: user.uid, isNew: 1})
         db.ref('user/'+user.uid).update({isBusy: req.receiver})
         db.ref('user/'+req.receiver).update({isBusy: user.uid})
-        db.ref('position/'+user.uid).update({isBusy: req.receiver})
-        db.ref('position/'+req.receiver).update({isBusy: user.uid})
     }
 
     function cancelingRequest (req) {
@@ -27,8 +25,6 @@ function guideme_request () {
         db.ref('request/'+req.receiver+'/'+req.key).update({type: 'completed', time: String(req.time), target: user.uid, isNew: 1, comment: req.comment, rate: req.rate})
         db.ref('user/'+user.uid).update({isBusy: 0})
         db.ref('user/'+req.receiver).update({isBusy: 0})
-        db.ref('position/'+user.uid).update({isBusy: 0})
-        db.ref('position/'+req.receiver).update({isBusy: 0})
     }
     // data = {displayName, photoURL}
     function createRequest(target, data) {
