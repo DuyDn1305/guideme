@@ -1,7 +1,7 @@
 <?php
 require_once('vendor/autoload.php');
 
-$db = new mysqli('localhost', 'root', 'happy2code', 'webchat')  or die('Falied while connecting to database');
+$db = new mysqli('localhost', 'root', '', 'webchat')  or die('Falied while connecting to database');
 
 const chat_instance_locator = 'v1:us1:c2c8e696-a9e8-407b-934b-5baa4fb0f4d0';
 const chat_key = '5c26174d-8c83-436d-81d7-b9c012bd9b13:MKu5L3BHq8QdBKOnzhVwLyRHAzw6p+S4pySmKkdNW1E=';
