@@ -4,39 +4,80 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
 	<title>Document</title>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="/guideme/lib/RequestHandler.js"></script>
-	<script>
-		let w = window.matchMedia('(min-width: 640px)');
-		w.addListener(e => {
-			if (e.matches) {
-				let newE = document.createElement("DIV");
-				newE.innerHTML = 'change';
-				document.body.append(newE);
-				console.log('ok');
-			}
-		})
-	</script>
+	<style>
+		#map {
+			height: 512px;
+			width: 1024px;
+      	}
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+	</style>
+	<!--
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="/guideme/lib/RequestHandler.js"></script>
+		<script>
+			let w = window.matchMedia('(min-width: 640px)');
+			w.addListener(e => {
+				if (e.matches) {
+					let newE = document.createElement("DIV");
+					newE.innerHTML = 'change';
+					document.body.append(newE);
+					console.log('ok');
+				}
+			})
+		</script>
+	-->
 </head>
 <body>
-	<div id="page-wrapper">
-		<h1>Messager Demo</h1>
-
-		<div id="status">Connecting...</div>
-
-		<ul id="messages"></ul>
-
-		<form id="message-form" method="post">
-			<textarea id="message" placeholder="Write your message here..." required></textarea>
-			<button type="submit">Send Message</button>
-			<button type="button" id="close">Close Connection</button>
-		</form>
-		<div class='bntleft'>
-			scroll
-		</div>
+	<div id='map-type-select' style="margin: 10px;background: white;height: 30px; width: fit-content; border: 1px solid #ecf0f1;border-radius: 5px">
+		<label for="maptype1"><img style="border-radius: 2px; width: 20px; height: 20px; margin: 5px 0 5px 5px" src='../img/bg5.png'></label>
+		<label for="maptype2"><img style="border-radius: 2px; width: 20px; height: 20px; margin: 5px 0" src='../img/bg5.png'></label>
+		<input type="radio" name="gender" value="type1" checked id='maptype1' style="display: none">
+		<input type="radio" name="gender" value="type2" id='maptype2'style="display: none">
+		<input type="radio" name="gender" value="type3" id='maptype3'style="display: none">
+		<label for="maptype3"><img style="border-radius: 2px; width: 20px; height: 20px; margin: 5px 5px 5px 0" src='../img/bg5.png'></label>
 	</div>
-	<script src="app.js"></script>
+	<div id='map-top-push' style="display: flex; margin: 10px">
+		<input type='text' placeholder="Seacrh Box" class='form-control' id='map-input' style='flex: 3; margin-right: 5px'>
+		<select class="custom-select mr-sm-2" id="direction-start" style="flex: 1">
+			<option selected>Start</option>
+			<option value="1">One</option>
+			<option value="2">Two</option>
+			<option value="3">Three</option>
+		</select>
+		<select class="custom-select mr-sm-2" id="direction-end" style="flex: 1">
+			<option selected>End</option>
+			<option value="1">One</option>
+			<option value="2">Two</option>
+			<option value="3">Three</option>
+		</select>
+	</div>
+	<div id='map-indicator' class='btn btn-light' style='padding: 6px;margin: 10px;width: 40px;'><img src='../img/gps-fixed-indicator.png'></div>
+	<div class="card" style="width: 800px">
+		<div class="card-body">
+		  <h4 class="card-title">
+			  #test-googleapis
+		  </h4>
+		  <p class="card-text">
+			  <div id="map">
+				map place
+			  </div>
+		  </p>
+		  <button class='btn btn-primary' onclick="getUserPos()">Primary</button>
+		  <button class='btn btn-secondary'>Secondary</button>
+		</div>
+		</div>
+	<script src="myapp.js"></script>
 </body>
 </html>

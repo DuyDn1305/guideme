@@ -6,7 +6,6 @@
 	const closeBtn = document.getElementById('close');
 
   let reqHandler = new RequestHandler('app.js');
-  // nhin tao gui 1 cai khac ne`.
 	reqHandler.on('Open', event => {
 		socketStatus.innerHTML = `Connected to: ${event.currentTarget.url}`;
 		socketStatus.className = 'open';
@@ -17,18 +16,18 @@
 	})
 
 	form.onsubmit = e => {
-    e.preventDefault(); 
+	e.preventDefault(); 
 
 		var message = messageField.value;
 
-		reqHandler.send(message); // dau
+		reqHandler.send(message);
 
 		messageField.value = '';
 	};
 
 	reqHandler.on('Request', data => {
-    //messagesList.innerHTML += '<li class="received">' + data.data + '</li>';
-    console.log(data.sender + ': ' + data.data);
+	//messagesList.innerHTML += '<li class="received">' + data.data + '</li>';
+	console.log(data.sender + ': ' + data.data);
 	});
 
 	reqHandler.on('Close', event => {
