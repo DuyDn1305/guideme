@@ -12,7 +12,8 @@ function guideme_card() {
 	if (firstLoad) return;
 
 	function showCard(target) {
-		let src = target.photoURL
+		let src
+		src = (target.photoURL) ? target.photoURL : "./img/default.png"
 		let name = target.displayName
 		let quote = target.quote ? target.quote : 'Nice to meet you'
 		

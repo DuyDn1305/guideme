@@ -1,16 +1,28 @@
 function guideme_map() {
 	if (firstLoad) return;
-	function getUserCurrentPosition (id) {
+	let watch, status = 0, indicatorIcon, searchBox, markers_search = []
+	window.getUserCurrentPosition = (id) => {
 		if (navigator.geolocation) {
-			navigator.geolocation.watchPosition(pos => {
-				console.log(pos)
-				let latLng = {lat: pos.coords.latitude, lng: pos.coords.longitude}
-				if (map) map.setCenter(latLng);
-				db.ref('position/'+id).update({geolocation: latLng})
-			})
+			if (!status) {
+				status = 1
+				watch = navigator.geolocation.watchPosition(pos => {
+					console.log("watchiing "+watch+" "+pos.timestamp)
+					let latLng = {lat: pos.coords.latitude, lng: pos.coords.longitude}
+					if (map) {
+						map.setCenter(latLng);
+						map.setZoom(12);
+					}
+					db.ref('position/'+id).update({geolocation: latLng})
+				})
+			}
+			else {
+				console.log("clear watch "+watch)
+				status = 0
+				navigator.geolocation.clearWatch(watch) 
+			} 
 		}
 		else {
-			console.log('cannot get')
+			handleLocationError(false, infoWindow, map.getCenter())
 		}	
 	}
 		
@@ -28,7 +40,7 @@ function guideme_map() {
 		let script = document.createElement('script')
 		db.ref("key").once("value", snap => {
 			key = snap.val()
-			script.src = "https://maps.googleapis.com/maps/api/js?key="+key+"&callback=initMap"
+			script.src = "https://maps.googleapis.com/maps/api/js?key="+key+"&libraries=places&callback=initMap"
 			document.body.append(script)
 		})
 	}
@@ -64,43 +76,96 @@ function guideme_map() {
 			zoom: 12,
 			mapTypeControl: false
 		});
-		
-		//var searchBox = new google.maps.places.SearchBox(input);
 		let mapSelector = createMapSelector()
 		let topPane = createTopPane()
-		let indicatorIcon = createIndicatorIcon()
+		indicatorIcon = createIndicatorIcon()
+		let input = topPane.children[0]
+		infoWindow = new google.maps.InfoWindow
+		searchBox = new google.maps.places.SearchBox(input);
 		map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(mapSelector)
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(topPane)
 		map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(indicatorIcon)
-		// mapselector
-        map.setOptions({styles: styles[$(mapSelector).find("input[type='radio']:checked").val()]});
+		map.setOptions({styles: styles[$(mapSelector).find("input[type='radio']:checked").val()]});
+		// select map type
 		$(mapSelector).change(() => {
 			let val = $(mapSelector).find("input[type='radio']:checked").val()
 			if (val == 'satellite') map.setMapTypeId('satellite')
           	else map.setOptions({styles: styles[val]});
 		})
-
-		infoWindow = new google.maps.InfoWindow
-		// handle position
-		getUserCurrentPosition(user.uid)
+		// define my location
+		$(indicatorIcon).click(() => {
+			getUserCurrentPosition(user.uid)
+			if (status) $(indicatorIcon).css("background", "#bdc3c7")
+			else $(indicatorIcon).css("background", "#f8f9fa")
+		})
+		map.addListener('bounds_changed', function() {
+			searchBox.setBounds(map.getBounds());
+		});
+		// search
+		searchBox.addListener('places_changed', function() {
+			var places = searchBox.getPlaces();
+  
+			if (places.length == 0) {
+			  return;
+			}
+  
+			// Clear out the old markers.
+			markers_search.forEach(function(marker) {
+			  marker.setMap(null);
+			});
+			markers_search = [];
+			let bounds = new google.maps.LatLngBounds();
+			places.forEach(function (place) {
+				if (!place.geometry) {
+					console.log("Returned place contains no geometry");
+					return;
+				}
+				let icon = {
+					url: place.icon,
+					size: new google.maps.Size(71, 71),
+					origin: new google.maps.Point(0, 0),
+					anchor: new google.maps.Point(17, 34),
+					scaledSize: new google.maps.Size(25, 25)
+				};
+				markers_search.push(new google.maps.Marker({
+					map: map,
+					icon: icon,
+					title: place.name,
+					position: place.geometry.location
+				}));
+				if (place.geometry.viewport) {
+					bounds.union(place.geometry.viewport);
+				} else {
+					bounds.extend(place.geometry.location);
+				}
+			});
+			map.fitBounds(bounds);
+		})
+		// load data form firebase
 		let posRef = db.ref("position/")
-		
 		posRef.on("child_added", snap => {
-			let key = snap.key;
-			if (userDataLog[key] == undefined) initUserLog(key)
-			let iconType
-			if (userList[key].isBusy) iconType = "./img/busy.png"
-			else iconType = (userList[key].moreinfo.type == "visitor") ? "./img/visitor.png" : "./img/guide.png"
-			console.log(iconType+" "+userList[key].moreinfo.type)
-			showPos(snap.val().geolocation, map, key, iconType)	
+			snapHandler(snap)
 		})
 		posRef.on("child_changed", snap => {
-			let key = snap.key;
-			let iconType
-			if (userList[key].isBusy) iconType = "./img/busy.png"
-			else iconType = (userList[key].moreinfo.type == "visitor") ? "./img/visitor.png" : "./img/guide.png"
-			showPos(snap.val().geolocation, map, key, iconType)	
+			snapHandler(snap)
 		})	
+		function snapHandler(snap) {
+			if (snap.val().geolocation == undefined) return
+			let key = snap.key;
+			let busy = snap.val().isBusy
+			if (userDataLog[key] == undefined) initUserLog(key)
+			if (key == user.uid && user.moreinfo.type == 'guide' && busy) showPos(snap.val().geolocation, map, key, "./img/myguide.png")
+			if (key == user.uid && user.moreinfo.type == 'guide' && !busy) showPos(snap.val().geolocation, map, key, "./img/guide.png")
+			if (key == user.uid && user.moreinfo.type == 'visitor') showPos(snap.val().geolocation, map, key, "./img/visitor.png")
+			if (user.moreinfo.type == 'visitor') {
+				if (user.uid == busy) showPos(snap.val().geolocation, map, key, "./img/myguide.png")
+				else if (userList[key].moreinfo.type == 'guide') showPos(snap.val().geolocation, map, key, "./img/guide.png") 
+			}
+			if (user.moreinfo.type == 'guide') {
+				if (userList[key].moreinfo.type == 'guide') showPos(snap.val().geolocation, map, key, "./img/guide.png")
+				if (user.uid == busy) showPos(snap.val().geolocation, map, key, "./img/visitor.png")
+			}
+		}
 	}
 
 	function createMapSelector() {
