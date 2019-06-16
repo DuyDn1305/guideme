@@ -77,7 +77,7 @@ body, html {
   right: $pos;
   position: absolute;
   box-shadow: 0 0 5px #bdc3c7;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 @mixin box-scrollbar {
@@ -230,7 +230,7 @@ body, html {
         opacity: 0;
         transition: 1s;
         transition-timing-function: ease-out;
-        overflow-y: scroll;
+        overflow-y: auto;
         > .card {
           background-color: white;
           max-height: 140px;
@@ -610,7 +610,7 @@ body > .main {
       }
     }
     .main-mess {
-      overflow-y: scroll;
+      overflow-y: auto;
       height: 240px;
       .loadItem {
         color: rgb(189, 195, 199);
@@ -944,7 +944,7 @@ body > .main {
   padding-top: 100px; /* Location of the box */
   width: 100%; /* Full width */
   height: 100%; /* Full height */
-  overflow: scroll;
+  overflow: auto;
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
