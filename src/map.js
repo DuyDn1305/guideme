@@ -1,6 +1,6 @@
 function guideme_map() {
 	if (firstLoad) return;
-	let watch, status = 0, indicatorIcon, searchBox, markers_search = []
+	let watch, status = 0, indicatorIcon, searchBox, markers_search = [], clearIcon, markers_appoint = [], markers_complete = [], del = []
 	window.getUserCurrentPosition = (id) => {
 		if (navigator.geolocation) {
 			if (!status) {
@@ -56,8 +56,8 @@ function guideme_map() {
 			  anchor: new google.maps.Point(24, 24)
 			}, 
 			shape: {
-			  coords: [20, 0, 20, 20, 0, 30, 0, 48, 48, 48, 48, 30, 28, 30, 28, 0],
-			  type: 'poly'
+				coords: [0, 24, 24, 0, 48, 24, 24, 48],
+			  	type: 'poly'
 			}
 		  })
 		markers[id] = marker
@@ -65,7 +65,12 @@ function guideme_map() {
 		marker.addListener('click', e => {
 			let modal = document.getElementById("myModal")
 			let targetProfile = modal.children[0].children[1]
-			getInfo(userList[id], targetProfile);
+			if (user.uid == id) {
+				let tmp = profilePane.cloneNode(true)
+				modal.children[0].children[1].remove()
+				modal.children[0].append(tmp)
+			}
+			else getInfo(userList[id], targetProfile)
 			modal.style.display = "block"
 		})
 	}
@@ -79,18 +84,21 @@ function guideme_map() {
 		let mapSelector = createMapSelector()
 		let topPane = createTopPane()
 		indicatorIcon = createIndicatorIcon()
+		clearIcon = createClearIcon()
+		//let rightPane = newElement("DIV"); rightPane.append(indicatorIcon); rightPane.append(clearIcon)
 		let input = topPane.children[0]
 		infoWindow = new google.maps.InfoWindow
 		searchBox = new google.maps.places.SearchBox(input);
 		map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(mapSelector)
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(topPane)
 		map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(indicatorIcon)
+		map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(clearIcon)
 		map.setOptions({styles: styles[$(mapSelector).find("input[type='radio']:checked").val()]});
 		// select map type
 		$(mapSelector).change(() => {
 			let val = $(mapSelector).find("input[type='radio']:checked").val()
 			if (val == 'satellite') map.setMapTypeId('satellite')
-          	else map.setOptions({styles: styles[val]});
+		  	else map.setOptions({styles: styles[val]});
 		})
 		// define my location
 		$(indicatorIcon).click(() => {
@@ -141,6 +149,18 @@ function guideme_map() {
 			});
 			map.fitBounds(bounds);
 		})
+		// clear appoint
+		$(clearIcon).click(() => {
+			console.log('click')
+			console.log(markers_appoint)
+			hideMark(markers_appoint)
+			for (let k in markers_appoint) {
+				if (markers_appoint[k]) markers_appoint[k].setMap(null)
+				del[k] = 1
+				db.ref("appoint/"+k).set({})
+			}
+			markers_appoint = []
+		})
 		// load data form firebase
 		let posRef = db.ref("position/")
 		posRef.on("child_added", snap => {
@@ -165,6 +185,139 @@ function guideme_map() {
 				if (userList[key].moreinfo.type == 'guide') showPos(snap.val().geolocation, map, key, "./img/guide.png")
 				if (user.uid == busy) showPos(snap.val().geolocation, map, key, "./img/visitor.png")
 			}
+		}
+		function addComplete(latLng, map, k) {
+			if(markers_complete[k]) return
+			else {
+				let point = new google.maps.Marker({
+					position: latLng,
+					map: map,
+					icon: {
+						url: "./img/complete.png", 
+						size: new google.maps.Size(48, 48),
+						origin: new google.maps.Point(0, 0),
+						anchor: new google.maps.Point(24, 24)
+					}, 
+					shape: {
+						coords: [0, 24, 24, 0, 48, 24, 24, 48],
+						type: 'poly'
+					}
+				})
+				point.setMap(map)
+				markers_complete[k] = point
+				point.addListener("click", e => {
+					infoWindow.setPosition(latLng);
+					infoWindow.setContent('điểm hẹn');
+					infoWindow.open(map);
+				})
+			}
+		}
+		function addTemp(latLng, map, k, meClick) {
+			if (del[k]) return
+			let point
+			if (!meClick) {
+				point = new google.maps.Marker({
+					position: latLng,
+					map: map,
+					icon: {
+						url: "./img/tmp.png", 
+						size: new google.maps.Size(48, 48),
+						origin: new google.maps.Point(0, 0),
+						anchor: new google.maps.Point(24, 24)
+					}, 
+					shape: {
+						coords: [0, 24, 24, 0, 48, 24, 24, 48],
+						type: 'poly'
+					}
+				})
+			}
+			else {
+				point = new google.maps.Marker({
+					position: latLng,
+					map: map
+				})
+			}
+			point.setMap(map)
+			markers_appoint[k] = point
+			if (!meClick) {
+				point.addListener('click', e => {
+					if (del[k]) {
+						infoWindow.setPosition(latLng);
+						infoWindow.setContent('Điểm này đã bị xóa');
+						infoWindow.open(map);
+					}
+					if (confirm("Bạn chấp nhận điểm hẹn này không ?")) {
+						db.ref("appoint/"+k).update({[user.uid]: 1})
+						infoWindow.setPosition(latLng);
+						infoWindow.setContent('Chấp nhận một điểm hẹn');
+						infoWindow.open(map);
+						hideMark(markers_appoint)
+						for (let k in markers_appoint) {
+							if (markers_appoint[k]) markers_appoint[k].setMap(null)
+							del[k] = 1
+							db.ref("appoint/"+k).set({})
+						}
+						markers_appoint = []
+					}
+				})
+			}
+			else {
+				point.addListener('click', e => {
+					infoWindow.setPosition(latLng);
+					infoWindow.setContent('Đợi chờ là hạnh phúc');
+					infoWindow.open(map);
+				})
+			}
+		}
+		function hideMark(arr = []) {for (let k in arr) {if (arr[k]) arr[k].setMap(null)}}
+
+		// check busy
+		let busyListener, appRef
+		db.ref("user/"+user.uid+"/isBusy").on("value", snap => {
+			let busy = snap.val()
+			console.log(user.displayName+" is busy: "+busy)
+			if (busy) {
+				$(clearIcon).css("display", 'block')
+				busyListener = map.addListener('click', e => {addAppointment({lat: e.latLng.lat(), lng: e.latLng.lng()}, map, user.uid)})
+				// get data
+				let reqid = $(".accepted").attr("reqid")
+				appRef = db.ref("appoint").orderByChild("reqid").equalTo(String(reqid))
+				appRef.on('value', snap => {
+					console.log(snap.val())
+					// clear
+					hideMark(markers_appoint)
+					for (let k in markers_appoint) {if (markers_appoint[k]) markers_appoint[k].setMap(null)}
+					markers_appoint = []
+					// add
+					arrAppoint = snap.val()
+					for (let k in arrAppoint) {
+						if (del[k]) continue
+						let cnt = arrAppoint[k][busy]+arrAppoint[k][user.uid]
+						if (cnt >= 2) addComplete(arrAppoint[k].geolocation, map, k)
+						else addTemp(arrAppoint[k].geolocation, map, k, arrAppoint[k][user.uid])
+					}
+				})
+			}
+			else {
+				hideMark(markers_appoint); hideMark(markers_complete)
+				markers_appoint = []
+				markers_complete = []
+				
+				$(clearIcon).css("display", 'none')
+				if (busyListener) google.maps.event.removeListener(busyListener);
+				if (appRef) appRef.off()
+			}
+		})
+		function addAppointment(latLng, map, clicker, to) {
+			let newpoint = db.ref("appoint").push()
+			console.log(latLng) 	
+			let postData = {
+				geolocation: latLng, 
+				reqid: String($(".accepted").attr("reqid")), 
+				[user.uid]: 1
+			}
+			console.log(postData)
+			newpoint.set(postData)	
 		}
 	}
 
@@ -223,6 +376,14 @@ function guideme_map() {
 		$(div).attr("id", "map-indicator")
 			let img = newElement("IMG")
 			$(img).attr("src", "./img/gps-fixed-indicator.png")
+		div.append(img)
+		return div
+	}
+	function createClearIcon() {
+		let div = newElement("DIV", "btn btn-light")
+		$(div).attr("id", "map-clear").css("padding", "5px").css("margin", "0 10px").css("display", 'none')
+			let img = newElement("IMG")
+			$(img).attr("src", "./img/mapclear.png")
 		div.append(img)
 		return div
 	}

@@ -106,7 +106,7 @@ function getInfo(user, profile) {
 			else info.children[k].style.display = 'none'
 		})
 	let typeBar = profile.children[4]
-		if (user.isBusy != 0) {
+		if (user.isBusy) {
 			typeBar.style.display = 'block'
 			typeBar.children[1].innerHTML = userList[user.isBusy].displayName
 		}
