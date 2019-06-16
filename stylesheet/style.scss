@@ -80,6 +80,32 @@ body, html {
   overflow-y: scroll;
 }
 
+@mixin box-scrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 0 10px;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(75, 74, 74);
+  }
+
+  color: white;
+  transition: color 0.7s;
+
+  &:hover {
+    color: rgb(128, 128, 128, 0.5);
+  }
+}
+
 #progress {
   width: 100%;
   background-color: #4267b2;
@@ -675,29 +701,13 @@ body > .main {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  border-radius: 20px;
+  border-radius: 5px;
   background: rgba(63, 81, 182, 1);
 }
 
 .mes-box {
   @include menu-box(550px, 400px, -200px);
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(192, 188, 188, 0.5);
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background:rgba(136, 136, 136, 0.5); 
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(85, 85, 85, 1);
-  }
+  @include box-scrollbar;
 
   > .mes-container {
     height:70px;
@@ -739,23 +749,7 @@ body > .main {
 
 .noti-box {
   @include menu-box(550px, 400px, -130px);
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(192, 188, 188, 0.5);
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background:rgba(136, 136, 136, 0.5); 
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(85, 85, 85, 1);
-  }
+  @include box-scrollbar;
 
   > .item {
     height:90px;
@@ -827,23 +821,8 @@ body > .main {
 
 .req-box {
   @include menu-box(550px, 400px, -120px);
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: rgba(192, 188, 188, 0.5);
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background:rgba(136, 136, 136, 0.5); 
-    border-radius: 20px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: rgba(85, 85, 85, 1);
-  }
+  @include box-scrollbar;
+  
   > .item {
     height:70px;
     padding: 5px;
