@@ -20,6 +20,6 @@ function vardump($var) {
 	echo '<pre>'; print_r($var); echo '<pre>';
 }
 
-if (isset(_GET['checkdb'])) {
+if (isset($_GET['checkdb'])) {
 	vardump($db);
 }
