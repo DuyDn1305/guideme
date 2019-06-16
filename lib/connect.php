@@ -1,5 +1,4 @@
 <?php
-echo 'ok';
 require_once('vendor/autoload.php');
 
 $db = new mysqli('localhost', 'root', 'happy2code', 'webchat')  or die('Falied while connecting to database');
@@ -19,4 +18,8 @@ function swap(&$x, &$y) {
 
 function vardump($var) {
 	echo '<pre>'; print_r($var); echo '<pre>';
+}
+
+if (isset($_GET['checkdb'])) {
+	vardump($db);
 }
