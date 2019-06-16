@@ -41,15 +41,15 @@ function guideme_map() {
 			mapTypeControl: false
 		});
 		
-        let styleControl = document.getElementById('style-selector-control');
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+		let styleControl = document.getElementById('style-selector-control');
+		map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
 
-        var styleSelector = document.getElementById('style-selector');
-        map.setOptions({styles: styles[styleSelector.value]});
+		var styleSelector = document.getElementById('style-selector');
+		map.setOptions({styles: styles[styleSelector.value]});
 
-        styleSelector.addEventListener('change', function() {
-          map.setOptions({styles: styles[styleSelector.value]});
-        });
+		styleSelector.addEventListener('change', function() {
+		  map.setOptions({styles: styles[styleSelector.value]});
+		});
 		infoWindow = new google.maps.InfoWindow
 	
 		function showPos (latLng, map, id, iconURL = '../img/undefined.png') {
