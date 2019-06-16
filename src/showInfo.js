@@ -42,7 +42,7 @@ function getInfo(user, profile) {
 									let tmp = data.rate
 									while (tmp--) rate.append(newElement("I", "fas fa-star")) 
 								let text = newElement("P", "text", data.comment)
-								let time = newElement("DIV", "time", data.time)
+								let time = newElement("DIV", "time", "Thời gian: "+getTimeFormat(new Date(data.time)))
 							info.append(name)
 							info.append(rate)
 							info.append(text)

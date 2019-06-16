@@ -1,6 +1,7 @@
 function guideme_map() {
 	if (firstLoad) return;
-	let watch, status = 0, indicatorIcon, searchBox, markers_search = [], clearIcon, markers_appoint = [], markers_complete = [], del = []
+	let watch, status = 0, indicatorIcon, searchBox, clearIcon, addMarkIcon, markerIconToggle = 0
+	let markers_search = [], markers_appoint = [], markers_complete = [], del = []
 	window.getUserCurrentPosition = (id) => {
 		if (navigator.geolocation) {
 			if (!status) {
@@ -85,14 +86,18 @@ function guideme_map() {
 		let topPane = createTopPane()
 		indicatorIcon = createIndicatorIcon()
 		clearIcon = createClearIcon()
+		addMarkIcon = createAddMarkIcon()
 		//let rightPane = newElement("DIV"); rightPane.append(indicatorIcon); rightPane.append(clearIcon)
 		let input = topPane.children[0]
+		startPlace = topPane.children[1]
+		endPlace = topPane.children[2]
 		infoWindow = new google.maps.InfoWindow
 		searchBox = new google.maps.places.SearchBox(input);
 		map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(mapSelector)
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(topPane)
 		map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(indicatorIcon)
 		map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(clearIcon)
+		map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(addMarkIcon)
 		map.setOptions({styles: styles[$(mapSelector).find("input[type='radio']:checked").val()]});
 		// select map type
 		$(mapSelector).change(() => {
@@ -105,6 +110,13 @@ function guideme_map() {
 			getUserCurrentPosition(user.uid)
 			if (status) $(indicatorIcon).css("background", "#bdc3c7")
 			else $(indicatorIcon).css("background", "#f8f9fa")
+		})
+		$(addMarkIcon).click(function() {
+			markerIconToggle = 1-markerIconToggle
+			if (markerIconToggle) $(addMarkIcon).css('background', '#e2e6ea')
+			else $(addMarkIcon).css('background', 'white')
+			console.log(markerIconToggle)
+			console.log($(addMarkIcon).css('background'))
 		})
 		map.addListener('bounds_changed', function() {
 			searchBox.setBounds(map.getBounds());
@@ -278,7 +290,11 @@ function guideme_map() {
 			console.log(user.displayName+" is busy: "+busy)
 			if (busy) {
 				$(clearIcon).css("display", 'block')
-				busyListener = map.addListener('click', e => {addAppointment({lat: e.latLng.lat(), lng: e.latLng.lng()}, map, user.uid)})
+				$(addMarkIcon).css("display", 'block')
+				busyListener = map.addListener('click', e => {
+					if (!markerIconToggle) return
+					addAppointment({lat: e.latLng.lat(), lng: e.latLng.lng()}, map, user.uid)
+				})
 				// get data
 				let reqid = $(".accepted").attr("reqid")
 				appRef = db.ref("appoint").orderByChild("reqid").equalTo(String(reqid))
@@ -344,6 +360,9 @@ function guideme_map() {
 			let labelhybrid = newElement("LABEL"); $(labelhybrid).attr('for', 'hybrid'); let imghybrid = newElement("IMG"); $(imghybrid).attr('src', "./img/maphybrid.png"); labelhybrid.append(imghybrid)
 			let inputhybrid = newElement("INPUT"); $(inputhybrid).attr({type: 'radio', name: 'maptype', value: 'hybrid', id: 'hybrid'})
 		div.append(labelhybrid); div.append(inputhybrid);
+			let labelsatellite = newElement("LABEL"); $(labelsatellite).attr("for", "satellite"); let imgsatellite = newElement("IMG"); $(labelsatellite).attr("src", "./img/mapsatellite.png"); labelsatellite.append(imgsatellite)
+			let inputsatellite = newElement("INPUT"); $(inputsatellite).attr({type: "radio", name: "mapsatellite", value:"satellite", id:"satellite"})
+		div.append(labelsatellite); div.append(inputsatellite)
 			let labelassasin = newElement("LABEL"); $(labelassasin).attr('for', 'assasin'); let imgassasin = newElement("IMG"); $(imgassasin).attr('src', "./img/mapassasin.png"); labelassasin.append(imgassasin)
 			let inputassasin = newElement("INPUT"); $(inputassasin).attr({type: 'radio', name: 'maptype', value: 'assasin', id: 'assasin'})
 		div.append(inputassasin); div.append(labelassasin); 
@@ -356,15 +375,9 @@ function guideme_map() {
 			$(input).attr({id: "map-input", type: "text", placeholder: "Tìm kiếm"})
 			let selectStart = newElement("SELECT", "custom-select mr-sm-2"); $(selectStart).attr('id', "direction-start")
 				let opt = newElement("OPTION"); $(opt).attr("selected", ""); opt.innerHTML = "start"
-				let opt1 = newElement("OPTION"); $(opt1).attr("value", "1"); opt1.innerHTML = "one"
-				let opt2 = newElement("OPTION"); $(opt2).attr("value", "2"); opt2.innerHTML = "two"
-				let opt3 = newElement("OPTION"); $(opt3).attr("value", "3"); opt3.innerHTML = "three"
 			selectStart.append(opt); selectStart.append(opt1); selectStart.append(opt2); selectStart.append(opt3)
 			let selectEnd = newElement("SELECT", "custom-select mr-sm-2"); $(selectEnd).attr('id', "direction-end")
 				opt = newElement("OPTION"); $(opt).attr("selected", ""); opt.innerHTML = 'end'
-				opt1 = newElement("OPTION"); $(opt1).attr("value", "1"); opt1.innerHTML = "one"
-				opt2 = newElement("OPTION"); $(opt2).attr("value", "2"); opt2.innerHTML = "two"
-				opt3 = newElement("OPTION"); $(opt3).attr("value", "3"); opt3.innerHTML = "three"
 			selectEnd.append(opt); selectEnd.append(opt1); selectEnd.append(opt2); selectEnd.append(opt3)
 		div.append(input)
 		div.append(selectStart)
@@ -387,6 +400,13 @@ function guideme_map() {
 		div.append(img)
 		return div
 	}
-
+	function createAddMarkIcon() {
+		let div = newElement("DIV", "btn btn-light")
+		$(div).attr("id", "map-clear").css('padding', '0px').css("margin", "0 10px").css("display", 'none').css("background", "white")
+			let img = newElement("IMG")
+			$(img).attr("src", "./img/mapmark.png")
+		div.append(img)
+		return div
+	}
 	incProBar();
 }
