@@ -70,7 +70,7 @@ function guideme_map() {
 				modal.children[0].append(tmp)
 			}
 			else getInfo(userList[id], targetProfile)
-			modal.style.display = "block"
+			$(modal).fadeIn()
 		})
 	}
 	function getPoint(k) {
@@ -247,9 +247,21 @@ function guideme_map() {
 				markers_complete[k] = point
 				markers_complete[k].id = Object.keys(markers_complete).length
 				point.addListener("click", e => {
-					infoWindow.setPosition(latLng);
-					infoWindow.setContent('điểm hẹn');
-					infoWindow.open(map);
+					infoWindow.setPosition(latLng)
+					infoWindow.setContent(createCompleteInfo("Điểm hẹn "+point.label, undefined, undefined, () => {
+						infoWindow.close()
+					}, () => {
+						if (confirm("Bạn muốn xóa điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).set({})
+							if (markers_complete[k]) {
+								del[k] = 1
+								markers_complete[k].setMap(null)
+							}
+							delete markers_complete[k]
+						}
+					}))
+					infoWindow.open(map)
 				})
 			}
 		}
@@ -269,7 +281,8 @@ function guideme_map() {
 					shape: {
 						coords: [0, 24, 24, 0, 48, 24, 24, 48],
 						type: 'poly'
-					}
+					},
+					label: String(Object.keys(markers_appoint).length+1)
 				})
 			}
 			else {
@@ -287,25 +300,47 @@ function guideme_map() {
 						infoWindow.setContent('Điểm này đã bị xóa');
 						infoWindow.open(map);
 					}
-					if (confirm("Bạn chấp nhận điểm hẹn này không ?")) {
-						db.ref("appoint/"+k).update({[user.uid]: 1})
-						infoWindow.setPosition(latLng);
-						infoWindow.setContent('Chấp nhận một điểm hẹn');
-						infoWindow.open(map);
-						hideMark(markers_appoint)
-						for (let k in markers_appoint) {
-							if (markers_appoint[k]) markers_appoint[k].setMap(null)
-							del[k] = 1
-							db.ref("appoint/"+k).set({})
+					infoWindow.setPosition(latLng)
+					infoWindow.setContent(createTempInfo("Điểm hẹn "+point.label, undefined, undefined, () => {
+						if (confirm("Bạn chấp nhận điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).update({[user.uid]: 1})
+							hideMark(markers_appoint)
+							for (let k in markers_appoint) {
+								if (markers_appoint[k]) markers_appoint[k].setMap(null)
+								del[k] = 1
+								db.ref("appoint/"+k).set({})
+							}
+							markers_appoint = []
 						}
-						markers_appoint = []
-					}
+					}, () => {
+						if (confirm("Bạn muốn xóa điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).set({})
+							if (markers_appoint[k]) {
+								del[k] = 1
+								markers_appoint[k].setMap(null)
+							}
+							delete markers_appoint[k]
+						}
+					}))
+					infoWindow.open(map)
 				})
 			}
 			else {
 				point.addListener('click', e => {
 					infoWindow.setPosition(latLng);
-					infoWindow.setContent('Đợi chờ là hạnh phúc');
+					infoWindow.setContent(createTempWaiting("Điểm hẹn "+point.label, undefined, undefined, () => {
+						if (confirm("Bạn muốn xóa điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).set({})
+							if (markers_appoint[k]) {
+								del[k] = 1
+								markers_appoint[k].setMap(null)
+							}
+							delete markers_appoint[k]
+						}
+					}))
 					infoWindow.open(map);
 				})
 			}
@@ -454,6 +489,54 @@ function guideme_map() {
 			$(img).attr("src", "./img/mapmark.png")
 		div.append(img)
 		return div
+	}
+	function createTempInfo(title ="Điểm hẹn", time = "30/04/1975", detail = "Chi tiết", cb1, cb2) {
+		let card = newElement("DIV")
+			let body = newElement("DIV", "card-body"); $(body).css("padding", "0.5rem")
+				let _title = newElement("h6", "card-title", title)
+				let _time = newElement("h6", "card-subtitle mb-2 text-muted", time)
+				let p = newElement("P", "card-text", detail)
+				let span1 = newElement("SPAN", "badge badge-pill badge-success btn btn-success", "Đồng Ý"); $(span1).css("width", "60px"); $(span1).click(cb1)
+				let span2 = newElement("SPAN", "badge badge-pill badge-danger", "Xóa"); $(span2).css("width", "60px"); $(span2).click(cb2)
+			body.append(_title)
+			body.append(_time)
+			body.append(p)
+			body.append(span1)
+			body.append(span2)
+		card.append(body)
+		return card
+	}
+	function createTempWaiting(title ="Điểm hẹn", time = "30/04/1975", detail = "Chi tiết", cb) {
+		let card = newElement("DIV")
+			let body = newElement("DIV", "card-body"); $(body).css("padding", "0.5rem")
+				let _title = newElement("h6", "card-title", title)
+				let _time = newElement("h6", "card-subtitle mb-2 text-muted", time)
+				let p = newElement("P", "card-text", detail)
+				let span1 = newElement("SPAN", "badge badge-pill badge-secondary btn btn-secondary", "Đang chờ..."); $(span1).css("width", "60px")
+				let span2 = newElement("SPAN", "badge badge-pill badge-danger btn btn-danger", "Xóa"); $(span2).css("width", "60px"); $(span2).click(cb)
+			body.append(_title)
+			body.append(_time)
+			body.append(p)
+			body.append(span1)
+			body.append(span2)
+		card.append(body)
+		return card
+	}
+	function createCompleteInfo(title ="Điểm hẹn", time = "30/04/1975", detail = "Chi tiết", cb1, cb2) {
+		let card = newElement("DIV")
+			let body = newElement("DIV", "card-body"); $(body).css("padding", "0.5rem")
+				let _title = newElement("h6", "card-title", title)
+				let _time = newElement("h6", "card-subtitle mb-2 text-muted", time)
+				let p = newElement("P", "card-text", detail)
+				let span1 = newElement("SPAN", "badge badge-pill badge-primary btn btn-primary", "Trở về"); $(span1).css("width", "60px"); $(span1).click(cb1)
+				let span2 = newElement("SPAN", "badge badge-pill badge-danger btn btn-danger", "Xóa"); $(span2).css("width", "60px"); $(span2).click(cb2)
+			body.append(_title)
+			body.append(_time)
+			body.append(p)
+			body.append(span1)
+			body.append(span2)
+		card.append(body)
+		return card
 	}
 	incProBar();
 }
