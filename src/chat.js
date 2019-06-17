@@ -112,8 +112,6 @@ function mesToChatContainer(roomId, messages, target) {
 
   let cursor = chat.getReadCursor(roomId, target.uid);
   messages.forEach(mes => {
-    let tmp = getMsg(mes).toUpperCase();
-    console.log(tmp);
     if (cursor && mes.id == cursor.position) addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id, [target.uid])
     else addMes(mes.senderId == user.uid, getMsg(mes), mes.updatedAt, target.displayName, target.photoURL, roomId, mes.id)
   })
