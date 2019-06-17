@@ -94,7 +94,7 @@ function mesToChatContainer(roomId, messages, target) {
   let _footer = newElement('DIV', 'footer')
   let _input = newElement('input')
   _input.setAttribute('type', 'text')
-  _input.setAttribute('placeholder', 'Type a message ...')
+  _input.setAttribute('placeholder', 'Hãy nhập tin nhắn ...')
 
   let _toolContainer = newElement('DIV', 'tool-container')
   let _icon = newElement('I', 'fas fa-check-square')
@@ -150,11 +150,11 @@ function mesToChatContainer(roomId, messages, target) {
         this.setText('');
         this.hidePicker();
         tmp = false;
-        editor.attr('placeholder', 'Pushing message ...')
+        editor.attr('placeholder', 'Chờ một tí nha ...')
         chat.sendMessage(roomId, message, mid => {
           chat.setReadCursor(roomId, parseInt(mid));
           tmp = true;
-          editor.attr('placeholder', 'Type a message ...')
+          editor.attr('placeholder', 'Hãy nhập tin nhắn ...')
           _mainMes.scrollTop = _mainMes.scrollHeight;
         })
       }
