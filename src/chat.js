@@ -143,7 +143,7 @@ function mesToChatContainer(roomId, messages, target) {
   input.on('keyup', function(editor, event) {
     if (event.key == 'Enter') {
       if (tmp && this.getText() != '') {
-        let message = this.getText();
+        let message = this.getText(this.setText(this.getText()));
         this.setText('');
         tmp = false;
         editor.attr('placeholder', 'Pushing message ...')
