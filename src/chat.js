@@ -146,6 +146,7 @@ function mesToChatContainer(roomId, messages, target) {
     if (event.key == 'Enter') {
       if (tmp && this.getText() != '') {
         let message = this.getText(this.setText(this.getText()));
+        message = message.replace(/class="emojioneemoji"/g, "class='emojioneemoji' width='20' height='20'");
         this.setText('');
         tmp = false;
         editor.attr('placeholder', 'Pushing message ...')
