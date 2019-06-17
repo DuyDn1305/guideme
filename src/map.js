@@ -8,7 +8,6 @@ function guideme_map() {
 			if (!status) {
 				status = 1
 				watch = navigator.geolocation.watchPosition(pos => {
-					console.log("watchiing "+watch+" "+pos.timestamp)
 					let latLng = {lat: pos.coords.latitude, lng: pos.coords.longitude}
 					if (map) {
 						map.setCenter(latLng);
@@ -18,7 +17,6 @@ function guideme_map() {
 				})
 			}
 			else {
-				console.log("clear watch "+watch)
 				status = 0
 				navigator.geolocation.clearWatch(watch) 
 			} 
@@ -30,7 +28,6 @@ function guideme_map() {
 		
 	function handleLocationError(hasGEO, infoWindow, pos) {
 		if (!infoWindow) {
-			console.log('map not load')
 			return
 		}
 		infoWindow.setPosition(pos);
@@ -73,8 +70,12 @@ function guideme_map() {
 				modal.children[0].append(tmp)
 			}
 			else getInfo(userList[id], targetProfile)
-			modal.style.display = "block"
+			$(modal).fadeIn()
 		})
+	}
+	function getPoint(k) {
+		if (k == user.uid || k == user.isBusy) return markers[k].position
+		else return markers_complete[k].position
 	}
 	creatingScript()
 	window.initMap = () => {
@@ -92,8 +93,6 @@ function guideme_map() {
 		let input = topPane.children[0]
 		startPlace = topPane.children[1]
 		endPlace = topPane.children[2]
-		console.log(startPlace)
-		console.log(endPlace)		
 		infoWindow = new google.maps.InfoWindow
 		searchBox = new google.maps.places.SearchBox(input);
 		let directionsService = new google.maps.DirectionsService();
@@ -105,32 +104,24 @@ function guideme_map() {
 		map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(addMarkIcon)
 		map.setOptions({styles: styles[$(mapSelector).find("input[type='radio']:checked").val()]});
 		// select map type
-		console.log(startPlace)
 		let onChangeHandler = function() {
-			console.log("change")
 			calculateAndDisplayRoute(directionsService, directionsDisplay);
 		};
 		directionsDisplay.setMap(map)
-		console.log(document.getElementById('direction-start'))
 		startPlace.addEventListener('change', onChangeHandler);
 		endPlace.addEventListener('change', onChangeHandler);
 		function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 			let k1 = document.getElementById('direction-start').value
 			let k2 = document.getElementById('direction-end').value
-			console.log(k1+" "+k2)
 			if (k1 != 0 && k2 != 0) {
-				console.log("go")
-				pointStart = {lat: markers_complete[k1].position.lat(), lng: markers_complete[k1].position.lng()}
-				pointEnd = {lat: markers_complete[k2].position.lat(), lng: markers_complete[k2].position.lng()}
-				console.log(pointEnd)
-				console.log(markers_complete[k1])
+				let pointEnd, pointStart
+				pointStart = getPoint(k1)
+				pointEnd = getPoint(k2)
 				directionsService.route({
 					origin: pointStart,
 					destination: pointEnd,
 					travelMode: 'DRIVING'
 				}, function(response, status) {
-					console.log(response)
-					console.log(status)
 					if (status === 'OK') {
 						directionsDisplay.setDirections(response);
 					} else {
@@ -154,8 +145,6 @@ function guideme_map() {
 			markerIconToggle = 1-markerIconToggle
 			if (markerIconToggle) $(addMarkIcon).css('background', '#e2e6ea')
 			else $(addMarkIcon).css('background', 'white')
-			console.log(markerIconToggle)
-			console.log($(addMarkIcon).css('background'))
 		})
 		map.addListener('bounds_changed', function() {
 			searchBox.setBounds(map.getBounds());
@@ -176,7 +165,6 @@ function guideme_map() {
 			let bounds = new google.maps.LatLngBounds();
 			places.forEach(function (place) {
 				if (!place.geometry) {
-					console.log("Returned place contains no geometry");
 					return;
 				}
 				let icon = {
@@ -202,8 +190,6 @@ function guideme_map() {
 		})
 		// clear appoint
 		$(clearIcon).click(() => {
-			console.log('click')
-			console.log(markers_appoint)
 			for (let k in markers_appoint) if (markers_appoint[k] && arrAppoint[k][user.uid]) markers_appoint[k].setMap(null)
 			for (let k in markers_appoint) {
 				if (markers_appoint[k] && arrAppoint[k][user.uid]) {
@@ -261,9 +247,21 @@ function guideme_map() {
 				markers_complete[k] = point
 				markers_complete[k].id = Object.keys(markers_complete).length
 				point.addListener("click", e => {
-					infoWindow.setPosition(latLng);
-					infoWindow.setContent('điểm hẹn');
-					infoWindow.open(map);
+					infoWindow.setPosition(latLng)
+					infoWindow.setContent(createCompleteInfo("Điểm hẹn "+point.label, undefined, undefined, () => {
+						infoWindow.close()
+					}, () => {
+						if (confirm("Bạn muốn xóa điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).set({})
+							if (markers_complete[k]) {
+								del[k] = 1
+								markers_complete[k].setMap(null)
+							}
+							delete markers_complete[k]
+						}
+					}))
+					infoWindow.open(map)
 				})
 			}
 		}
@@ -283,7 +281,8 @@ function guideme_map() {
 					shape: {
 						coords: [0, 24, 24, 0, 48, 24, 24, 48],
 						type: 'poly'
-					}
+					},
+					label: String(Object.keys(markers_appoint).length+1)
 				})
 			}
 			else {
@@ -301,25 +300,47 @@ function guideme_map() {
 						infoWindow.setContent('Điểm này đã bị xóa');
 						infoWindow.open(map);
 					}
-					if (confirm("Bạn chấp nhận điểm hẹn này không ?")) {
-						db.ref("appoint/"+k).update({[user.uid]: 1})
-						infoWindow.setPosition(latLng);
-						infoWindow.setContent('Chấp nhận một điểm hẹn');
-						infoWindow.open(map);
-						hideMark(markers_appoint)
-						for (let k in markers_appoint) {
-							if (markers_appoint[k]) markers_appoint[k].setMap(null)
-							del[k] = 1
-							db.ref("appoint/"+k).set({})
+					infoWindow.setPosition(latLng)
+					infoWindow.setContent(createTempInfo("Điểm hẹn "+point.label, undefined, undefined, () => {
+						if (confirm("Bạn chấp nhận điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).update({[user.uid]: 1})
+							hideMark(markers_appoint)
+							for (let k in markers_appoint) {
+								if (markers_appoint[k]) markers_appoint[k].setMap(null)
+								del[k] = 1
+								db.ref("appoint/"+k).set({})
+							}
+							markers_appoint = []
 						}
-						markers_appoint = []
-					}
+					}, () => {
+						if (confirm("Bạn muốn xóa điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).set({})
+							if (markers_appoint[k]) {
+								del[k] = 1
+								markers_appoint[k].setMap(null)
+							}
+							delete markers_appoint[k]
+						}
+					}))
+					infoWindow.open(map)
 				})
 			}
 			else {
 				point.addListener('click', e => {
 					infoWindow.setPosition(latLng);
-					infoWindow.setContent('Đợi chờ là hạnh phúc');
+					infoWindow.setContent(createTempWaiting("Điểm hẹn "+point.label, undefined, undefined, () => {
+						if (confirm("Bạn muốn xóa điểm hẹn này không ?")) {
+							infoWindow.close()
+							db.ref("appoint/"+k).set({})
+							if (markers_appoint[k]) {
+								del[k] = 1
+								markers_appoint[k].setMap(null)
+							}
+							delete markers_appoint[k]
+						}
+					}))
 					infoWindow.open(map);
 				})
 			}
@@ -330,7 +351,6 @@ function guideme_map() {
 		let busyListener, appRef
 		db.ref("user/"+user.uid+"/isBusy").on("value", snap => {
 			let busy = snap.val()
-			console.log(user.displayName+" is busy: "+busy)
 			if (busy) {
 				$(clearIcon).css("display", 'block')
 				$(addMarkIcon).css("display", 'block')
@@ -344,7 +364,6 @@ function guideme_map() {
 				let reqid = $(".accepted").attr("reqid")
 				appRef = db.ref("appoint").orderByChild("reqid").equalTo(String(reqid))
 				appRef.on('value', snap => {
-					console.log(snap.val())
 					// clear
 					removeOptionSelector(startPlace); removeOptionSelector(endPlace)
 					hideMark(markers_appoint)
@@ -365,21 +384,20 @@ function guideme_map() {
 				hideMark(markers_appoint); hideMark(markers_complete)
 				markers_appoint = []
 				markers_complete = []
-				
+				removeOptionSelector(startPlace); removeOptionSelector(endPlace)
 				$(clearIcon).css("display", 'none')
+				$(addMarkIcon).css("display", 'none')
 				if (busyListener) google.maps.event.removeListener(busyListener);
 				if (appRef) appRef.off()
 			}
 		})
 		function addAppointment(latLng, map, clicker, to) {
 			let newpoint = db.ref("appoint").push()
-			console.log(latLng) 	
 			let postData = {
 				geolocation: latLng, 
 				reqid: String($(".accepted").attr("reqid")), 
 				[user.uid]: 1
 			}
-			console.log(postData)
 			newpoint.set(postData)	
 		}
 	}
@@ -422,6 +440,13 @@ function guideme_map() {
 			$(opt).attr('value', k)
 			selector.append(opt)
 		}
+		// user point
+		let opt = newElement("OPTION"); opt.innerHTML = "Tôi"
+		$(opt).attr('value', user.uid)
+		selector.append(opt)
+		opt = newElement("OPTION"); opt.innerHTML = (user.moreinfo.type == 'guide') ? 'visitor' : 'guide'
+		$(opt).attr('value', user.isBusy)
+		selector.append(opt)
 	}
 	function createTopPane() {
 		let div = newElement("DIV")
@@ -464,6 +489,54 @@ function guideme_map() {
 			$(img).attr("src", "./img/mapmark.png")
 		div.append(img)
 		return div
+	}
+	function createTempInfo(title ="Điểm hẹn", time = "30/04/1975", detail = "Chi tiết", cb1, cb2) {
+		let card = newElement("DIV")
+			let body = newElement("DIV", "card-body"); $(body).css("padding", "0.5rem")
+				let _title = newElement("h6", "card-title", title)
+				let _time = newElement("h6", "card-subtitle mb-2 text-muted", time)
+				let p = newElement("P", "card-text", detail)
+				let span1 = newElement("SPAN", "badge badge-pill badge-success btn btn-success", "Đồng Ý"); $(span1).css("width", "60px"); $(span1).click(cb1)
+				let span2 = newElement("SPAN", "badge badge-pill badge-danger", "Xóa"); $(span2).css("width", "60px"); $(span2).click(cb2)
+			body.append(_title)
+			body.append(_time)
+			body.append(p)
+			body.append(span1)
+			body.append(span2)
+		card.append(body)
+		return card
+	}
+	function createTempWaiting(title ="Điểm hẹn", time = "30/04/1975", detail = "Chi tiết", cb) {
+		let card = newElement("DIV")
+			let body = newElement("DIV", "card-body"); $(body).css("padding", "0.5rem")
+				let _title = newElement("h6", "card-title", title)
+				let _time = newElement("h6", "card-subtitle mb-2 text-muted", time)
+				let p = newElement("P", "card-text", detail)
+				let span1 = newElement("SPAN", "badge badge-pill badge-secondary btn btn-secondary", "Đang chờ..."); $(span1).css("width", "60px")
+				let span2 = newElement("SPAN", "badge badge-pill badge-danger btn btn-danger", "Xóa"); $(span2).css("width", "60px"); $(span2).click(cb)
+			body.append(_title)
+			body.append(_time)
+			body.append(p)
+			body.append(span1)
+			body.append(span2)
+		card.append(body)
+		return card
+	}
+	function createCompleteInfo(title ="Điểm hẹn", time = "30/04/1975", detail = "Chi tiết", cb1, cb2) {
+		let card = newElement("DIV")
+			let body = newElement("DIV", "card-body"); $(body).css("padding", "0.5rem")
+				let _title = newElement("h6", "card-title", title)
+				let _time = newElement("h6", "card-subtitle mb-2 text-muted", time)
+				let p = newElement("P", "card-text", detail)
+				let span1 = newElement("SPAN", "badge badge-pill badge-primary btn btn-primary", "Trở về"); $(span1).css("width", "60px"); $(span1).click(cb1)
+				let span2 = newElement("SPAN", "badge badge-pill badge-danger btn btn-danger", "Xóa"); $(span2).css("width", "60px"); $(span2).click(cb2)
+			body.append(_title)
+			body.append(_time)
+			body.append(p)
+			body.append(span1)
+			body.append(span2)
+		card.append(body)
+		return card
 	}
 	incProBar();
 }
