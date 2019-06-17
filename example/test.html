@@ -5,18 +5,34 @@
     <meta name="viewport" content="initial-scale=1.0">
 	<meta charset="utf-8">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="/guideme/lib/webchat.js"></script>
   </head>
   <body>
+	<input type="file" id="file">
+	<div id="text">Text</div>
+	<button type="button">Submit</button>
+
 	<script>
-		WebChat.createUser('duydn', 'cc', data => console.log(data));
-		// $.post({
-		// 	url: '/guideme/lib/webchat.php',
-		// 	data: {createUser: {
-		// 		uniqueId: 'newUser',
-		// 		name: 'Newest'
-		// 	}}
-		// }).done(data => console.log(data));	
+		let file = $('#file'), txt = $('#text'), btn = $('#btn');
+		file.on('change', function(event) {
+			let fr = new FileReader();
+			fr.addEventListener('load', () => {
+				$.post({
+					url: "http://upload.giphy.com/v1/gifs?api_key=TuwxPrJlVbVFCrDdva5AxRDBRYmdMXxx",
+					//crossDomain: true,
+					data: {
+						api_key: "TuwxPrJlVbVFCrDdva5AxRDBRYmdMXxx",
+						username: "chuyentin",
+						file: fr.result,
+						//source_image_url: "https://media1.tenor.com/images/2d4138c7c24d21b9d17f66a54ee7ea03/tenor.gif",
+						tags: "guideme,image",
+						source_post_url: "https://giphy.com"
+					}
+				}).always(data => {
+					console.log(data);
+				})
+			});
+			fr.readAsBinaryString(this.files[0]);
+		});
 	</script>
   </body>
 </html>

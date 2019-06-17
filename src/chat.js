@@ -148,6 +148,7 @@ function mesToChatContainer(roomId, messages, target) {
         let message = this.getText(this.setText(this.getText()));
         message = message.replace(/class="emojioneemoji"/g, "class='emojioneemoji' width='20' height='20'");
         this.setText('');
+        this.hidePicker();
         tmp = false;
         editor.attr('placeholder', 'Pushing message ...')
         chat.sendMessage(roomId, message, mid => {
