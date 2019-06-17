@@ -92,7 +92,7 @@ function mesToChatContainer(roomId, messages, target) {
   
   // tao footer
   let _footer = newElement('DIV', 'footer')
-  let _input = newElement('input', 'input')
+  let _input = newElement('input')
   _input.setAttribute('type', 'text')
   _input.setAttribute('placeholder', 'Type a message ...')
 
