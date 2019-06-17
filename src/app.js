@@ -30,7 +30,7 @@ function newElement(type, classname, context = '') {
 }
 
 let db = firebase.database();
-let user, userList, chat, firstLoad = 0, ready = [], reqList, userDataLog = [], markers = [];
+let user, userList, chat, firstLoad = 0, ready = [], reqList, userDataLog = [], markers = [], arrAppoint = [];
 let proBarWidth = 0, proBarAddition, progBar = document.getElementById('progressBar');
 let header, menu, message, chatContainer, containerSearch, cardContainer, logOut, profilePane, xMap, map, infoWindow
 let messageContainer, notiContainer, reqContainer, reqBox, notiBox, mesBox, popupContainer
@@ -156,8 +156,8 @@ firebase.auth().onAuthStateChanged(currentUser => {
 			userList = snap.val()
 			user = userList[currentUser.uid]
 			ready.forEach(e => e())
+			if (!firstLoad) console.log('loaded all guideme_function')
 			firstLoad = 1
-			console.log('loaded all guideme_function')
 		})
 	} else {
 		console.log('logged out');
