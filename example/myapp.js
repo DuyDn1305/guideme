@@ -31,7 +31,6 @@ function initMap() {
     map.addListener("click", e => {
         console.log(e)
         console.log(e.latLng.lat)
-        placeMarker(e.latLng, map)
     })
 }
 
