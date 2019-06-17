@@ -63,9 +63,8 @@ body, html {
 @mixin mes {
   margin-left: 10px;
   background: #ecf0f1;
-  border: 0;
-  border-radius: 10px;
-  padding: 7px;
+  border-radius: 15px;
+  padding: 10px;
 }
 
 @mixin menu-box ($h, $w, $pos: -200px) {
@@ -637,6 +636,7 @@ body > .main {
         .seen {
           display: flex;
           justify-content: flex-end;
+          margin-top: 10px;
           .avatar {
             height: 20px;
             width: 20px;
@@ -647,17 +647,16 @@ body > .main {
       } 
       .my-message {
         text-align: right;
-        margin-right: 10px;
-        margin: 10px 0 10px 0;
+        margin: 10px 3px 10px 0;
         .mes {
           @include mes;
           background: #3498db;
           color: white;
-          
         }
         .seen {
           display: flex;
           justify-content: flex-end;
+          margin-top: 10px;
           .avatar {
             height: 20px;
             width: 20px;
@@ -670,12 +669,6 @@ body > .main {
     .footer {
       bottom: 0;
       width: 320px;
-      .input {
-        width: 100%;
-        border: 0px;
-        border-top: 2px solid #ecf0f1;
-        padding: 5px;
-      }
       .tool-container {
         padding: 5px;
       }

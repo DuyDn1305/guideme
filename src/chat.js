@@ -92,7 +92,7 @@ function mesToChatContainer(roomId, messages, target) {
   
   // tao footer
   let _footer = newElement('DIV', 'footer')
-  let _input = newElement('input', 'input')
+  let _input = newElement('input')
   _input.setAttribute('type', 'text')
   _input.setAttribute('placeholder', 'Type a message ...')
 
@@ -137,13 +137,16 @@ function mesToChatContainer(roomId, messages, target) {
     }
   }
 
-  let input = $(_input).emojioneArea()[0].emojioneArea;
+  let input = $(_input).emojioneArea({
+    saveEmojisAs: 'image'
+  })[0].emojioneArea;
 
   let tmp = true;
   input.on('keyup', function(editor, event) {
     if (event.key == 'Enter') {
       if (tmp && this.getText() != '') {
         let message = this.getText(this.setText(this.getText()));
+        message = message.replace(/class="emojioneemoji"/g, "class='emojioneemoji' width='20' height='20'");
         this.setText('');
         tmp = false;
         editor.attr('placeholder', 'Pushing message ...')
