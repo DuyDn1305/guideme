@@ -45,7 +45,7 @@ function addMes (me, context, mesTime, tname, src, roomId, mid, ids = [], state 
     message.append(mesContent)
     message.append(seen)
     if (state) mainMess.append(message)
-    else mainMain.prepend(message)
+    else mainMess.prepend(message)
   }
 }
 
@@ -92,31 +92,9 @@ function mesToChatContainer(roomId, messages, target) {
   
   // tao footer
   let _footer = newElement('DIV', 'footer')
-  let _input = newElement('INPUT', 'input')
+  let _input = newElement('input', 'input')
   _input.setAttribute('type', 'text')
   _input.setAttribute('placeholder', 'Type a message ...')
-  let tmp = true;
-  _input.onkeydown = function (event) {
-    if (event.key == 'Enter') {
-      if (tmp && this.value != '') {
-        let message = this.value;
-        this.value = '';
-        tmp = false;
-        _input.setAttribute('placeholder', 'Pushing message ...')
-        chat.sendMessage(roomId, message, mid => {
-          chat.setReadCursor(roomId, parseInt(mid));
-          tmp = true;
-          _input.setAttribute('placeholder', 'Type a message ...')
-          _mainMes.scrollTop = _mainMes.scrollHeight;
-        })
-      }
-    }
-  }
-
-  _input.onfocus = e => {
-    let mid = $(`[chatroomid='${roomId}']`).find('[mid]').last().attr('mid');
-    if (mid) chat.setReadCursor(roomId, parseInt(mid));
-  }
 
   let _toolContainer = newElement('DIV', 'tool-container')
   let _icon = newElement('I', 'fas fa-check-square')
@@ -159,7 +137,32 @@ function mesToChatContainer(roomId, messages, target) {
     }
   }
 
-  _input.focus();
+  let input = $(_input).emojioneArea()[0].emojioneArea;
+
+  let tmp = true;
+  input.on('keyup', function(editor, event) {
+    if (event.key == 'Enter') {
+      if (tmp && this.getText() != '') {
+        let message = this.getText(this.setText(this.getText()));
+        this.setText('');
+        tmp = false;
+        editor.attr('placeholder', 'Pushing message ...')
+        chat.sendMessage(roomId, message, mid => {
+          chat.setReadCursor(roomId, parseInt(mid));
+          tmp = true;
+          editor.attr('placeholder', 'Type a message ...')
+          _mainMes.scrollTop = _mainMes.scrollHeight;
+        })
+      }
+    }
+  })
+
+  input.on('focus', () => {
+    let mid = $(`[chatroomid='${roomId}']`).find('[mid]').last().attr('mid');
+    if (mid) chat.setReadCursor(roomId, parseInt(mid));
+  })
+
+  input.setFocus();
 }
 
 function getRoom (targetID, cb) {
@@ -194,7 +197,7 @@ function guideme_chat() {
 	chat.on('Message', (roomId, msg) => {
     let sender = userList[msg.senderId]
 		if (!roomIsOnChat(roomId)) {
-			chat.getMessages(roomId, null, 50, m => {
+			chat.getMessages(roomId, null, 30, m => {
 				mesToChatContainer(roomId, m, sender);
         showMes(getRoomTarget(roomId), getMsg(msg), msg.updatedAt, roomId);
 			})
@@ -243,15 +246,14 @@ function guideme_chat() {
     // bam vao mes o tren thi o duoi hien len
     mes.onclick = () => {
       if (!roomIsOnChat(roomId)) {
-        chat.getMessages(roomId, null, 50, m => {
+        chat.getMessages(roomId, null, 30, m => {
           mesToChatContainer(roomId, m, target);
         })
       }
     }
 
     // hien mes len Mesager thong bao
-    let box = document.getElementsByClassName('mes-box')[0]
-    box.prepend(mes)
+    mesBox.prepend(mes)
   }
 
   function removeSeen (roomId, userId) {
@@ -266,5 +268,4 @@ function guideme_chat() {
     let lastMsg = $(`[mid='${mid}']`)
     lastMsg.append(avt);
   }
-
 }

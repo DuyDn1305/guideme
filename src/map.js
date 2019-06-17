@@ -2,6 +2,7 @@ function guideme_map() {
 	if (firstLoad) return;
 	let watch, status = 0, indicatorIcon, searchBox, clearIcon, addMarkIcon, markerIconToggle = 0
 	let markers_search = [], markers_appoint = [], markers_complete = [], del = []
+	let startPlace, endPlace
 	window.getUserCurrentPosition = (id) => {
 		if (navigator.geolocation) {
 			if (!status) {
@@ -91,8 +92,12 @@ function guideme_map() {
 		let input = topPane.children[0]
 		startPlace = topPane.children[1]
 		endPlace = topPane.children[2]
+		console.log(startPlace)
+		console.log(endPlace)		
 		infoWindow = new google.maps.InfoWindow
 		searchBox = new google.maps.places.SearchBox(input);
+		let directionsService = new google.maps.DirectionsService();
+		let directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
 		map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(mapSelector)
 		map.controls[google.maps.ControlPosition.TOP_LEFT].push(topPane)
 		map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(indicatorIcon)
@@ -100,6 +105,40 @@ function guideme_map() {
 		map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(addMarkIcon)
 		map.setOptions({styles: styles[$(mapSelector).find("input[type='radio']:checked").val()]});
 		// select map type
+		console.log(startPlace)
+		let onChangeHandler = function() {
+			console.log("change")
+			calculateAndDisplayRoute(directionsService, directionsDisplay);
+		};
+		directionsDisplay.setMap(map)
+		console.log(document.getElementById('direction-start'))
+		startPlace.addEventListener('change', onChangeHandler);
+		endPlace.addEventListener('change', onChangeHandler);
+		function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+			let k1 = document.getElementById('direction-start').value
+			let k2 = document.getElementById('direction-end').value
+			console.log(k1+" "+k2)
+			if (k1 != 0 && k2 != 0) {
+				console.log("go")
+				pointStart = {lat: markers_complete[k1].position.lat(), lng: markers_complete[k1].position.lng()}
+				pointEnd = {lat: markers_complete[k2].position.lat(), lng: markers_complete[k2].position.lng()}
+				console.log(pointEnd)
+				console.log(markers_complete[k1])
+				directionsService.route({
+					origin: pointStart,
+					destination: pointEnd,
+					travelMode: 'DRIVING'
+				}, function(response, status) {
+					console.log(response)
+					console.log(status)
+					if (status === 'OK') {
+						directionsDisplay.setDirections(response);
+					} else {
+						window.alert('Directions request failed due to ' + status);
+					}
+				})
+			}
+		}
 		$(mapSelector).change(() => {
 			let val = $(mapSelector).find("input[type='radio']:checked").val()
 			if (val == 'satellite') map.setMapTypeId('satellite')
@@ -165,11 +204,13 @@ function guideme_map() {
 		$(clearIcon).click(() => {
 			console.log('click')
 			console.log(markers_appoint)
-			hideMark(markers_appoint)
+			for (let k in markers_appoint) if (markers_appoint[k] && arrAppoint[k][user.uid]) markers_appoint[k].setMap(null)
 			for (let k in markers_appoint) {
-				if (markers_appoint[k]) markers_appoint[k].setMap(null)
-				del[k] = 1
-				db.ref("appoint/"+k).set({})
+				if (markers_appoint[k] && arrAppoint[k][user.uid]) {
+					markers_appoint[k].setMap(null)
+					del[k] = 1
+					db.ref("appoint/"+k).set({})
+				} 
 			}
 			markers_appoint = []
 		})
@@ -213,10 +254,12 @@ function guideme_map() {
 					shape: {
 						coords: [0, 24, 24, 0, 48, 24, 24, 48],
 						type: 'poly'
-					}
+					},
+					label: String(Object.keys(markers_complete).length+1)
 				})
 				point.setMap(map)
 				markers_complete[k] = point
+				markers_complete[k].id = Object.keys(markers_complete).length
 				point.addListener("click", e => {
 					infoWindow.setPosition(latLng);
 					infoWindow.setContent('điểm hẹn');
@@ -293,6 +336,8 @@ function guideme_map() {
 				$(addMarkIcon).css("display", 'block')
 				busyListener = map.addListener('click', e => {
 					if (!markerIconToggle) return
+					markerIconToggle = 0
+					$(addMarkIcon).css('background', 'white')
 					addAppointment({lat: e.latLng.lat(), lng: e.latLng.lng()}, map, user.uid)
 				})
 				// get data
@@ -301,6 +346,7 @@ function guideme_map() {
 				appRef.on('value', snap => {
 					console.log(snap.val())
 					// clear
+					removeOptionSelector(startPlace); removeOptionSelector(endPlace)
 					hideMark(markers_appoint)
 					for (let k in markers_appoint) {if (markers_appoint[k]) markers_appoint[k].setMap(null)}
 					markers_appoint = []
@@ -312,6 +358,7 @@ function guideme_map() {
 						if (cnt >= 2) addComplete(arrAppoint[k].geolocation, map, k)
 						else addTemp(arrAppoint[k].geolocation, map, k, arrAppoint[k][user.uid])
 					}
+					setOptionSelector(startPlace, markers_complete); setOptionSelector(endPlace, markers_complete)
 				})
 			}
 			else {
@@ -368,17 +415,27 @@ function guideme_map() {
 		div.append(inputassasin); div.append(labelassasin); 
 		return div
 	}
+	function removeOptionSelector(selector) {while (selector.childElementCount > 1) selector.lastChild.remove()}
+	function setOptionSelector(selector, arr) {
+		for (let k in arr) {
+			let opt = newElement("OPTION"); opt.innerHTML = "Điểm hẹn "+arr[k].id
+			$(opt).attr('value', k)
+			selector.append(opt)
+		}
+	}
 	function createTopPane() {
 		let div = newElement("DIV")
 		$(div).attr('id', 'map-top-push')
 			let input = newElement("INPUT", "form-control")
 			$(input).attr({id: "map-input", type: "text", placeholder: "Tìm kiếm"})
 			let selectStart = newElement("SELECT", "custom-select mr-sm-2"); $(selectStart).attr('id', "direction-start")
-				let opt = newElement("OPTION"); $(opt).attr("selected", ""); opt.innerHTML = "start"
-			selectStart.append(opt); selectStart.append(opt1); selectStart.append(opt2); selectStart.append(opt3)
+				let opt = newElement("OPTION"); $(opt).attr("selected", ""); opt.innerHTML = "Xuất phát"
+				$(opt).attr('value', 0)
+			selectStart.append(opt);
 			let selectEnd = newElement("SELECT", "custom-select mr-sm-2"); $(selectEnd).attr('id', "direction-end")
-				opt = newElement("OPTION"); $(opt).attr("selected", ""); opt.innerHTML = 'end'
-			selectEnd.append(opt); selectEnd.append(opt1); selectEnd.append(opt2); selectEnd.append(opt3)
+				opt = newElement("OPTION"); $(opt).attr("selected", ""); opt.innerHTML = 'Kết thúc'
+				$(opt).attr('value', 0)
+			selectEnd.append(opt);
 		div.append(input)
 		div.append(selectStart)
 		div.append(selectEnd)
