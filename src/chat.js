@@ -137,34 +137,34 @@ function mesToChatContainer(roomId, messages, target) {
     }
   }
 
-  let input = $(_input).emojioneArea({
-    saveEmojisAs: 'image'
-  })[0].emojioneArea;
+  let input = $(_input).emojioneArea()[0].emojioneArea;
 
   let tmp = true;
   input.on('keyup', function(editor, event) {
     if (event.key == 'Enter') {
       if (tmp && this.getText() != '') {
+        this.saveEmojisAs = "image";
         let message = this.getText(this.setText(this.getText()));
         message = message.replace(/class="emojioneemoji"/g, "class='emojioneemoji' width='20' height='20'");
         this.setText('');
         this.hidePicker();
         tmp = false;
-        editor.attr('placeholder', 'Chờ một tí nha ...')
+        editor.attr('placeholder', 'Chờ một tí nha ...');
         chat.sendMessage(roomId, message, mid => {
           chat.setReadCursor(roomId, parseInt(mid));
           tmp = true;
           editor.attr('placeholder', 'Hãy nhập tin nhắn ...')
           _mainMes.scrollTop = _mainMes.scrollHeight;
-        })
+        });
+        this.saveEmojisAs = "unicode";
       }
     }
-  })
+  });
 
   input.on('focus', () => {
     let mid = $(`[chatroomid='${roomId}']`).find('[mid]').last().attr('mid');
     if (mid) chat.setReadCursor(roomId, parseInt(mid));
-  })
+  });
 
   input.setFocus();
 }
